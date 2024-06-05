@@ -1,0 +1,4 @@
+Superuser Credentials
+Username: rcubeadmin
+Email: admin@rcube.com
+Password: rcube.123
