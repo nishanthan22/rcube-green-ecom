@@ -14,6 +14,12 @@ A Django application that is an integration of green products selling eCommerce 
 
 **Note: If you want to perform any changes, please create a new branch and perform the changes**
 
+# High level flow
+<div align="center">
+  <img src="https://github.com/nishanthan22/rcube-green-ecom/assets/86540835/5e13c3fe-6b2d-46e9-b6b2-0e07ea621982" alt="highlevel-flow">
+</div>
+
+ 
 # Internet Applications and Distributed Systems
 
 Project Team members
