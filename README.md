@@ -19,6 +19,13 @@ A Django application that is an integration of green products selling eCommerce 
   <img src="https://github.com/nishanthan22/rcube-green-ecom/assets/86540835/5e13c3fe-6b2d-46e9-b6b2-0e07ea621982" alt="highlevel-flow">
 </div>
 
+#Using Config File
+
+- Prerequisites to install `pymongo` and `python-dotenv`.
+- Instructions to create a collection using `create_collection`.
+- Instructions to get a collection using `get_collection`.
+- Instructions to check the MongoDB connection using `check_connection`.
+
  
 # Internet Applications and Distributed Systems
 
