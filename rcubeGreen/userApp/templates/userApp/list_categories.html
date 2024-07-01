@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Categories</title>
+</head>
+<body>
+    <h1>Categories</h1>
+    <ul>
+        {% for category in categories %}
+            <li>{{ category.name }}: {{ category.description }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'add_category' %}">Add New Category</a>
+</body>
+</html>
