@@ -1,0 +1,38 @@
+<!-- home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+    <!-- Header Panel -->
+    <header>
+        <form action="{% url 'search' %}" method="get">
+            <input type="text" name="q" placeholder="Search...">
+            <button type="submit">Search</button>
+        </form>
+        {% if user.is_authenticated %}
+            <p>Welcome, {{ user.username }}</p>
+            <a href="{% url 'profile' %}">Profile</a>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="{% url 'articles' %}">Articles</a></li>
+            <li><a href="{% url 'shop' %}">Shop</a></li>
+            <li><a href="{% url 'cart' %}">Cart</a></li>
+        </ul>
+    </nav>
+
+    <!-- Footer Panel -->
+    <footer>
+        <a href="{% url 'about_us' %}">About Us</a>
+        <a href="{% url 'contact_us' %}">Contact Us</a>
+    </footer>
+</body>
+</html>
