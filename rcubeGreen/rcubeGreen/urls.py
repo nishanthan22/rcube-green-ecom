@@ -23,3 +23,5 @@ urlpatterns = [
     path("", include('usersApp.urls')),
     path('', include('rcubeApp.urls')),
 ]
+
+
