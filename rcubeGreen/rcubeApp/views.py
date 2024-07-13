@@ -1,13 +1,13 @@
-from django.shortcuts import render
 from django.core.paginator import Paginator
 from .models import NewsArticle
+from django.shortcuts import render
+
+from .models import NewsArticle
+
 
 def home_view(request):
     return render(request, 'rcubeApp/home.html')
 
-def product_list_view(request):
-    products = Product.objects.all()
-    return render(request, 'rcubeApp/product_list.html', {'products': products})
 
 def news_article_list_view(request):
     articles = NewsArticle.objects.all()
@@ -35,3 +35,39 @@ def news_article_list_view(request):
         'category': category,
     }
     return render(request, 'rcube-green-ecom/news_article_list.html', context)
+
+
+def articles(request):
+    return render(request, 'articles.html')
+
+
+def shop(request):
+    return render(request, 'shop.html')
+
+
+def cart(request):
+    return render(request, 'cart.html')
+
+
+def about(request):
+    return render(request, 'about.html')
+
+
+def contact(request):
+    return render(request, 'contact.html')
+
+
+def home(request):
+    return render(request, 'home.html')
+
+
+def search(request):
+    query = request.GET.get('q')
+    results = []  # Replace with your actual search logic to get results
+
+    # Example logic to populate results
+    if query:
+        # Perform search in your database or data source
+        results = ["Result 1", "Result 2", "Result 3"]  # Replace with actual search results
+
+    return render(request, 'search.html', {'query': query, 'results': results})
