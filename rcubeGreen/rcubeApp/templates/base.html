@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}My Website{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
     <header>
@@ -18,8 +17,6 @@
                 {% if user.is_authenticated %}
                     <span>{{ user.username }}</span>
                     <a href="{% url 'profile' %}">Profile</a>
-                {% else %}
-                    <a href="{% url 'login' %}">Login</a>
                 {% endif %}
             </div>
         </div>

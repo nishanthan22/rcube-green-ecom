@@ -5,9 +5,6 @@ from django.shortcuts import render
 from .models import NewsArticle
 
 
-def home_view(request):
-    return render(request, 'rcubeApp/home.html')
-
 
 def news_article_list_view(request):
     articles = NewsArticle.objects.all()
