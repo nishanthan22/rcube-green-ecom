@@ -5,8 +5,8 @@ from django.shortcuts import render
 from .models import NewsArticle
 
 
-def home_view(request):
-    return render(request, 'rcubeApp/home.html')
+def home(request):
+    return render(request, 'home.html')
 
 
 def news_article_list_view(request):
@@ -57,17 +57,13 @@ def contact(request):
     return render(request, 'contact.html')
 
 
-def home(request):
-    return render(request, 'home.html')
-
-
 def search(request):
     query = request.GET.get('q')
-    results = []  # Replace with your actual search logic to get results
+    results = []
 
     # Example logic to populate results
     if query:
         # Perform search in your database or data source
-        results = ["Result 1", "Result 2", "Result 3"]  # Replace with actual search results
+        results = ["Result 1", "Result 2", "Result 3"]
 
     return render(request, 'search.html', {'query': query, 'results': results})
