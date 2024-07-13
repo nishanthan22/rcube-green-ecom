@@ -1,0 +1,83 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.filters {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.filters form {
+    display: inline-block;
+}
+
+.filters select,
+.filters button {
+    padding: 10px;
+    margin: 5px;
+    font-size: 16px;
+}
+
+.articles .article {
+    border-bottom: 1px solid #ddd;
+    padding: 20px 0;
+}
+
+.articles .article h2 {
+    margin-top: 0;
+    color: #0066cc;
+}
+
+.articles .article img {
+    max-width: 100%;
+    height: auto;
+}
+
+.articles .article a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.articles .article a:hover {
+    text-decoration: underline;
+}
+
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination .step-links {
+    display: inline-block;
+}
+
+.pagination .step-links a,
+.pagination .step-links span {
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ddd;
+    text-decoration: none;
+    color: #333;
+}
+
+.pagination .step-links .current {
+    background-color: #0066cc;
+    color: #fff;
+    border: 1px solid #0066cc;
+}

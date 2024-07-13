@@ -4,7 +4,7 @@ A Django application that is an integration of green products selling eCommerce 
 
 # Steps to run the project in the local
 1. Clone the project in the workspace
-2. Open the project in PyCharm IDE
+2. Open the project in PyCharm IDE 
 3. Open the Local terminal (in PyCharm) and create a virtual environment using "python -m venv venv" command, a new directory with the name venv will be created
 4. Go to "File->Settings->Project->Python Interpreter" and change the interpreter location to the new location created in venv directory("pathToDirectory/venv/Scripts/python.exe")
 5. In the local terminal, activate the venv using the following command, for Windows use ".\venv\Scripts\activate" for macOS use "source venv/bin/activate".

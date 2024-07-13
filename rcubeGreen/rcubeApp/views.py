@@ -1,13 +1,18 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 from .models import NewsArticle
+from .forms import NewsArticleForm
 
-def home_view(request):
-    return render(request, 'rcubeApp/home.html')
 
-def product_list_view(request):
-    products = Product.objects.all()
-    return render(request, 'rcubeApp/product_list.html', {'products': products})
+def add_article_view(request):
+    if request.method == 'POST':
+        form = NewsArticleForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('news_article_list')
+    else:
+        form = NewsArticleForm()
+    return render(request, 'rcubeApp/add_article.html', {'form': form})
 
 def news_article_list_view(request):
     articles = NewsArticle.objects.all()
@@ -34,4 +39,4 @@ def news_article_list_view(request):
         'sort_by': sort_by,
         'category': category,
     }
-    return render(request, 'rcube-green-ecom/news_article_list.html', context)
+    return render(request, 'rcubeApp/news_article_list.html', context)
