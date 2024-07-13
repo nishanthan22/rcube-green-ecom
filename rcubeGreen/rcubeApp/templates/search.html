@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Results</title>
+</head>
+<body>
+    <!-- Header Panel -->
+    <header>
+        <form action="{% url 'search' %}" method="get">
+            <input type="text" name="q" value="{{ query }}" placeholder="Search...">
+            <button type="submit">Search</button>
+        </form>
+        {% if user.is_authenticated %}
+            <p>Welcome, {{ user.username }}</p>
+            <a href="{% url 'profile' %}">Profile</a>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </header>
+
+    <!-- Search Results -->
+    <section>
+        <h1>Search Results for "{{ query }}"</h1>
+        <!-- Display search results here -->
+        {% if results %}
+            <ul>
+                {% for result in results %}
+                    <li>{{ result }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
+    </section>
+
+    <!-- Footer Panel -->
+    <footer>
+        <a href="{% url 'about' %}">About Us</a>
+        <a href="{% url 'contact' %}">Contact Us</a>
+    </footer>
+</body>
+</html>
