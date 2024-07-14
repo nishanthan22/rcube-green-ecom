@@ -12,4 +12,8 @@ urlpatterns = [
     path('categories/', views.list_categories, name='list_categories'),
     path('add_product/', views.add_product, name='add_product'),
     path('products/', views.list_products, name='list_products'),
+
+    #added to test payment feature
+    path('profile/', views.profile, name='profile'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

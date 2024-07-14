@@ -22,6 +22,7 @@ urlpatterns = [
     path("accounts/", include('allauth.urls')),
     path("", include('usersApp.urls')),
     path('', include('rcubeApp.urls')),
+    path('users/', include('usersApp.urls')), # added to test the paymebt feature
 ]
 
 

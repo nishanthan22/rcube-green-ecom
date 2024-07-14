@@ -133,9 +133,8 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# Additional static files settings
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
+    BASE_DIR / 'rcubeApp' / 'static',
 ]
 
 # Default primary key field type
@@ -151,6 +150,8 @@ AUTHENTICATION_BACKENDS = (
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/accounts/login/'
+
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
@@ -160,3 +161,6 @@ SOCIALACCOUNT_PROVIDERS = {
         'SECRET': env('GOOGLE_CLIENT_SECRET'),
     }
 }
+
+# Added for testing the payment feature
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

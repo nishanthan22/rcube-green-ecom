@@ -10,4 +10,3 @@ class PaymentMethodForm(forms.ModelForm):
     class Meta:
         model = PaymentMethod
         fields = ['method_name', 'details']
-

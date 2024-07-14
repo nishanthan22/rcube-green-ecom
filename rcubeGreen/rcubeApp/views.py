@@ -1,8 +1,10 @@
 from django.core.paginator import Paginator
 from .models import NewsArticle
 from django.shortcuts import render, redirect
-from .models import NewsArticle, Payment
-from .forms import , PaymentMethodForm
+from .models import NewsArticle, Payment, PaymentMethod
+from .forms import PaymentForm, PaymentMethodForm
+from django.contrib.auth.decorators import login_required
+
 
 def news_article_list_view(request):
     articles = NewsArticle.objects.all()
@@ -67,10 +69,12 @@ def search(request):
 
     return render(request, 'search.html', {'query': query, 'results': results})
 
+@login_required
 def payment_list(request):
     payments = Payment.objects.filter(user=request.user)
     return render(request, 'payment_list.html', {'payments': payments})
 
+@login_required
 def add_payment_method(request):
     if request.method == 'POST':
         form = PaymentMethodForm(request.POST)

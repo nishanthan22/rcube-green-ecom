@@ -23,12 +23,11 @@ class NewsArticle(models.Model):
 class Payment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-    payment_method = models.CharField(max_length=100)
+    payment_method = models.CharField(max_length=50)
     payment_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.user.username} - {self.amount}"
-
+        return f"{self.amount} - {self.payment_method} - {self.payment_date}"
 
 class PaymentMethod(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
