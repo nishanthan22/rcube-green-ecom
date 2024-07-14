@@ -7,22 +7,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- custom css file link  -->
-    <link rel="stylesheet" href="{% static 'css/payment.css' %}">
+    <link rel="stylesheet" href="{% static 'css/payment_list.css' %}">
     <title>Your Payments</title>
 </head>
 <body>
 
-<div class="container">
+<div class="payment-container">
 
-    <div class="row">
-        <div class="col">
-            <h3 class="title">Your Payments</h3>
-            <ul class="payment-list">
-                {% for payment in payments %}
-                    <li>{{ payment.amount }} - {{ payment.payment_method }} - {{ payment.payment_date }}</li>
-                {% endfor %}
-            </ul>
-        </div>
+    <h2 class="title">Your Payments</h2>
+
+    <div class="search-sort">
+        <input type="text" placeholder="Search Payments..." id="search">
+        <select id="sort">
+            <option value="date">Sort By Date</option>
+            <option value="amount">Sort By Amount</option>
+        </select>
+    </div>
+
+    <ul class="payment-list">
+        {% for payment in payments %}
+        <li class="payment-item">
+            <span class="payment-amount">{{ payment.amount }}</span>
+            <span class="payment-method">{{ payment.payment_method }}</span>
+            <span class="payment-date">{{ payment.payment_date }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <div class="pagination">
+        <button>Previous</button>
+        <span class="page-number">Page 1 of 10</span>
+        <button>Next</button>
+    </div>
+
+    <div class="export">
+        <button class="export-btn">Export to CSV</button>
     </div>
 
 </div>

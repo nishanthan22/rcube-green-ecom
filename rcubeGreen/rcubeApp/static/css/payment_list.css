@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap');
+
+* {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  text-transform: capitalize;
+  transition: all .2s linear;
+}
+
+.payment-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px;
+  min-height: 100vh;
+  background: linear-gradient(90deg, #2ecc71 60%, #27ae60 40.1%);
+}
+
+.payment-container .title {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.search-sort {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-sort input,
+.search-sort select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  margin: 0 10px;
+}
+
+.payment-list {
+  list-style-type: none;
+  padding: 0;
+  width: 100%;
+  max-width: 700px;
+}
+
+.payment-item {
+  display: flex;
+  justify-content: space-between;
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.payment-amount,
+.payment-method,
+.payment-date {
+  flex: 1;
+  text-align: center;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination .page-number {
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.pagination button {
+  padding: 10px 20px;
+  background: #27ae60;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin: 0 5px;
+}
+
+.pagination button:hover {
+  background: #2ecc71;
+}
+
+.export {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.export .export-btn {
+  padding: 10px 20px;
+  background: #27ae60;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.export .export-btn:hover {
+  background: #2ecc71;
+}
