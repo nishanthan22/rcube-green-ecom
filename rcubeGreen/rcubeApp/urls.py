@@ -10,6 +10,6 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('contact/', views.contact, name='contact'),
     path('search/', views.search, name='search'),
-    path('payments/', views.payment_list, name='payment_list'),
     path('add-payment-method/', views.add_payment_method, name='add_payment_method'),
+    path('payments/', views.payment_list, name='payment_list'),
 ]

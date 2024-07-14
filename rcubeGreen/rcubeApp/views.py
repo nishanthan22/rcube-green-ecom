@@ -86,4 +86,3 @@ def add_payment_method(request):
     else:
         form = PaymentMethodForm()
     return render(request, 'add_payment_method.html', {'form': form})
-

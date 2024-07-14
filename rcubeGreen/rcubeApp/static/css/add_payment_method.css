@@ -11,7 +11,7 @@
   transition: all .2s linear;
 }
 
-.add-payment-container {
+.container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,40 +20,40 @@
   background: linear-gradient(90deg, #2ecc71 60%, #27ae60 40.1%);
 }
 
-.add-payment-container form {
+.container form {
   padding: 20px;
   width: 700px;
   background: #fff;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
+  box-shadow: 0 5px 10px rgba(0,0,0,.1);
 }
 
-.add-payment-container form .row {
+.container form .row {
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
 }
 
-.add-payment-container form .row .col {
+.container form .row .col {
   flex: 1 1 250px;
 }
 
-.add-payment-container form .row .col .title {
+.container form .row .col .title {
   font-size: 20px;
   color: #333;
   padding-bottom: 5px;
   text-transform: uppercase;
 }
 
-.add-payment-container form .row .col .inputBox {
+.container form .row .col .inputBox {
   margin: 15px 0;
 }
 
-.add-payment-container form .row .col .inputBox span {
+.container form .row .col .inputBox span {
   margin-bottom: 10px;
   display: block;
 }
 
-.add-payment-container form .row .col .inputBox input {
+.container form .row .col .inputBox input {
   width: 100%;
   border: 1px solid #ccc;
   padding: 10px 15px;
@@ -61,17 +61,26 @@
   text-transform: none;
 }
 
-.add-payment-container form .row .col .inputBox input:focus {
+.container form .row .col .inputBox input:focus {
   border: 1px solid #000;
 }
 
-.add-payment-container form .row .col .inputBox img {
+.container form .row .col .flex {
+  display: flex;
+  gap: 15px;
+}
+
+.container form .row .col .flex .inputBox {
+  margin-top: 5px;
+}
+
+.container form .row .col .inputBox img {
   height: 34px;
   margin-top: 5px;
   filter: drop-shadow(0 0 1px #000);
 }
 
-.add-payment-container form .submit-btn {
+.container form .submit-btn {
   width: 100%;
   padding: 12px;
   font-size: 17px;
@@ -81,6 +90,6 @@
   cursor: pointer;
 }
 
-.add-payment-container form .submit-btn:hover {
+.container form .submit-btn:hover {
   background: #2ecc71;
 }

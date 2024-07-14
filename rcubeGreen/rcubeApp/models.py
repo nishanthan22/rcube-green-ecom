@@ -31,9 +31,17 @@ class Payment(models.Model):
 
 class PaymentMethod(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    method_name = models.CharField(max_length=100)
-    details = models.TextField()
-    card_number = models.CharField(max_length=20)  # Add this field
+    full_name = models.CharField(max_length=100)
+    email = models.EmailField()
+    address = models.CharField(max_length=255)
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    zip_code = models.CharField(max_length=10)
+    name_on_card = models.CharField(max_length=100)
+    card_number = models.CharField(max_length=20)
+    exp_month = models.CharField(max_length=20)
+    exp_year = models.CharField(max_length=4)
+    cvv = models.CharField(max_length=4)
 
     def __str__(self):
-        return f"{self.user.username} - {self.method_name}"
+        return f'{self.name_on_card} - {self.card_number}'
