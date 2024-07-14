@@ -2,7 +2,7 @@ from django.core.paginator import Paginator
 from .models import NewsArticle
 from django.shortcuts import render, redirect
 from .models import NewsArticle, Payment, PaymentMethod
-from .forms import PaymentForm, PaymentMethodForm
+from .forms import PaymentMethodForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -86,3 +86,4 @@ def add_payment_method(request):
     else:
         form = PaymentMethodForm()
     return render(request, 'add_payment_method.html', {'form': form})
+

@@ -5,17 +5,48 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Payment Method</title>
+
+    <!-- custom css file link  -->
     <link rel="stylesheet" href="{% static 'css/payment.css' %}">
+    <title>Add Payment Method</title>
 </head>
 <body>
 
 <div class="container">
-    <form method="POST" action="{% url 'add_payment_method' %}">
+
+    <form action="{% url 'add_payment_method' %}" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="submit-btn">Add Payment Method</button>
+        <div class="row">
+
+            <div class="col">
+
+                <h3 class="title">Add Payment Method</h3>
+
+                <div class="inputBox">
+                    <span>Method Name:</span>
+                    <input type="text" name="method_name" placeholder="Credit Card" required>
+                </div>
+                <div class="inputBox">
+                    <span>Details:</span>
+                    <input type="text" name="details" placeholder="Visa ending in 1234" required>
+                </div>
+                <div class="inputBox">
+                    <span>Card Number:</span>
+                    <input type="text" name="card_number" placeholder="1111-2222-3333-4444" required>
+                </div>
+                <div class="inputBox">
+                    <span>Cards Accepted:</span>
+                    <img src="{% static 'images/card_img.png' %}" alt="Accepted Cards">
+                </div>
+
+            </div>
+
+        </div>
+
+        <input type="submit" value="Add Payment Method" class="submit-btn">
+
     </form>
+
 </div>
 
 </body>

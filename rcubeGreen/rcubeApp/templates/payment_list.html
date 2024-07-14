@@ -5,17 +5,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payments</title>
+
+    <!-- custom css file link  -->
     <link rel="stylesheet" href="{% static 'css/payment.css' %}">
+    <title>Your Payments</title>
 </head>
 <body>
-    <div class="container">
-        <h2 class="title">Your Payments</h2>
-        <ul class="payment-list">
-            {% for payment in payments %}
-                <li>{{ payment.amount }} - {{ payment.payment_method }} - {{ payment.payment_date }}</li>
-            {% endfor %}
-        </ul>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col">
+            <h3 class="title">Your Payments</h3>
+            <ul class="payment-list">
+                {% for payment in payments %}
+                    <li>{{ payment.amount }} - {{ payment.payment_method }} - {{ payment.payment_date }}</li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
+
+</div>
+
 </body>
 </html>
