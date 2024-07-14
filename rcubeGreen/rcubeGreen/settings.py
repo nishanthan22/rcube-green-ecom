@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'allauth.account',
     "allauth.socialaccount",
     'allauth.socialaccount.providers.google',
-    "usersApp.apps.UsersappConfig"
+    "usersApp.apps.UsersappConfig",
+    "blog"
 ]
 
 MIDDLEWARE = [
@@ -67,7 +68,7 @@ ROOT_URLCONF = 'rcubeGreen.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
+        'DIRS': []
         ,
         'APP_DIRS': True,
         'OPTIONS': {
