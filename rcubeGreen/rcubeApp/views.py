@@ -5,7 +5,6 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import NewsArticle, Product, Cart, CartItem
 
 
-
 def news_article_list_view(request):
     articles = NewsArticle.objects.all()
 
@@ -101,6 +100,7 @@ def remove_from_cart(request, item_id):
     cart_item = get_object_or_404(CartItem, id=item_id)
     cart_item.delete()
     return redirect('cart_detail')
+
 
 def product_list(request):
     # Fetch products from your database or mock data if not using a database

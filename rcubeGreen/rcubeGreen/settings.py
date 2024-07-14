@@ -153,6 +153,6 @@ SOCIALACCOUNT_PROVIDERS = {
         'SCOPE': ['profile', 'email'],
         'AUTH_PARAMS': {'access_type': 'online'},
         'CLIENT_ID': env('GOOGLE_CLIENT_ID'),
-        'SECRET': env('giGOOGLE_CLIENT_SECRET'),
+        'SECRET': env('GOOGLE_CLIENT_SECRET'),
     }
 }

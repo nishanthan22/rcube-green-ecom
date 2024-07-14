@@ -1,5 +1,8 @@
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('news/', views.news_article_list_view, name='news_article_list'),
@@ -13,4 +16,4 @@ urlpatterns = [
     path('cart/add/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
     path('cart/remove/<int:item_id>/', views.remove_from_cart, name='remove_from_cart'),
     path('products/', views.product_list, name='product_list'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
