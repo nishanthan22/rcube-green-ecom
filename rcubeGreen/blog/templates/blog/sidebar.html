@@ -1,0 +1,66 @@
+{% block sidebar %}
+
+<style>
+    .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        margin-bottom: 20px;
+        margin-top: 50px;
+    }
+
+    .card-header {
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .card-text {
+        font-size: 16px;
+        color: #555;
+    }
+
+    .btn {
+        background-color: #28a745; /* Updated to green */
+        color: #fff;
+        border: none;
+        border-radius: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+        transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+        background-color: #218838; /* Darker shade of green on hover */
+    }
+</style>
+
+<!-- Sidebar Widgets Column -->
+{#<div class="col-md-4 float-right">#}
+{#    <div class="card">#}
+{#        <h5 class="card-header">About Us</h5>#}
+{#        <div class="card-body">#}
+{#            <p class="card-text">Welcome to Rcube, where we harness the power of technology and innovation to build a sustainable future. Our platform is powered by Django, enabling us to create meaningful connections through insightful content on green innovation, eco products, and sustainable living.</p>#}
+{#            <a href="{% url 'about' %}" class="btn btn-primary">Know more!</a>#}
+{#        </div>#}
+{#    </div>#}
+{#    <div class="card">#}
+{#        <h5 class="card-header">Privacy & Policy</h5>#}
+{#        <div class="card-body">#}
+{#            <p class="card-text">Our commitment to protecting your personal information and data privacy.</p>#}
+{#            <a href="{% url 'privacy' %}" class="btn btn-primary">Know more!</a>#}
+{#        </div>#}
+{#    </div>#}
+    <div class="card">
+        <h5 class="card-header">Visitors</h5>
+        <div class="card-body">
+            <p class="card-text">Number of visitors: {{ visit_counter.count }}</p>
+        </div>
+    </div>
+</div>
+
+{% endblock sidebar %}

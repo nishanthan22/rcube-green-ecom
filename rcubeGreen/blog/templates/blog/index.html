@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS link -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin-top: 50px !important;
+            margin-bottom: 50px !important;
+        }
+        .row {
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    {% extends "blog/base.html" %}
+    {% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    {% for innovation in green_innovation_posts %}
+                    <div class="">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class="card-title">{{ innovation.title }}</h2>
+                                <p class="card-text text-muted h6">
+                                    {{ innovation.author }} | {{ innovation.created_on }}
+                                </p>
+                                <p class="card-text">{{ innovation.content|slice:":200" }}</p>
+                                <a href="{% url 'blog:green_innovation_detail' innovation.slug %}" class="btn btn-primary">Read More &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% for product in eco_products_posts %}
+                    <div class="">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class="card-title">{{ product.title }}</h2>
+                                <p class="card-text text-muted h6">
+                                    {{ product.author }} | {{ product.created_on }}
+                                </p>
+                                <p class="card-text">{{ product.content|slice:":200" }}</p>
+                                <a href="{% url 'blog:eco_products_detail' product.slug %}" class="btn btn-primary">Read More &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% for living in sustainable_living_posts %}
+                    <div class="">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class="card-title">{{ living.title }}</h2>
+                                <p class="card-text text-muted h6">
+                                    {{ living.author }} | {{ living.created_on }}
+                                </p>
+                                <p class="card-text">{{ living.content|slice:":200" }}</p>
+                                <a href="{% url 'blog:sustainable_living_detail' living.slug %}" class="btn btn-primary">Read More &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% block sidebar %}
+            {% include 'blog/sidebar.html' %}
+            {% endblock sidebar %}
+        </div>
+    </div>
+    {% endblock %}
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

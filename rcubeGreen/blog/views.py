@@ -1,33 +1,59 @@
 from django.views import generic
 from django.shortcuts import render, redirect
 from .forms import GreenInnovationForm
-from .models import GreenInnovation, EcoProducts, SustainableLiving
+from .models import GreenInnovation, EcoProducts, SustainableLiving, VisitCounter
+
+class AllPostsView(generic.TemplateView):
+    login_url = '/login/'  # Redirect to /login if not authenticated
+    redirect_field_name = 'redirect_to'  # Optional, specifies the name of a GET field with the URL to redirect to after login
+
+    def get(self, request):
+        green_innovation_posts = GreenInnovation.objects.filter(status=1)
+        sustainable_living_posts = SustainableLiving.objects.filter(status=1)
+        eco_products_posts = EcoProducts.objects.filter(status=1)
+
+        context = self.get_context_data()
+        context.update({
+            'green_innovation_posts': green_innovation_posts,
+            'sustainable_living_posts': sustainable_living_posts,
+            'eco_products_posts': eco_products_posts
+        })
+        return render(request, 'blog/index.html', context)
 
 
 class GreenInnovationList(generic.ListView):
     queryset = GreenInnovation.objects.filter(status=1).order_by('-created_on')
     template_name = 'blog/green_innovation.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        visit_counter, created = VisitCounter.objects.get_or_create()
+        if created:
+            visit_counter.save()
+        visit_counter.count += 1
+        visit_counter.save()
+        context['visit_counter'] = visit_counter
+        return context
+
 
 class GreenInnovationDetail(generic.DetailView):
     model = GreenInnovation
     template_name = 'blog/green_innovation_detail.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # visit_counter, created = VisitCounter.objects.get_or_create()
-        # if created:
-        #     visit_counter.save()
-        # visit_counter.count += 1
-        # visit_counter.save()
-        # context['visit_counter'] = visit_counter
-        return context
 
 
 class EcoProductsList(generic.ListView):
     queryset = EcoProducts.objects.filter(status=1).order_by('-created_on')
     template_name = 'eco_products.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        visit_counter, created = VisitCounter.objects.get_or_create()
+        if created:
+            visit_counter.save()
+        visit_counter.count += 1
+        visit_counter.save()
+        context['visit_counter'] = visit_counter
+        return context
 
 
 class EcoProductsDetail(generic.DetailView):
@@ -38,6 +64,16 @@ class EcoProductsDetail(generic.DetailView):
 class SustainableLivingList(generic.ListView):
     queryset = SustainableLiving.objects.filter(status=1).order_by('-created_on')
     template_name = 'sustainable_living.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        visit_counter, created = VisitCounter.objects.get_or_create()
+        if created:
+            visit_counter.save()
+        visit_counter.count += 1
+        visit_counter.save()
+        context['visit_counter'] = visit_counter
+        return context
 
 
 class SustainableLivingDetail(generic.DetailView):
@@ -82,10 +118,10 @@ def create_post(request):
                     status=form.cleaned_data['status'],
                     image=form.cleaned_data['image']
                 )
-            return redirect('home')
+            return redirect('blog:green_innovation_posts')
     else:
         form = GreenInnovationForm()
-    return render(request, 'create_post.html', {'form': form})
+    return render(request, 'blog/create_post.html', {'form': form})
 
 
 
