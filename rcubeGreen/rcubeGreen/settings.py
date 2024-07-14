@@ -152,7 +152,7 @@ SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'SCOPE': ['profile', 'email'],
         'AUTH_PARAMS': {'access_type': 'online'},
-        'CLIENT_ID': '420716014777-1dm04to8p0alva9bc8loe3roon9cdhon.apps.googleusercontent.com',
-        'SECRET': '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',
+        'CLIENT_ID': env('GOOGLE_CLIENT_ID'),
+        'SECRET': env('giGOOGLE_CLIENT_SECRET'),
     }
 }
