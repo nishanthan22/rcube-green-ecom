@@ -1,10 +1,8 @@
 from django.core.paginator import Paginator
 from .models import NewsArticle
-from django.shortcuts import render
-
-from .models import NewsArticle
-
-
+from django.shortcuts import render, redirect
+from .models import NewsArticle, Payment
+from .forms import PaymentForm
 
 def news_article_list_view(request):
     articles = NewsArticle.objects.all()
@@ -68,3 +66,7 @@ def search(request):
         results = ["Result 1", "Result 2", "Result 3"]  # Replace with actual search results
 
     return render(request, 'search.html', {'query': query, 'results': results})
+
+def payment_list(request):
+    payments = Payment.objects.filter(user=request.user)
+    return render(request, 'payment_list.html', {'payments': payments})
