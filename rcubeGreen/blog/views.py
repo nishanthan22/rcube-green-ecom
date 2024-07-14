@@ -6,12 +6,22 @@ from .models import GreenInnovation, EcoProducts, SustainableLiving
 
 class GreenInnovationList(generic.ListView):
     queryset = GreenInnovation.objects.filter(status=1).order_by('-created_on')
-    template_name = 'green_innovation.html'
+    template_name = 'blog/green_innovation.html'
 
 
 class GreenInnovationDetail(generic.DetailView):
     model = GreenInnovation
-    template_name = 'green_innovation_detail.html'
+    template_name = 'blog/green_innovation_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # visit_counter, created = VisitCounter.objects.get_or_create()
+        # if created:
+        #     visit_counter.save()
+        # visit_counter.count += 1
+        # visit_counter.save()
+        # context['visit_counter'] = visit_counter
+        return context
 
 
 class EcoProductsList(generic.ListView):

@@ -56,3 +56,6 @@ class SustainableLiving(models.Model):
 
     def __str__(self):
         return self.title
+
+# class VisitCounter(models.Model):
+#     count = models.IntegerField(default=0)

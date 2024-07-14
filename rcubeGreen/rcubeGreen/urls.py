@@ -25,7 +25,7 @@ urlpatterns = [
     path("accounts/", include('allauth.urls')),
     path("", include('usersApp.urls')),
     path('', include('rcubeApp.urls')),
-    path('', include('blog.urls')),
+    path('blog/', include('blog.urls', namespace='blog')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
