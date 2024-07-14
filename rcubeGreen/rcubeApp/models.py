@@ -28,3 +28,12 @@ class Payment(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.amount}"
+
+
+class PaymentMethod(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    method_name = models.CharField(max_length=100)
+    details = models.TextField()
+
+    def __str__(self):
+        return f"{self.user.username} - {self.method_name}"
