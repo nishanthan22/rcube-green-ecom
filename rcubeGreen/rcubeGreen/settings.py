@@ -14,6 +14,7 @@ from pathlib import Path
 import environ
 
 # Initialize environment variables
+
 env = environ.Env()
 environ.Env.read_env(env_file=str(Path(__file__).resolve().parent.parent / '.env'))
 
@@ -151,7 +152,7 @@ SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'SCOPE': ['profile', 'email'],
         'AUTH_PARAMS': {'access_type': 'online'},
-        'CLIENT_ID': env('GOOGLE_CLIENT_ID'),
-        'SECRET': env('GOOGLE_CLIENT_SECRET'),
+        'CLIENT_ID': '420716014777-1dm04to8p0alva9bc8loe3roon9cdhon.apps.googleusercontent.com',
+        'SECRET': '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',
     }
 }

@@ -14,9 +14,9 @@
         </form>
         {% if user.is_authenticated %}
             <p>Welcome, {{ user.username }}</p>
-            <a href="{% url 'profile' %}">Profile</a>
+
         {% else %}
-{#            <a href="{% url 'login' %}">Login</a>#}
+
             <p> login here </p>
         {% endif %}
     </header>
@@ -26,7 +26,7 @@
         <ul>
             <li><a href="{% url 'articles' %}">Articles</a></li>
             <li><a href="{% url 'shop' %}">Shop</a></li>
-            <li><a href="{% url 'cart' %}">Cart</a></li>
+            <li><a href="{% url 'cart_detail' %}">Cart</a></li>
         </ul>
     </nav>
 

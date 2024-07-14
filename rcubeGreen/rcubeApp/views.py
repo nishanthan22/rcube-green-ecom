@@ -1,8 +1,8 @@
 from django.core.paginator import Paginator
 from .models import NewsArticle
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 
-from .models import NewsArticle
+from .models import NewsArticle, Product, Cart, CartItem
 
 
 
@@ -39,7 +39,7 @@ def articles(request):
 
 
 def shop(request):
-    return render(request, 'shop.html')
+    return render(request, 'product_list.html')
 
 
 def cart(request):
@@ -68,3 +68,41 @@ def search(request):
         results = ["Result 1", "Result 2", "Result 3"]  # Replace with actual search results
 
     return render(request, 'search.html', {'query': query, 'results': results})
+
+
+def add_to_cart(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    cart_id = request.session.get('cart_id')
+    if cart_id:
+        cart = get_object_or_404(Cart, id=cart_id)
+    else:
+        cart = Cart.objects.create()
+        request.session['cart_id'] = cart.id
+
+    cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
+    if not created:
+        cart_item.quantity += 1
+        cart_item.save()
+
+    return redirect('cart_detail')
+
+
+def cart_detail(request):
+    cart_id = request.session.get('cart_id')
+    if not cart_id:
+        return render(request, 'cart_detail.html', {'cart': None})
+
+    cart = get_object_or_404(Cart, id=cart_id)
+    total = sum(item.quantity * item.product.price for item in cart.items.all())
+    return render(request, 'cart_detail.html', {'cart': cart, 'total': total})
+
+
+def remove_from_cart(request, item_id):
+    cart_item = get_object_or_404(CartItem, id=item_id)
+    cart_item.delete()
+    return redirect('cart_detail')
+
+def product_list(request):
+    # Fetch products from your database or mock data if not using a database
+    products = Product.objects.all()  # Replace with your actual query
+    return render(request, 'product_list.html', {'products': products})
