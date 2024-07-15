@@ -11,20 +11,25 @@
   transition: all .2s linear;
 }
 
+body {
+  background-color: #00A76F; /* Same green color as payment_list */
+}
+
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 25px;
   min-height: 100vh;
-  background: linear-gradient(90deg, #2ecc71 60%, #27ae60 40.1%);
+  background: linear-gradient(90deg, #00A76F 60%, #008B5C 40.1%);
 }
 
 .container form {
   padding: 20px;
   width: 700px;
   background: #fff;
-  box-shadow: 0 5px 10px rgba(0,0,0,.1);
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
 }
 
 .container form .row {
@@ -59,6 +64,7 @@
   padding: 10px 15px;
   font-size: 15px;
   text-transform: none;
+  border-radius: 5px;
 }
 
 .container form .row .col .inputBox input:focus {
@@ -88,6 +94,7 @@
   color: #fff;
   margin-top: 5px;
   cursor: pointer;
+  border-radius: 5px;
 }
 
 .container form .submit-btn:hover {
