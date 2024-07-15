@@ -1,6 +1,8 @@
 # admin.py
 from django.contrib import admin
-from .models import Payment, PaymentMethod
+from .models import PaymentMethod
 
-admin.site.register(Payment)
-admin.site.register(PaymentMethod)
+@admin.register(PaymentMethod)
+class PaymentMethodAdmin(admin.ModelAdmin):
+    list_display = ('user', 'amount', 'date', 'method', 'description')
+    search_fields = ('user__username', 'amount', 'date', 'method', 'description')

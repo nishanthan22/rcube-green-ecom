@@ -5,46 +5,50 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- custom css file link  -->
     <link rel="stylesheet" href="{% static 'css/payment_list.css' %}">
     <title>Your Payments</title>
 </head>
 <body>
-
 <div class="payment-container">
-
     <h2 class="title">Your Payments</h2>
-
     <div class="search-sort">
-        <input type="text" placeholder="Search Payments..." id="search">
-        <select id="sort">
-            <option value="date">Sort By Date</option>
-            <option value="amount">Sort By Amount</option>
-        </select>
+        <form method="get">
+            <input type="text" name="search" placeholder="Search Payments..." value="{{ search_query }}">
+            <select name="sort">
+                <option value="date" {% if sort_by == "date" %}selected{% endif %}>Sort By Date</option>
+                <option value="amount" {% if sort_by == "amount" %}selected{% endif %}>Sort By Amount</option>
+            </select>
+            <button type="submit" class="search-btn">Search</button>
+        </form>
     </div>
-
     <ul class="payment-list">
-        {% for payment in payments %}
+        {% for payment in page_obj %}
         <li class="payment-item">
             <span class="payment-amount">{{ payment.amount }}</span>
-            <span class="payment-method">{{ payment.payment_method }}</span>
-            <span class="payment-date">{{ payment.payment_date }}</span>
+            <span class="payment-method">{{ payment.method }}</span>
+            <span class="payment-date">{{ payment.date }}</span>
+        </li>
+        {% empty %}
+        <li class="payment-item">
+            <span>No payments found.</span>
         </li>
         {% endfor %}
     </ul>
-
     <div class="pagination">
-        <button>Previous</button>
-        <span class="page-number">Page 1 of 10</span>
-        <button>Next</button>
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}&search={{ search_query }}&sort={{ sort_by }}">Previous</a>
+        {% endif %}
+        <span class="page-number">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}&search={{ search_query }}&sort={{ sort_by }}">Next</a>
+        {% endif %}
     </div>
-
     <div class="export">
-        <button class="export-btn">Export to CSV</button>
+        <form method="post" action="{% url 'export_payments_to_csv' %}">
+            {% csrf_token %}
+            <button type="submit" class="export-btn">Export to CSV</button>
+        </form>
     </div>
-
 </div>
-
 </body>
 </html>

@@ -1,9 +1,13 @@
 from django.core.paginator import Paginator
 from .models import NewsArticle
 from django.shortcuts import render, redirect
-from .models import NewsArticle, Payment, PaymentMethod
+from .models import NewsArticle, PaymentMethod
 from .forms import PaymentMethodForm
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+import csv
+from django.http import HttpResponse
+from django.db.models import Q
 
 
 def news_article_list_view(request):
@@ -69,10 +73,6 @@ def search(request):
 
     return render(request, 'search.html', {'query': query, 'results': results})
 
-@login_required
-def payment_list(request):
-    payments = Payment.objects.filter(user=request.user)
-    return render(request, 'payment_list.html', {'payments': payments})
 
 @login_required
 def add_payment_method(request):
@@ -86,3 +86,50 @@ def add_payment_method(request):
     else:
         form = PaymentMethodForm()
     return render(request, 'add_payment_method.html', {'form': form})
+
+
+@login_required
+def payment_history(request):
+    search_query = request.GET.get('search', '')
+    sort_by = request.GET.get('sort', 'date')
+
+    payments = PaymentMethod.objects.filter(user=request.user)
+
+    if search_query:
+        payments = payments.filter(
+            Q(description__icontains=search_query) |
+            Q(amount__icontains=search_query) |
+            Q(method__icontains=search_query)
+        )
+
+    if sort_by == 'amount':
+        payments = payments.order_by('amount')
+    else:
+        payments = payments.order_by('-date')
+
+    paginator = Paginator(payments, 10)  # Show 10 payments per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'page_obj': page_obj,
+        'search_query': search_query,
+        'sort_by': sort_by,
+    }
+
+    return render(request, 'payment_list.html', context)
+
+
+@login_required
+def export_payments_to_csv(request):
+    payments = PaymentMethod.objects.filter(user=request.user)
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="payments.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['Amount', 'Method', 'Date', 'Description'])
+
+    for payment in payments:
+        writer.writerow([payment.amount, payment.method, payment.date, payment.description])
+
+    return response
