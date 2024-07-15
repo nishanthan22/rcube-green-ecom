@@ -1,15 +1,33 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Categories</title>
-</head>
-<body>
-    <h1>Categories</h1>
-    <ul>
-        {% for category in categories %}
-            <li>{{ category.name }}: {{ category.description }}</li>
-        {% endfor %}
-    </ul>
-    <a href="{% url 'add_category' %}">Add New Category</a>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Categories</h2>
+  <a href="{% url 'add_category' %}">Add New Category</a>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for category in categories %}
+        <tr>
+          <td>{{ category.name }}</td>
+          <td>
+            <form method="get" action="{% url 'edit_category' category.id %}">
+              <button type="submit">Edit</button>
+            </form>
+          </td>
+          <td>
+            <form method="post" action="{% url 'delete_category' category.id %}">
+              {% csrf_token %}
+              <button type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

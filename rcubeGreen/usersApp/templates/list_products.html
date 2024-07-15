@@ -1,20 +1,45 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Products</title>
-</head>
-<body>
-    <h1>Products</h1>
-    <ul>
-        {% for product in products %}
-            <li>
-                {{ product.name }} ({{ product.category.name }}): {{ product.description }} - ${{ product.price }}
-                {% if product.image %}
-                    <br><img src="{{ product.image.url }}" alt="{{ product.name }}" width="100">
-                {% endif %}
-            </li>
-        {% endfor %}
-    </ul>
-    <a href="{% url 'add_product' %}">Add New Product</a>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Products</h2>
+  <a href="{% url 'add_product' %}">Add New Product</a>
+  <table>
+    <thead>
+      <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for product in products %}
+        <tr>
+          <td>
+            {% if product.image %}
+              <img src="{{ product.image.url }}" alt="{{ product.name }}" style="height: 100px;">
+            {% else %}
+              No image
+            {% endif %}
+          </td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.category.name }}</td>
+          <td>{{ product.price }}</td>
+          <td>
+            <form method="get" action="{% url 'edit_product' product.id %}">
+              <button type="submit">Edit</button>
+            </form>
+          </td>
+          <td>
+            <form method="post" action="{% url 'delete_product' product.id %}">
+              {% csrf_token %}
+              <button type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
