@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from .forms import ProductForm, CategoryForm
@@ -32,6 +32,25 @@ def list_products(request):
     products = Product.objects.all()
     return render(request, 'list_products.html', {'products': products})
 
+# Product Views
+def edit_product(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES, instance=product)
+        if form.is_valid():
+            form.save()
+            return redirect('list_products')
+    else:
+        form = ProductForm(instance=product)
+    return render(request, 'edit_product.html', {'form': form})
+
+def delete_product(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    if request.method == 'POST':
+        product.delete()
+        return redirect('list_products')
+    return render(request, 'delete_product.html', {'product': product})
+
 
 #@login_required
 def add_category(request):
@@ -49,3 +68,22 @@ def add_category(request):
 def list_categories(request):
     categories = Category.objects.all()
     return render(request, 'list_categories.html', {'categories': categories})
+
+# Category Views
+def edit_category(request, category_id):
+    category = get_object_or_404(Category, id=category_id)
+    if request.method == 'POST':
+        form = CategoryForm(request.POST, instance=category)
+        if form.is_valid():
+            form.save()
+            return redirect('list_categories')
+    else:
+        form = CategoryForm(instance=category)
+    return render(request, 'edit_category.html', {'form': form})
+
+def delete_category(request, category_id):
+    category = get_object_or_404(Category, id=category_id)
+    if request.method == 'POST':
+        category.delete()
+        return redirect('list_categories')
+    return render(request, 'delete_category.html', {'category': category})
