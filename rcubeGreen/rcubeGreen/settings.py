@@ -14,6 +14,7 @@ from pathlib import Path
 import environ
 
 # Initialize environment variables
+
 env = environ.Env()
 environ.Env.read_env(env_file=str(Path(__file__).resolve().parent.parent / '.env'))
 
