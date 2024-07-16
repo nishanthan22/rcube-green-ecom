@@ -32,12 +32,18 @@
         </button>
       </div>
       <div class="header-actions">
-
-        <button class="header-action-btn">
-          <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
-
-          <p class="header-action-label">Sign in</p>
-        </button>
+          
+          {% if user.is_authenticated %}
+              <button class="header-action-btn" onclick="window.location.href='{% url 'profile' %}'">
+                <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+                <p class="header-action-label">Profile</p>
+              </button>
+            {% else %}
+              <button class="header-action-btn" onclick="window.location.href='{% url 'login' %}'">
+                <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+                <p class="header-action-label">Sign in</p>
+              </button>
+          {% endif %}
 
         <button class="header-action-btn">
           <ion-icon name="search-outline" aria-hidden="true"></ion-icon>

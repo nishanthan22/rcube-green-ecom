@@ -87,3 +87,7 @@ def delete_category(request, category_id):
         category.delete()
         return redirect('list_categories')
     return render(request, 'delete_category.html', {'category': category})
+
+
+def user_profile(request):
+    return render(request, 'user_profile.html', {'name': 'Nishanthan'})
