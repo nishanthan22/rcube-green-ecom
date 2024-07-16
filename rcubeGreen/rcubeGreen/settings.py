@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import environ
+import os
 
 # Initialize environment variables
 env = environ.Env()
@@ -68,7 +69,10 @@ ROOT_URLCONF = 'rcubeGreen.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': []
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'rcubeGreen/templates'),
+        ]
         ,
         'APP_DIRS': True,
         'OPTIONS': {

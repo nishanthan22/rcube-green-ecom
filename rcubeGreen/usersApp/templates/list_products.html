@@ -1,4 +1,6 @@
-{% extends "base.html" %}
+{% extends "rcube-green-ecom/base.html" %}
+
+{% block title %}Product List{% endblock %}
 
 {% block content %}
   <h2>Products</h2>
@@ -28,9 +30,9 @@
           <td>{{ product.category.name }}</td>
           <td>{{ product.price }}</td>
           <td>
-            <form method="get" action="{% url 'edit_product' product.id %}">
-              <button type="submit">Edit</button>
-            </form>
+            <a href="{% url 'edit_product' product.id %}">
+              <button type="button">Edit</button>
+            </a>
           </td>
           <td>
             <form method="post" action="{% url 'delete_product' product.id %}">
