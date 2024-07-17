@@ -1,0 +1,92 @@
+ body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: #f0f2f5;
+      font-family: 'Jost', sans-serif;
+    }
+
+    .register-container {
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+      background: #f7f7f7;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .register-container h2 {
+      margin-bottom: 20px;
+    }
+
+    .input-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .input-group input {
+      width: 94%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 10px;
+      background: #5cb85c;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: #4cae4c;
+    }
+
+    .google-btn {
+      background: #4285f4;
+      margin-top: 10px;
+      display: block;
+      text-align: center;
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .google-btn:hover {
+      background: #357ae8;
+    }
+
+    .register-link {
+      margin-top: 10px;
+    }
+
+    .register-link a {
+      color: #5cb85c;
+    }
+
+    footer {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    footer p {
+      color: #888;
+    }
+
+    footer a {
+      color: #5cb85c;
+    }

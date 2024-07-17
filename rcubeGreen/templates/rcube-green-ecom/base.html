@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,15 +11,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
-  {% block body_block %}
+  {% block header %}
   <!--header-->
   <header class="header" data-header>
     <div class="container">
       <div class="overlay" data-overlay></div>
       <a href="{% url 'home' %}" class="logo">
-        <img src="{% static 'images/logo.png' %}" alt="R CUBE logo" width="130" height="31">
+        <img src="{% static 'images/logo.png' %}" alt="R CUBE logo" width="42" height="41">
       </a>
       <div class="header-search">
         <input type="search" name="search" placeholder="Search Product..." class="input-field">
@@ -80,10 +78,13 @@
     </div>
   </header>
   {% endblock %}
+  
   <main class="container mt-4">
     {% block content %}
     {% endblock %}
   </main>
+
+  {% block footer %}
   <footer class="footer">
     <div class="footer-top">
       <div class="container">
@@ -138,6 +139,7 @@
       </div>
     </div>
   </footer>
+  {% endblock %}
   <!-- custom js link -->
   <script src="{% static 'js/script.js' %}"></script>
   <!-- ionicon link -->
