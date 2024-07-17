@@ -55,7 +55,10 @@ def contact(request):
 
 
 def home(request):
-    return render(request, 'home.html')
+    if request.user.is_superuser:
+        return render(request, 'admin_home.html')
+    else:
+        return render(request, 'home.html')
 
 
 def search(request):

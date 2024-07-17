@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>{% block title %}My Site{% endblock %}</title>
 </head>
 <body>
   {% block header %}
@@ -20,12 +21,7 @@
       <a href="{% url 'home' %}" class="logo">
         <img src="{% static 'images/logo.png' %}" alt="R CUBE logo" width="42" height="41">
       </a>
-      <div class="header-search">
-        <input type="search" name="search" placeholder="Search Product..." class="input-field">
-        <button class="search-btn" aria-label="Search">
-          <ion-icon name="search-outline"></ion-icon>
-        </button>
-      </div>
+      {% block header-content %}
       <div class="header-actions">
         {% if user.is_authenticated %}
           <button class="header-action-btn" onclick="window.location.href='{% url 'profile' %}'">
@@ -38,26 +34,14 @@
             <p class="header-action-label">Sign in</p>
           </button>
         {% endif %}
-        <button class="header-action-btn">
-          <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
-          <p class="header-action-label">Search</p>
-        </button>
-        <button class="header-action-btn">
-          <ion-icon name="cart-outline" aria-hidden="true"></ion-icon>
-          <p class="header-action-label">Cart</p>
-          <div class="btn-badge green" aria-hidden="true"></div>
-        </button>
-        <button class="header-action-btn">
-          <ion-icon name="heart-outline" aria-hidden="true"></ion-icon>
-          <p class="header-action-label">Wishlist</p>
-          <div class="btn-badge" aria-hidden="true"></div>
-        </button>
       </div>
+      {% endblock %}
       <button class="nav-open-btn" data-nav-open-btn aria-label="Open Menu">
         <span></span>
         <span></span>
         <span></span>
       </button>
+      {% block navbar %}
       <nav class="navbar" data-navbar>
         <div class="navbar-top">
           <a href="#" class="logo">
@@ -75,6 +59,7 @@
           <li><a href="#" class="navbar-link">Contact</a></li>
         </ul>
       </nav>
+      {% endblock %}
     </div>
   </header>
   {% endblock %}
