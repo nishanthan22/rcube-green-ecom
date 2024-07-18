@@ -95,8 +95,8 @@ WSGI_APPLICATION = 'rcubeGreen.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        #'NAME': BASE_DIR / 'db.sqlite3',
-        # Commented to remove db issue
+        'NAME': BASE_DIR / 'db.sqlite3',
+
     }
 }
 
