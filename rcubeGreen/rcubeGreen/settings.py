@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import environ
+import os
 
 # Initialize environment variables
 env = environ.Env()
@@ -48,7 +49,8 @@ INSTALLED_APPS = [
     'allauth.account',
     "allauth.socialaccount",
     'allauth.socialaccount.providers.google',
-    "usersApp.apps.UsersappConfig"
+    "usersApp.apps.UsersappConfig",
+    "blog"
 ]
 
 MIDDLEWARE = [
@@ -67,7 +69,10 @@ ROOT_URLCONF = 'rcubeGreen.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'rcubeGreen/templates'),
+        ]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -90,7 +95,8 @@ WSGI_APPLICATION = 'rcubeGreen.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        #'NAME': BASE_DIR / 'db.sqlite3',
+        # Commented to remove db issue
     }
 }
 
@@ -164,3 +170,5 @@ SOCIALACCOUNT_PROVIDERS = {
 
 # Added for testing the payment feature
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+SOCIALACCOUNT_LOGIN_ON_GET = True
+

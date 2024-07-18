@@ -1,4 +1,5 @@
 <!-- home.html -->
+{% extends "rcube-green-ecom/base.html" %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,13 +13,7 @@
             <input type="text" name="q" placeholder="Search...">
             <button type="submit">Search</button>
         </form>
-        {% if user.is_authenticated %}
-            <p>Welcome, {{ user.username }}</p>
-            <a href="{% url 'profile' %}">Profile</a>
-        {% else %}
-{#            <a href="{% url 'login' %}">Login</a>#}
-            <p> login here </p>
-        {% endif %}
+
     </header>
 
     <!-- Navigation Bar -->

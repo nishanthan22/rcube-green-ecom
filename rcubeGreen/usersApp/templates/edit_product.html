@@ -1,12 +1,14 @@
+<!-- templates/userApp/edit_product.html -->
+
 {% extends "rcube-green-ecom/base.html" %}
 
-{% block title %}Add Product{% endblock %}
+{% block title %}Edit Product{% endblock %}
 
 {% block content %}
-  <h1>Add Product</h1>
+  <h2>Edit Product</h2>
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Add Product</button>
+    <button type="submit">Save</button>
   </form>
 {% endblock %}

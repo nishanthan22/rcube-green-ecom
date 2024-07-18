@@ -11,11 +11,6 @@ class RegisterUser(User):
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, default='male')
 
 
-# class LoginUser(User):
-#     email = models.EmailField(unique=True)
-#     password = models.CharField(max_length=100)
-
-
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField(blank=True)
@@ -33,5 +28,3 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
-
-

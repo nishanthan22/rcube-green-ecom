@@ -1,0 +1,16 @@
+<!-- templates/userApp/delete_product.html -->
+
+{% extends "rcube-green-ecom/base.html" %}
+
+{% block title %}Delete Product{% endblock %}
+
+{% block content %}
+  <h2>Delete Product</h2>
+  <p>Are you sure you want to delete the product "{{ product.name }}"?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Yes, delete</button>
+    <a href="{% url 'list_products' %}">Cancel</a>
+  </form>
+{% endblock %}
+
