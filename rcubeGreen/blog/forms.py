@@ -1,11 +1,17 @@
-# forms.py
 from django import forms
-from .models import BlogPost
+from .models import GreenInnovation
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django.contrib import messages
 
-class BlogPostForm(forms.ModelForm):
+class GreenInnovationForm(forms.ModelForm):
+    CATEGORY_CHOICES = [
+        ('GreenInnovation', 'Green Innovation'),
+        ('EcoProducts', 'Eco Products'),
+        ('SustainableLiving', 'Sustainable Living'),
+    ]
+    category = forms.ChoiceField(choices=CATEGORY_CHOICES, label='Category')
+
     class Meta:
-        model = BlogPost
-        fields = ['title', 'author_name', 'category', 'content', 'cover_image']
-        widgets = {
-            'content': forms.Textarea(attrs={'id': 'id_content'}),
-        }
+        model = GreenInnovation
+        fields = ['title', 'slug', 'author', 'category', 'content', 'status', 'image']
