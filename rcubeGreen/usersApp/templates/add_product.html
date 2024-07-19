@@ -3,10 +3,18 @@
 {% block title %}Add Product{% endblock %}
 
 {% block content %}
+<div class="container">
+    <h2 class="h2 section-title">Add Category</h2>
+    <div class="button-group" style="margin-bottom: 20px;">
+      <a href="{% url 'list_products' %}" class="btn btn-primary">List Products</a>
+      <a href="{% url 'add_category' %}" class="btn btn-secondary">Add New Category</a>
+      <a href="{% url 'list_categories' %}" class="btn btn-outline">List Categories</a>
+    </div>
   <h1>Add Product</h1>
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Add Product</button>
   </form>
+</div>
 {% endblock %}
