@@ -4,11 +4,23 @@
 
 {% block content %}
 <div class="container">
-  <h1>Add Product</h1>
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn">Add Product</button>
-  </form>
+    <h2 class="section-title">Add Product</h2>
+    <div class="button-group" style="margin-bottom: 20px;">
+        <a href="{% url 'list_products' %}" class="btn btn-primary">List Products</a>
+        <a href="{% url 'add_category' %}" class="btn btn-secondary">Add New Category</a>
+        <a href="{% url 'list_categories' %}" class="btn btn-outline">List Categories</a>
+    </div>
+    <div style="display: flex; justify-content: center;">
+        <form method="post" enctype="multipart/form-data" style="width: 100%; max-width: 400px;">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.as_p }}
+            </div>
+            <div class="button-group" style="display: flex; justify-content: space-between;">
+                <button type="submit" class="btn btn-success">Add Product</button>
+                <a href="{% url 'list_products' %}" class="btn btn-secondary" style="font-size: 0.875em;">Cancel</a>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}
