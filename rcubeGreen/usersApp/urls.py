@@ -1,12 +1,9 @@
-# urls.py
-
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
-    path("", views.user_login),
     path('login/', views.user_login, name='login'),
     path('logout/', views.user_logout, name='logout'),
     path('products/add/', views.add_product, name='add_product'),
@@ -17,4 +14,6 @@ urlpatterns = [
     path('categories/', views.list_categories, name='list_categories'),
     path('edit_category/<int:category_id>/', views.edit_category, name='edit_category'),
     path('delete_category/<int:category_id>/', views.delete_category, name='delete_category'),
+    path('user_profile/', views.user_profile, name='profile'),
+    path('register_user/', views.register_user, name='register'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
