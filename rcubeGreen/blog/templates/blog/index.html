@@ -9,9 +9,30 @@
         body {
             margin-top: 50px !important;
             margin-bottom: 50px !important;
+            background-color: #f8f9fa;
         }
         .row {
             margin-top: 5px;
+        }
+        .search-sort-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .search-sort-form input, .search-sort-form select {
+            margin-right: 5px;
+            margin-top: 25px;
+        }
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .search-sort-form .search-btn {
+        margin-top: 25px; /* Adjust this value as needed */
         }
     </style>
 </head>
@@ -21,14 +42,26 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
+                <!-- Search and Sort Form -->
+                <form method="get" class="form-inline search-sort-form" >
+                    <input type="text" name="q" placeholder="Search..." value="{{ query }}" class="form-control">
+                    <select name="sort_by" class="form-control">
+                        <option value="-created_on" {% if sort_by == "-created_on" %}selected{% endif %}>Newest</option>
+                        <option value="created_on" {% if sort_by == "created_on" %}selected{% endif %}>Oldest</option>
+                        <option value="title" {% if sort_by == "title" %}selected{% endif %}>Title A-Z</option>
+                        <option value="-title" {% if sort_by == "-title" %}selected{% endif %}>Title Z-A</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary search-btn">Search</button>
+                </form>
+
                 <div class="row">
                     {% for innovation in green_innovation_posts %}
-                    <div class="">
+                    <div class="col-md-12 mb-3">
                         <div class="card">
                             <div class="card-body">
                                 <h2 class="card-title">{{ innovation.title }}</h2>
                                 <p class="card-text text-muted h6">
-                                    {{ innovation.author }} | {{ innovation.created_on }}
+                                    {{ innovation.author }} | {{ innovation.created_on|date:"F j, Y" }}
                                 </p>
                                 <p class="card-text">{{ innovation.content|slice:":200" }}</p>
                                 <a href="{% url 'blog:green_innovation_detail' innovation.slug %}" class="btn btn-primary">Read More &rarr;</a>
@@ -37,12 +70,12 @@
                     </div>
                     {% endfor %}
                     {% for product in eco_products_posts %}
-                    <div class="">
+                    <div class="col-md-12 mb-3">
                         <div class="card">
                             <div class="card-body">
                                 <h2 class="card-title">{{ product.title }}</h2>
                                 <p class="card-text text-muted h6">
-                                    {{ product.author }} | {{ product.created_on }}
+                                    {{ product.author }} | {{ product.created_on|date:"F j, Y" }}
                                 </p>
                                 <p class="card-text">{{ product.content|slice:":200" }}</p>
                                 <a href="{% url 'blog:eco_products_detail' product.slug %}" class="btn btn-primary">Read More &rarr;</a>
@@ -51,12 +84,12 @@
                     </div>
                     {% endfor %}
                     {% for living in sustainable_living_posts %}
-                    <div class="">
+                    <div class="col-md-12 mb-3">
                         <div class="card">
                             <div class="card-body">
                                 <h2 class="card-title">{{ living.title }}</h2>
                                 <p class="card-text text-muted h6">
-                                    {{ living.author }} | {{ living.created_on }}
+                                    {{ living.author }} | {{ living.created_on|date:"F j, Y" }}
                                 </p>
                                 <p class="card-text">{{ living.content|slice:":200" }}</p>
                                 <a href="{% url 'blog:sustainable_living_detail' living.slug %}" class="btn btn-primary">Read More &rarr;</a>
