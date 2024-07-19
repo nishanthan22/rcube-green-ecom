@@ -1,34 +1,66 @@
 <!-- home.html -->
 {% extends "rcube-green-ecom/base.html" %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-</head>
-<body>
-    <!-- Header Panel -->
-    <header>
-        <form action="{% url 'search' %}" method="get">
-            <input type="text" name="q" placeholder="Search...">
-            <button type="submit">Search</button>
-        </form>
 
-    </header>
+{% block title %}Home{% endblock %}
 
-    <!-- Navigation Bar -->
-    <nav>
-        <ul>
-            <li><a href="{% url 'articles' %}">Articles</a></li>
-            <li><a href="{% url 'shop' %}">Shop</a></li>
-            <li><a href="{% url 'cart' %}">Cart</a></li>
-        </ul>
-    </nav>
+{% block header-content %}
+<div class="header-search">
+  <input type="search" name="search" placeholder="Search Product..." class="input-field">
+  <button class="search-btn" aria-label="Search">
+    <ion-icon name="search-outline"></ion-icon>
+  </button>
+</div>
+<div class="header-actions">
+  {% if user.is_authenticated %}
+    <button class="header-action-btn" onclick="window.location.href='{% url 'profile' %}'">
+      <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+      <p class="header-action-label">Profile</p>
+    </button>
+  {% else %}
+    <button class="header-action-btn" onclick="window.location.href='{% url 'login' %}'">
+      <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+      <p class="header-action-label">Sign in</p>
+    </button>
+  {% endif %}
+  <button class="header-action-btn">
+    <ion-icon name="cart-outline" aria-hidden="true"></ion-icon>
+    <p class="header-action-label">Cart</p>
+    <div class="btn-badge green" aria-hidden="true"></div>
+  </button>
+  <button class="header-action-btn">
+    <ion-icon name="heart-outline" aria-hidden="true"></ion-icon>
+    <p class="header-action-label">Wishlist</p>
+    <div class="btn-badge" aria-hidden="true"></div>
+  </button>
+</div>
+{% endblock %}
 
-    <!-- Footer Panel -->
-    <footer>
-        <a href="{% url 'about' %}">About Us</a>
-        <a href="{% url 'contact' %}">Contact Us</a>
-    </footer>
-</body>
-</html>
+{% block navbar %}
+<nav class="navbar" data-navbar>
+  <div class="navbar-top">
+    <a href="#" class="logo">
+      <img src="/images/logo.png" alt="Casmart logo" width="130" height="31">
+    </a>
+    <button class="nav-close-btn" data-nav-close-btn aria-label="Close Menu">
+      <ion-icon name="close-outline"></ion-icon>
+    </button>
+  </div>
+  <ul class="navbar-list">
+    <li><a href="{% url 'articles' %}" class="navbar-link">Articles</a></li>
+    <li><a href="{% url 'shop' %}" class="navbar-link">Shop</a></li>
+    <li><a href="{% url 'cart' %}" class="navbar-link">Cart</a></li>
+    <li><a href="#blog" class="navbar-link">Blog</a></li>
+    <li><a href="#" class="navbar-link">Contact</a></li>
+  </ul>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h1>Welcome to Our Shop</h1>
+  <p>Discover our range of sustainable products.</p>
+  <div class="products">
+    <!-- Add product listings here -->
+  </div>
+</div>
+{% endblock %}

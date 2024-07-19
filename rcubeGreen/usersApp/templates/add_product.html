@@ -1,12 +1,14 @@
-{% extends "rcube-green-ecom/base.html" %}
+{% extends "admin_home.html" %}
 
 {% block title %}Add Product{% endblock %}
 
 {% block content %}
+<div class="container">
   <h1>Add Product</h1>
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Add Product</button>
+    <button type="submit" class="btn">Add Product</button>
   </form>
+</div>
 {% endblock %}
