@@ -86,7 +86,6 @@ def list_categories(request):
     categories = Category.objects.all()
     return render(request, 'list_categories.html', {'categories': categories})
 
-
 # Category Views
 def edit_category(request, category_id):
     category = get_object_or_404(Category, id=category_id)
@@ -122,3 +121,4 @@ def register_user(request):
     else:
         form = RegisterForm()
     return render(request, 'register_user.html', {'form': form})
+
