@@ -4,29 +4,17 @@
 
 {% block content %}
 <h1>Profile Page</h1>
-    {% if user.first_name %}
-        <p>Welcome, <strong>{{ user.first_name }} {{ user.last_name }}! </strong></p>
-    {% else %}
-        <p>Welcome, <strong>{{ user.username }}! </strong></p>
-    {% endif %}
+{% if user.first_name %}
+    <p>Welcome, <strong>{{ user.first_name }} {{ user.last_name }}! </strong></p>
+{% else %}
+    <p>Welcome, <strong>{{ user.username }}! </strong></p>
+{% endif %}
 
 <p>Email: {{ user.email }}</p>
+<p>Your last login was: {{ user.last_login }}</p>
 
-<h2>Edit Profile</h2>
-<form method="POST" action="{% url 'register' %}">
-    {% csrf_token %}
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" value="{{ user.username }}" required><br>
+<a href="{% url 'edit_profile' %}" class="btn btn-primary">
+    <i class="fa fa-pencil"></i> Edit Profile
+</a>
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" value="{{ user.email }}" required><br>
-
-    <label for="first_name">First Name:</label>
-    <input type="text" id="first_name" name="first_name" value="{{ user.first_name }}"><br>
-
-    <label for="last_name">Last Name:</label>
-    <input type="text" id="last_name" name="last_name" value="{{ user.last_name }}"><br>
-
-    <button type="submit">Save Changes</button>
-</form>
 {% endblock %}

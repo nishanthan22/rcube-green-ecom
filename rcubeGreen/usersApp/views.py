@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
-from .forms import ProductForm, CategoryForm, LoginForm, RegisterForm
+from .forms import ProductForm, CategoryForm, LoginForm, RegisterForm, EditProfileForm
 from .models import Product, Category
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -92,14 +92,13 @@ def delete_category(request, category_id):
 
 
 def user_profile(request):
-    last_login = User.objects.get(last_login=request.user.last_login)
-    return render(request, 'user_profile.html', {'last_login': last_login})
+    return render(request, 'user_profile.html')
 
 
 def user_accounts(request):
     form = RegisterForm()
     login_form = AuthenticationForm()
-
+    error_message = None
     if request.method == 'POST':
         if 'signup' in request.POST:
             form = RegisterForm(request.POST)
@@ -116,5 +115,20 @@ def user_accounts(request):
                 if user is not None:
                     login(request, user, backend='django.contrib.auth.backends.ModelBackend')
                     return redirect('home')
+                else:
+                    error_message = 'Oops, your account is not active :)'
+            else:
+                error_message = 'Invalid login details, please try again'
+    return render(request, 'user_accounts.html', {'form': form, 'login_form': login_form, 'error_message': error_message})
 
-    return render(request, 'user_accounts.html', {'form': form, 'login_form': login_form})
+
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    else:
+        form = EditProfileForm(instance=request.user)
+    return render(request, 'edit_profile.html', {'form': form})
