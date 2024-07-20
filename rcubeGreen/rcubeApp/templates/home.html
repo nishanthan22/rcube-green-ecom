@@ -1,4 +1,3 @@
-<!-- home.html -->
 {% extends "rcube-green-ecom/base.html" %}
 
 {% block title %}Home{% endblock %}
@@ -12,12 +11,18 @@
 </div>
 <div class="header-actions">
   {% if user.is_authenticated %}
-    <button class="header-action-btn" onclick="window.location.href='{% url 'profile' %}'">
-      <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
-      <p class="header-action-label">Profile</p>
-    </button>
+    <div class="dropdown">
+      <button class="header-action-btn dropdown-toggle" type="button">
+        <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+        <p class="header-action-label">Profile</p>
+      </button>
+      <div class="dropdown-content">
+        <a href="{% url 'profile' %}">User Profile</a>
+        <a href="{% url 'logout' %}">Logout</a>
+      </div>
+    </div>
   {% else %}
-    <button class="header-action-btn" onclick="window.location.href='{% url 'login' %}'">
+    <button class="header-action-btn" onclick="window.location.href='{% url 'user_accounts' %}'">
       <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
       <p class="header-action-label">Sign in</p>
     </button>
