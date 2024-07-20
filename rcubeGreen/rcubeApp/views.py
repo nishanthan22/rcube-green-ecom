@@ -1,6 +1,8 @@
 from django.core.paginator import Paginator
-from .models import NewsArticle
-from django.shortcuts import render, redirect
+
+from usersApp.models import Product
+from .models import NewsArticle, Order, OrderItem
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import NewsArticle, PaymentMethod
 from .forms import PaymentMethodForm
 from django.contrib.auth.decorators import login_required
@@ -44,11 +46,41 @@ def articles(request):
 
 
 def shop(request):
-    return render(request, 'shop.html')
+    products = Product.objects.all()
+    return render(request, 'shop.html', {'products': products})
 
 
+@login_required
+def add_to_cart(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    order, created = Order.objects.get_or_create(user=request.user, status='Pending')
+    order_item, created = OrderItem.objects.get_or_create(order=order, product=product)
+    if not created:
+        order_item.quantity += 1
+    order_item.save()
+    order.update_total_price()
+    return redirect('shop')
+
+@login_required
 def cart(request):
-    return render(request, 'cart.html')
+    if request.method == 'POST':
+        item_id = request.POST.get('item_id')
+        if item_id:
+            order_item = get_object_or_404(OrderItem, id=item_id, order__user=request.user, order__status='Pending')
+            order_item.delete()
+            order_item.order.update_total_price()
+            return redirect('cart')
+
+    order = Order.objects.filter(user=request.user, status='Pending').first()
+    if not order:
+        order_items = []
+        total_price = 0
+    else:
+        order_items = order.orderitem_set.all()
+        total_price = order.total_price
+    return render(request, 'cart.html', {'order_items': order_items, 'total_price': total_price})
+
+
 
 
 def about(request):
@@ -141,36 +173,48 @@ def export_payments_to_csv(request):
 
 @login_required
 def checkout(request):
+    order = Order.objects.filter(user=request.user, status='Pending').first()
     if request.method == 'POST':
-        full_name = request.POST.get('full_name')
-        email = request.POST.get('email')
-        address = request.POST.get('address')
-        city = request.POST.get('city')
-        state = request.POST.get('state')
-        zip_code = request.POST.get('zip_code')
-        name_on_card = request.POST.get('name_on_card')
-        card_number = request.POST.get('card_number')
-        exp_month = request.POST.get('exp_month')
-        exp_year = request.POST.get('exp_year')
-        cvv = request.POST.get('cvv')
+        if order:
+            full_name = request.POST.get('full_name')
+            email = request.POST.get('email')
+            address = request.POST.get('address')
+            city = request.POST.get('city')
+            state = request.POST.get('state')
+            zip_code = request.POST.get('zip_code')
+            name_on_card = request.POST.get('name_on_card')
+            card_number = request.POST.get('card_number')
+            exp_month = request.POST.get('exp_month')
+            exp_year = request.POST.get('exp_year')
+            cvv = request.POST.get('cvv')
 
-        payment = PaymentMethod(
-            user=request.user,
-            amount=100.00,  # Example amount, you might want to calculate this based on the cart
-            date=timezone.now(),
-            method='Credit Card',
-            full_name=full_name,
-            email=email,
-            address=address,
-            city=city,
-            state=state,
-            zip_code=zip_code,
-            name_on_card=name_on_card,
-            card_number=card_number,
-            exp_month=exp_month,
-            exp_year=exp_year,
-            cvv=cvv,
-        )
-        payment.save()
-        return redirect('payment_list')
-    return render(request, 'checkout.html')
+            # Calculate total amount from order items
+            total_amount = order.total_price
+
+            # Save payment method
+            payment = PaymentMethod(
+                user=request.user,
+                amount=total_amount,
+                date=timezone.now(),
+                method='Credit Card',
+                full_name=full_name,
+                email=email,
+                address=address,
+                city=city,
+                state=state,
+                zip_code=zip_code,
+                name_on_card=name_on_card,
+                card_number=card_number,
+                exp_month=exp_month,
+                exp_year=exp_year,
+                cvv=cvv,
+            )
+            payment.save()
+
+            # Update order status
+            order.status = 'Processed'
+            order.completed = timezone.now()
+            order.save()
+            return redirect('payment_list')
+
+    return render(request, 'checkout.html', {'order': order})
