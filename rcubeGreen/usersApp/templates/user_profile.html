@@ -1,29 +1,33 @@
 {% extends "rcube-green-ecom/base.html" %}
 
 {% block title %}User Profile{% endblock %}
-
+{% block navbar %}
+<nav class="navbar" data-navbar>
+  <ul class="navbar-list">
+    <li><a href="{% url 'add_product' %}" class="navbar-link">View your Orders</a></li>
+    <li><a href="{% url 'blog:index' %}" class="navbar-link">View your Blogs</a></li>
+    <li><a href="{% url 'payment_list' %}" class="navbar-link">Payment history</a></li>
+    <li><a href="{% url 'edit_profile' %}" class="navbar-link">Edit profile</a></li>
+  </ul>
+</nav>
+{% endblock %}
 {% block content %}
 <h1>Profile Page</h1>
-<p>Welcome, {{ user.username }}!</p>
+{% if user.first_name %}
+    <p>Welcome, <strong>{{ user.first_name }} {{ user.last_name }}! </strong></p>
+{% else %}
+    <p>Welcome, <strong>{{ user.username }}! </strong></p>
+{% endif %}
+
 <p>Email: {{ user.email }}</p>
-<p>First Name: {{ user.first_name }}</p>
-<p>Last Name: {{ user.last_name }}</p>
+<p>User type:
 
-<h2>Edit Profile</h2>
-<form method="POST" action="{% url 'register' %}">
-    {% csrf_token %}
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" value="{{ user.username }}" required><br>
+    {% if user.is_superuser %}
+        Admin
+        {% else %}
+        Normal
+    {% endif %}
+</p>
+<p>Your last login was: {{ user.last_login }}</p>
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" value="{{ user.email }}" required><br>
-
-    <label for="first_name">First Name:</label>
-    <input type="text" id="first_name" name="first_name" value="{{ user.first_name }}"><br>
-
-    <label for="last_name">Last Name:</label>
-    <input type="text" id="last_name" name="last_name" value="{{ user.last_name }}"><br>
-
-    <button type="submit">Save Changes</button>
-</form>
 {% endblock %}

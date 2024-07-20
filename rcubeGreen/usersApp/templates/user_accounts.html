@@ -16,7 +16,8 @@
                 {% csrf_token %}
                 <input type="hidden" name="signup" value="signup">
                 <h1>Sign Up</h1>
-                <span>Enter a desired username and password</span>
+                <input type="text" id="first_name" name="first_name" placeholder="First name" required>
+                <input type="text" id="last_name" name="last_name" placeholder="Last name" required>
                 <input type="text" id="username" name="username" placeholder="Username" required>
                 <input type="email" id="email" name="email" placeholder="Email" required>
                 <input type="password" id="password1" name="password1" placeholder="Password" required>
@@ -32,11 +33,15 @@
                 {% csrf_token %}
                 <input type="hidden" name="login" value="login">
                 <h1>Sign In</h1>
-                <span>Enter your username and password</span>
+                {% if error_message %}
+                    <p style="color:#333333; font-weight: bold;">{{ error_message }}</p>
+                {% else %}
+                    <span>Enter your username and password</span>
+                {% endif %}
                 <input type="text" id="username" name="username" placeholder="Username" required>
                 <input type="password" id="password" name="password" placeholder="Password" required>
                 <button type="submit">Sign In</button>
-                <p class="register-link">Go back to <a href="{% url 'home' %}">Home</a></p>
+                <p class="register-link">Go back to <a href="{% url 'home' %}" style="color:#007bff; text-decoration: underline ;font-weight: bold;">Home</a></p>
             </form>
         </div>
         <div class="toggle-container">
