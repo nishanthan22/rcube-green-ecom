@@ -8,6 +8,7 @@ from django.core.paginator import Paginator
 import csv
 from django.http import HttpResponse
 from django.db.models import Q
+from django.utils import timezone
 
 
 def news_article_list_view(request):
@@ -136,3 +137,40 @@ def export_payments_to_csv(request):
         writer.writerow([payment.amount, payment.method, payment.date, payment.description])
 
     return response
+
+
+@login_required
+def checkout(request):
+    if request.method == 'POST':
+        full_name = request.POST.get('full_name')
+        email = request.POST.get('email')
+        address = request.POST.get('address')
+        city = request.POST.get('city')
+        state = request.POST.get('state')
+        zip_code = request.POST.get('zip_code')
+        name_on_card = request.POST.get('name_on_card')
+        card_number = request.POST.get('card_number')
+        exp_month = request.POST.get('exp_month')
+        exp_year = request.POST.get('exp_year')
+        cvv = request.POST.get('cvv')
+
+        payment = PaymentMethod(
+            user=request.user,
+            amount=100.00,  # Example amount, you might want to calculate this based on the cart
+            date=timezone.now(),
+            method='Credit Card',
+            full_name=full_name,
+            email=email,
+            address=address,
+            city=city,
+            state=state,
+            zip_code=zip_code,
+            name_on_card=name_on_card,
+            card_number=card_number,
+            exp_month=exp_month,
+            exp_year=exp_year,
+            cvv=cvv,
+        )
+        payment.save()
+        return redirect('payment_list')
+    return render(request, 'checkout.html')

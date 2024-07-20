@@ -4,25 +4,7 @@ from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
 from .forms import ProductForm, CategoryForm, LoginForm, RegisterForm
 from .models import Product, Category
-
-
-def user_login(request):
-    if request.method == 'POST':
-        form = LoginForm(request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-                return redirect('home')
-            else:
-                return HttpResponse('Invalid login')
-        else:
-            return HttpResponse('Invalid form')
-    else:
-        form = LoginForm()
-    return render(request, 'login.html', {'form': form})
+from django.contrib.auth.forms import AuthenticationForm
 
 
 def user_logout(request):
@@ -86,6 +68,7 @@ def list_categories(request):
     categories = Category.objects.all()
     return render(request, 'list_categories.html', {'categories': categories})
 
+
 # Category Views
 def edit_category(request, category_id):
     category = get_object_or_404(Category, id=category_id)
@@ -111,14 +94,25 @@ def user_profile(request):
     return render(request, 'user_profile.html', {'name': 'Nishanthan'})
 
 
-def register_user(request):
-    if request.method == 'POST':
-        form = RegisterForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-            return redirect('home')
-    else:
-        form = RegisterForm()
-    return render(request, 'register_user.html', {'form': form})
+def user_accounts(request):
+    form = RegisterForm()
+    login_form = AuthenticationForm()
 
+    if request.method == 'POST':
+        if 'signup' in request.POST:
+            form = RegisterForm(request.POST)
+            if form.is_valid():
+                user = form.save()
+                login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+                return redirect('home')
+        elif 'login' in request.POST:
+            login_form = AuthenticationForm(request, data=request.POST)
+            if login_form.is_valid():
+                username = login_form.cleaned_data.get('username')
+                password = login_form.cleaned_data.get('password')
+                user = authenticate(username=username, password=password)
+                if user is not None:
+                    login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+                    return redirect('home')
+
+    return render(request, 'user_accounts.html', {'form': form, 'login_form': login_form})
