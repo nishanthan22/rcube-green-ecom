@@ -1,7 +1,16 @@
 {% extends "rcube-green-ecom/base.html" %}
 
 {% block title %}User Profile{% endblock %}
-
+{% block navbar %}
+<nav class="navbar" data-navbar>
+  <ul class="navbar-list">
+    <li><a href="{% url 'add_product' %}" class="navbar-link">View your Orders</a></li>
+    <li><a href="{% url 'blog:index' %}" class="navbar-link">View your Blogs</a></li>
+    <li><a href="{% url 'payment_list' %}" class="navbar-link">Payment history</a></li>
+    <li><a href="{% url 'edit_profile' %}" class="navbar-link">Edit profile</a></li>
+  </ul>
+</nav>
+{% endblock %}
 {% block content %}
 <h1>Profile Page</h1>
 {% if user.first_name %}
@@ -11,10 +20,14 @@
 {% endif %}
 
 <p>Email: {{ user.email }}</p>
-<p>Your last login was: {{ user.last_login }}</p>
+<p>User type:
 
-<a href="{% url 'edit_profile' %}" class="btn btn-primary">
-    <i class="fa fa-pencil"></i> Edit Profile
-</a>
+    {% if user.is_superuser %}
+        Admin
+        {% else %}
+        Normal
+    {% endif %}
+</p>
+<p>Your last login was: {{ user.last_login }}</p>
 
 {% endblock %}
