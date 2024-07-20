@@ -1,0 +1,49 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+<style>
+    body {
+        font-family: "Roboto", sans-serif;
+        font-size: 18px;
+        background-color: #fdfdfd;
+        margin-top: 50px;
+    }
+
+    .head_text {
+        color: white;
+    }
+
+    .card {
+        box-shadow: 0 16px 48px #E3E7EB;
+    }
+</style>
+
+<header class="masthead text-center">
+    <div class="container">
+        <h1>Eco Products Blog</h1>
+        <p class="lead">A platform to share eco-friendly product reviews and ideas.</p>
+    </div>
+</header>
+
+<div class="container">
+    <div class="row">
+        <!-- Blog Entries Column -->
+        <div class="col-md-8 mt-3 left">
+            {% for eco_product in object_list %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">{{ eco_product.title }}</h2>
+                    <p class="card-text text-muted h6">{{ eco_product.author }} | {{ eco_product.created_on }}</p>
+                    <p class="card-text">{{ eco_product.content|slice:":200" }}</p>
+                    {% if eco_product.image %}
+                    <img src="{{ eco_product.image.url }}" class="card-img-top" alt="{{ eco_product.title }}">
+                    {% endif %}
+                    <a href="{% url 'blog:eco_products_detail' eco_product.slug  %}" class="btn btn-primary">Read More &rarr;</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% block sidebar %} {% include 'blog/sidebar.html' %} {% endblock sidebar %}
+    </div>
+</div>
+{% endblock %}

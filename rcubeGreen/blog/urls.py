@@ -9,10 +9,13 @@ from .views import (
     GreenInnovationDetail,
     EcoProductsDetail,
     SustainableLivingDetail,
+    create_post,
+    AllPostsView,
 )
 app_name = 'blog'
 
 urlpatterns = [
+    path('', views.AllPostsView.as_view(), name='index'),
     path('green_innovation/', GreenInnovationList.as_view(), name='green_innovation_posts'),
     path('eco_products/', EcoProductsList.as_view(), name='eco_products_posts'),
     path('sustainable_living/', SustainableLivingList.as_view(), name='sustainable_living_posts'),
