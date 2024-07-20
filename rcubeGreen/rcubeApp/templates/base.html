@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}My Website{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/add_payment_method.css' %}">
+
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="search-bar">
+                <form action="{% url 'search' %}" method="get">
+                    <input type="text" name="q" placeholder="Search...">
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+            <div class="user-info">
+                {% if user.is_authenticated %}
+                    <span>{{ user.username }}</span>
+{#                    <a href="{% url 'profile' %}">Profile</a>#}
+                {% endif %}
+            </div>
+        </div>
+    </header>
+    <nav class="sidebar">
+        <ul>
+            <li><a href="{% url 'articles' %}">Articles</a></li>
+            <li><a href="{% url 'shop' %}">Shop</a></li>
+            <li><a href="{% url 'cart' %}">Cart</a></li>
+        </ul>
+    </nav>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        <ul>
+            <li><a href="{% url 'about' %}">About Us</a></li>
+            <li><a href="{% url 'contact' %}">Contact Us</a></li>
+        </ul>
+    </footer>
+</body>
+</html>
