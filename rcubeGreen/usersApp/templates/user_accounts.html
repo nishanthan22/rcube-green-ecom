@@ -16,7 +16,8 @@
                 {% csrf_token %}
                 <input type="hidden" name="signup" value="signup">
                 <h1>Sign Up</h1>
-                <span>Enter a desired username and password</span>
+                <input type="text" id="first_name" name="first_name" placeholder="First name" required>
+                <input type="text" id="last_name" name="last_name" placeholder="Last name" required>
                 <input type="text" id="username" name="username" placeholder="Username" required>
                 <input type="email" id="email" name="email" placeholder="Email" required>
                 <input type="password" id="password1" name="password1" placeholder="Password" required>

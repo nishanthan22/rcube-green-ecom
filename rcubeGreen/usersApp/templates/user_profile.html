@@ -4,10 +4,13 @@
 
 {% block content %}
 <h1>Profile Page</h1>
-<p>Welcome, {{ user.username }}!</p>
+    {% if user.first_name %}
+        <p>Welcome, <strong>{{ user.first_name }} {{ user.last_name }}! </strong></p>
+    {% else %}
+        <p>Welcome, <strong>{{ user.username }}! </strong></p>
+    {% endif %}
+
 <p>Email: {{ user.email }}</p>
-<p>First Name: {{ user.first_name }}</p>
-<p>Last Name: {{ user.last_name }}</p>
 
 <h2>Edit Profile</h2>
 <form method="POST" action="{% url 'register' %}">

@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import logout, authenticate, login
@@ -91,7 +92,8 @@ def delete_category(request, category_id):
 
 
 def user_profile(request):
-    return render(request, 'user_profile.html', {'name': 'Nishanthan'})
+    last_login = User.objects.get(last_login=request.user.last_login)
+    return render(request, 'user_profile.html', {'last_login': last_login})
 
 
 def user_accounts(request):
