@@ -20,5 +20,11 @@
         {% endfor %}
     </ul>
     <p>Total Price: ${{ total_price }}</p>
-    <a href="{% url 'checkout' %}">Proceed to Checkout</a>
+
+    <!-- Added -->
+    <form action="{% url 'add_payment_method' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="total_amount" value="{{ total_price }}">
+    <button type="submit">Proceed to Checkout</button>
+</form>
 {% endblock %}

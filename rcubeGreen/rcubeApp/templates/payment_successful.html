@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="{% static 'css/payment_success.css' %}">
+    <title>Payment Successful</title>
+</head>
+<body>
+
+<div class="container">
+    <div class="invoice">
+        <h1>Payment Successful</h1>
+        <p>Thank you for your purchase!</p>
+        <div class="row">
+
+            <div class="col">
+                <h3 class="title">Billing Address</h3>
+                <div class="inputBox">
+                    <span>Full Name :</span>
+                    <p>{{ payment.full_name }}</p>
+                </div>
+                <div class="inputBox">
+                    <span>Email :</span>
+                    <p>{{ payment.email }}</p>
+                </div>
+                <div class="inputBox">
+                    <span>Address :</span>
+                    <p>{{ payment.address }}</p>
+                </div>
+                <div class="inputBox">
+                    <span>City :</span>
+                    <p>{{ payment.city }}</p>
+                </div>
+                <div class="inputBox">
+                    <span>State :</span>
+                    <p>{{ payment.state }}</p>
+                </div>
+                <div class="inputBox">
+                    <span>Zip Code :</span>
+                    <p>{{ payment.zip_code }}</p>
+                </div>
+            </div>
+
+            <div class="col">
+                <h3 class="title">Payment Details</h3>
+                <div class="inputBox">
+                    <span>Total Amount :</span>
+                    <p>${{ payment.amount }}</p>
+                </div>
+                <div class="inputBox">
+                    <span>Date :</span>
+                    <p>{{ payment_time|date:"F j, Y, g:i a" }}</p>
+                </div>
+                <h3 class="title">Ordered Items</h3>
+                <div class="inputBox">
+                    <span>Items :</span>
+                    <ul>
+                    {% for item in payment.order.orderitem_set.all %}
+                        <li>{{ item.product.name }} (Quantity: {{ item.quantity }}, Price: ${{ item.product.price }})</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <p class="date">{{ payment_time|date:"F j, Y, g:i a" }}</p>
+    </div>
+</div>
+
+</body>
+</html>

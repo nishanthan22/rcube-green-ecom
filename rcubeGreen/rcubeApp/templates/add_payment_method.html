@@ -65,7 +65,7 @@
                     {{ form.name_on_card }}
                 </div>
                 <div class="inputBox">
-                    <span>Credit Card Number :</span>
+                    <span>Debit/Credit Card Number :</span>
                     {{ form.card_number }}
                 </div>
                 <div class="inputBox">
@@ -84,10 +84,15 @@
                     </div>
                 </div>
 
+                <div class="inputBox">
+                    <span>Total Amount :</span>
+                    <input type="text" name="total_amount_display" value="{{ total_amount }}" readonly>
+                    <input type="hidden" name="total_amount" value="{{ total_amount }}">  <!-- Ensure this hidden field is included -->
+                </div>
+
             </div>
 
         </div>
-
         <input type="submit" value="Proceed To Checkout" class="submit-btn">
 
     </form>
