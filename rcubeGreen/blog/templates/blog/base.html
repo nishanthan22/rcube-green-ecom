@@ -1,140 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rcube</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
-    <!-- Google Fonts - Roboto -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
-    <!-- Custom CSS -->
-    <style>
-        body {
-            font-family: "Roboto", sans-serif;
-            font-size: 16px;
-            background-color: #f8f9fa;
-        }
-
-        .navbar {
-            background-color: #28a745; /* Changed to green */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .navbar-brand {
-            font-weight: bold;
-            color: #fff;
-        }
-
-        .navbar-nav .nav-link {
-            color: #fff;
-            font-weight: bold;
-        }
-
-        .navbar-nav .nav-link:hover {
-            color: #e0e0e0;
-        }
-
-        .masthead {
-            background: linear-gradient(to bottom, #28a745, #218838); /* Changed to green gradient */
-            color: #fff;
-            padding: 4px 0;
-        }
-
-        .footer {
-            color: #000;
-            padding: 20px 0;
-            background-color: #e9ecef;
-            border-top: 1px solid #dcdcdc;
-        }
-
-        .footer p {
-            margin-bottom: 0;
-        }
-
-        .social-icons {
-            list-style: none;
-            padding: 0;
-        }
-
-        .social-icons li {
-            display: inline;
-            margin-right: 10px;
-        }
-
-        .social-icons a {
-            color: #28a745;
-            font-size: 20px;
-        }
-
-        .social-icons a:hover {
-            color: #218838;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Load static files -->
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>{% block title %}My Site{% endblock %}</title>
 </head>
-
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'blog:index' %}">Rcube</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'blog:green_innovation_posts' %}">Green Innovation</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'blog:eco_products_posts' %}">Eco Products</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'blog:sustainable_living_posts' %}">Sustainable Living</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'blog:create_post' %}">Create Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'blog:create_post' %}">Profile</a>
-                    </li>
-                </ul>
-            </div>
+  {% block header %}
+  <!--header-->
+  <header class="header" data-header>
+    <div class="container">
+      <div class="overlay" data-overlay></div>
+      <a href="{% url 'home' %}" class="logo">
+        <img src="{% static 'images/logo.png' %}" alt="R CUBE logo" width="42" height="41">
+      </a>
+      {% block header-content %}
+      <div class="header-actions">
+        {% if user.is_authenticated %}
+          <button class="header-action-btn" onclick="window.location.href='{% url 'profile' %}'">
+            <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+            <p class="header-action-label">Profile</p>
+          </button>
+        {% else %}
+          <button class="header-action-btn" onclick="window.location.href='{% url 'login' %}'">
+            <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+            <p class="header-action-label">Sign in</p>
+          </button>
+        {% endif %}
+      </div>
+      {% endblock %}
+      <button class="nav-open-btn" data-nav-open-btn aria-label="Open Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      {% block navbar %}
+      <nav class="navbar" data-navbar>
+        <div class="navbar-top">
+          <a href="#" class="logo">
+            <img src="/images/logo.png" alt="Casmart logo" width="130" height="31">
+          </a>
+          <button class="nav-close-btn" data-nav-close-btn aria-label="Close Menu">
+            <ion-icon name="close-outline"></ion-icon>
+          </button>
         </div>
-    </nav>
+        <ul class="navbar-list">
+          <li><a href="{% url 'blog:green_innovation_posts' %}" class="navbar-link">Green Innovation</a></li>
+          <li><a href="{% url 'blog:eco_products_posts' %}" class="navbar-link">Eco Products</a></li>
+          <li><a href="{% url 'blog:sustainable_living_posts' %}" class="navbar-link">Sustainable Living</a></li>
+          <li><a href="{% url 'blog:create_post' %}" class="navbar-link">Create Blog</a></li>
+          <li><a href="#" class="navbar-link">Contact</a></li>
+        </ul>
+      </nav>
+      {% endblock %}
+    </div>
+  </header>
+  {% endblock %}
 
-    <!-- Content -->
+  <main class="container mt-4">
     {% block content %}
-    <!-- Content Goes here -->
-    {% endblock content %}
+    {% endblock %}
+  </main>
 
-    <!-- Footer -->
-    <footer class="footer text-center">
-        <div class="container">
-            <ul class="social-icons">
-                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-            </ul>
-            <p>&copy; 2024 Rcube. All rights reserved.</p>
+  {% block footer %}
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="footer-brand">
+          <a href="{% url 'home' %}" class="logo">
+            <img src="{% static 'images/logo.png' %}" alt="R CUBE logo">
+          </a>
+          <p class="footer-text">Rcube is committed to providing sustainable products</p>
+          <ul class="social-list">
+            <li><a href="#" class="social-link"><ion-icon name="logo-facebook"></ion-icon></a></li>
+            <li><a href="#" class="social-link"><ion-icon name="logo-twitter"></ion-icon></a></li>
+            <li><a href="#" class="social-link"><ion-icon name="logo-instagram"></ion-icon></a></li>
+            <li><a href="#" class="social-link"><ion-icon name="logo-pinterest"></ion-icon></a></li>
+          </ul>
         </div>
-    </footer>
-
-    <!-- Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- FontAwesome for social icons -->
+        <ul class="footer-list">
+          <li><p class="footer-list-title">About Us</p></li>
+          <li><a href="#" class="footer-link">About Company</a></li>
+          <li><a href="#" class="footer-link">Payment Type</a></li>
+          <li><a href="#" class="footer-link">Blog</a></li>
+          <li><a href="#" class="footer-link">Products</a></li>
+          <li><a href="#" class="footer-link">Signup to newsletter</a></li>
+          <li><a href="#" class="footer-link">Refund Policy</a></li>
+        </ul>
+        <ul class="footer-list">
+          <li><p class="footer-list-title">Category</p></li>
+          <li><a href="#" class="footer-link">Windmills</a></li>
+          <li><a href="#" class="footer-link">Solar Panels</a></li>
+          <li><a href="#" class="footer-link">Sustainable Clothing</a></li>
+          <li><a href="#" class="footer-link">Stationaries</a></li>
+        </ul>
+        <ul class="footer-list">
+          <li><p class="footer-list-title">Help & Support</p></li>
+          <li><a href="#" class="footer-link">FAQ Information</a></li>
+          <li><a href="#" class="footer-link">Return Policy</a></li>
+          <li><a href="#" class="footer-link">Shipping & Delivery</a></li>
+          <li><a href="#" class="footer-link">Order Tracking</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p class="copyright">&copy; 2024 <a href="#">University of Windsor</a>. All Rights Reserved</p>
+        <ul class="footer-bottom-list">
+          <li><a href="#" class="footer-bottom-link">Privacy Policy</a></li>
+          <li><a href="#" class="footer-bottom-link">Terms & Conditions</a></li>
+        </ul>
+        <div class="payment">
+          <p class="payment-title">We Support</p>
+          <img src="{% static 'images/payment-img.png' %}" alt="Online payment logos" class="payment-img">
+        </div>
+      </div>
+    </div>
+  </footer>
+  {% endblock %}
+  <!-- custom js link -->
+  <script src="{% static 'js/script.js' %}"></script>
+  <!-- ionicon link -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
-
 </html>
