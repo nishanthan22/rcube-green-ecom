@@ -13,5 +13,7 @@ urlpatterns = [
     path('add-payment-method/', views.add_payment_method, name='add_payment_method'),
     path('payment-history/', views.payment_history, name='payment_list'),
     path('export-payments-to-csv/', views.export_payments_to_csv, name='export_payments_to_csv'),
+    path('add_to_cart/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
     path('checkout/', views.checkout, name='checkout'),
+
 ]

@@ -5,7 +5,20 @@
 {% block content %}
 <h1>Your Cart</h1>
 <p>These are the items in your cart.</p>
-    <div class="checkout-button">
-        <a href="{% url 'checkout' %}" class="btn btn-primary">Proceed to Checkout</a>
-    </div>
+    <ul>
+        {% for item in order_items %}
+            <li>
+                <h2>{{ item.product.name }}</h2>
+                <p>Quantity: {{ item.quantity }}</p>
+                <p>Price: ${{ item.get_total_price }}</p>
+                <form method="post" action="{% url 'cart' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="item_id" value="{{ item.id }}">
+                    <button type="submit">Remove from Cart</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    <p>Total Price: ${{ total_price }}</p>
+    <a href="{% url 'checkout' %}">Proceed to Checkout</a>
 {% endblock %}
