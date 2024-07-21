@@ -4,12 +4,7 @@
 
 {% block content %}
 <div class="container">
-    <h2 class="h2 section-title">Add Products</h2>
-    <div class="button-group" style="margin-bottom: 20px;">
-        <a href="{% url 'list_products' %}" class="btn btn-primary">List Products</a>
-        <a href="{% url 'add_category' %}" class="btn btn-secondary">Add New Category</a>
-        <a href="{% url 'list_categories' %}" class="btn btn-outline">List Categories</a>
-    </div>
+    <h2 class="h2 section-title">Add New Product</h2>
     <div style="display: flex; justify-content: center;">
         <form method="post" enctype="multipart/form-data" style="width: 100%; max-width: 400px;">
             {% csrf_token %}
@@ -18,7 +13,7 @@
             </div>
             <div class="button-group" style="display: flex; justify-content: space-between;">
                 <button type="submit" class="btn btn-success">Add Product</button>
-                <a href="{% url 'list_products' %}" class="btn btn-secondary" style="font-size: 0.875em;">Cancel</a>
+                <a href="{% url 'list_products' %}" class="btn btn-secondary" style="font-size: 1.2em;">Cancel</a>
             </div>
         </form>
     </div>

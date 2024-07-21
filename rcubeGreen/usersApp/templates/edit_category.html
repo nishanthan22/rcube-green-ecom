@@ -1,14 +1,19 @@
 <!-- templates/userApp/edit_category.html -->
 
-{% extends "rcube-green-ecom/base.html" %}
+{% extends "admin_home.html" %}
 
 {% block title %}Edit Category{% endblock %}
 
 {% block content %}
   <h2>Edit Category</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save</button>
-  </form>
+  <div style="display: flex; justify-content: center;">
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="button-group" style="display: flex; justify-content: space-between;">
+                      <button type="submit" class="btn btn-success">Save Category</button>
+                      <a href="{% url 'list_categories' %}" class="btn btn-secondary" style="font-size: 1.2em;">Cancel</a>
+      </div>
+    </form>
+  </div>
 {% endblock %}

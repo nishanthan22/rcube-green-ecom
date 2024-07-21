@@ -5,18 +5,13 @@
 {% block content %}
   <div class="container">
     <h2 class="h2 section-title">Products</h2>
-    <div class="button-group" style="margin-bottom: 20px;">
-      <a href="{% url 'add_product' %}" class="btn btn-primary mr-2">Add New Product</a>
-      <a href="{% url 'list_categories' %}" class="btn btn-secondary mr-2">List Categories</a>
-      <a href="{% url 'add_category' %}" class="btn btn-outline">Add Category</a>
-    </div>
     <table style="width: 100%; border-collapse: collapse;">
       <thead>
         <tr>
           <th style="padding: 10px; border-bottom: 1px solid var(--cultured);">Image</th>
           <th style="padding: 10px; border-bottom: 1px solid var(--cultured);">Name</th>
           <th style="padding: 10px; border-bottom: 1px solid var(--cultured);">Category</th>
-          <th style="padding: 10px; border-bottom: 1px solid var(--cultured);">Price</th>
+          <th style="padding: 10px; border-bottom: 1px solid var(--cultured);">Price in CAD</th>
           <th style="padding: 10px; border-bottom: 1px solid var(--cultured);">Edit</th>
           <th style="padding: 10px; border-bottom: 1px solid var(--cultured);">Delete</th>
         </tr>
