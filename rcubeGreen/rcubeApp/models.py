@@ -24,27 +24,6 @@ class NewsArticle(models.Model):
         return self.title
 
 
-class PaymentMethod(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    amount = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
-    date = models.DateTimeField(default=timezone.now)
-    method = models.CharField(max_length=50, default='Unknown')
-    description = models.TextField(blank=True, null=True)
-    full_name = models.CharField(max_length=100, default='John Doe')
-    email = models.EmailField(default='example@example.com')
-    address = models.CharField(max_length=255, default='123 Default St')
-    city = models.CharField(max_length=100, default='Default City')
-    state = models.CharField(max_length=100, default='Default State')
-    zip_code = models.CharField(max_length=20, default='00000')
-    name_on_card = models.CharField(max_length=100, default='John Doe')
-    card_number = models.CharField(max_length=20, default='0000000000000000')
-    exp_month = models.CharField(max_length=2, default='01')
-    exp_year = models.CharField(max_length=4, default='2025')
-    cvv = models.CharField(max_length=4, default='000')
-
-    def __str__(self):
-        return f"{self.user.username} - {self.amount} - {self.date}"
-
 class Order(models.Model):
     ORDER_STATUS_CHOICES = (
         ('Pending', 'Pending'),
@@ -79,3 +58,25 @@ class OrderItem(models.Model):
 
     def get_total_price(self):
         return self.product.price * self.quantity
+
+class PaymentMethod(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    amount = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    date = models.DateTimeField(default=timezone.now)
+    method = models.CharField(max_length=50, default='Unknown')
+    description = models.TextField(blank=True, null=True)
+    full_name = models.CharField(max_length=100, default='John Doe')
+    email = models.EmailField(default='example@example.com')
+    address = models.CharField(max_length=255, default='123 Default St')
+    city = models.CharField(max_length=100, default='Default City')
+    state = models.CharField(max_length=100, default='Default State')
+    zip_code = models.CharField(max_length=20, default='00000')
+    name_on_card = models.CharField(max_length=100, default='John Doe')
+    card_number = models.CharField(max_length=20, default='0000000000000000')
+    exp_month = models.CharField(max_length=2, default='01')
+    exp_year = models.CharField(max_length=4, default='2025')
+    cvv = models.CharField(max_length=4, default='000')
+
+    def __str__(self):
+        return f"{self.user.username} - {self.amount} - {self.date}"
