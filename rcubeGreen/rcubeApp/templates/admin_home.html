@@ -35,9 +35,11 @@
     </button>
   </div>
   <ul class="navbar-list">
-    <li><a href="{% url 'add_product' %}" class="navbar-link">Add Product</a></li>
-    <li><a href="{% url 'add_product' %}" class="navbar-link">Add Article</a></li>
-    <li><a href="{% url 'add_product' %}" class="navbar-link">Delete Article</a></li>
+    <li><a href="{% url 'add_product' %}" class="navbar-link">Add New Product</a></li>
+    <li><a href="{% url 'list_products' %}" class="navbar-link">List Products</a></li>
+    <li><a href="{% url 'add_category' %}" class="navbar-link">Add New Category</a></li>
+    <li><a href="{% url 'list_categories' %}" class="navbar-link">List Categories</a></li>
+    <li><a href="{% url 'blog:create_post' %}" class="navbar-link">Create New Blog</a></li>
   </ul>
 </nav>
 {% endblock %}
