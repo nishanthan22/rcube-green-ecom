@@ -1,12 +1,13 @@
-from django.contrib.auth.models import User
-from django.http import HttpResponse
+from datetime import datetime
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
+
+from rcubeApp.models import Order
 from .forms import ProductForm, CategoryForm, LoginForm, RegisterForm, EditProfileForm
 from .models import Product, Category
 from django.contrib.auth.forms import AuthenticationForm
-
+from rcubeApp.models import OrderItem
 
 def user_logout(request):
     logout(request)
@@ -91,8 +92,20 @@ def delete_category(request, category_id):
     return render(request, 'delete_category.html', {'category': category})
 
 
+@login_required
 def user_profile(request):
-    return render(request, 'user_profile.html')
+    if 'profile_view_count' not in request.session:
+        request.session['profile_view_count'] = 0
+    request.session['profile_view_count'] += 1
+
+    last_login = request.COOKIES.get('last_login')
+    response = render(request, 'user_profile.html', {
+        'last_login': last_login,
+        'view_count': request.session['profile_view_count']
+    })
+
+    response.set_cookie('last_login', datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    return response
 
 
 def user_accounts(request):
@@ -132,3 +145,9 @@ def edit_profile(request):
     else:
         form = EditProfileForm(instance=request.user)
     return render(request, 'edit_profile.html', {'form': form})
+
+@login_required
+def user_orders(request):
+    order_item = OrderItem.objects.filter(order__user=request.user)
+    orders = Order.objects.filter(user=request.user)
+    return render(request, 'user_orders.html', {"orders": orders, 'items': order_item})

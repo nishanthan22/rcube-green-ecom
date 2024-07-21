@@ -1,0 +1,22 @@
+{% extends "user_profile.html" %}
+
+{% block title %}Your Orders{% endblock %}
+
+{% block content %}
+<h1>Your Orders</h1>
+    {% if orders %}
+        <ol>
+        {% for item in items %}
+            <li>
+                <h2>{{ item.product.name }}</h2>
+                <p>Quantity: {{ item.quantity }}</p>
+                <p>Price: ${{ item.get_total_price }}</p>
+            </li>
+        {% endfor %}
+    </ol>
+    {% else %}
+        You don't have any orders
+    {% endif %}
+
+
+{% endblock %}
