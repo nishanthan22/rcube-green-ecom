@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     'allauth.socialaccount.providers.google',
     "usersApp.apps.UsersappConfig",
-    "blog"
+    "blog",
+    "news"
 ]
 
 MIDDLEWARE = [
@@ -71,7 +72,6 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'templates'),
-            os.path.join(BASE_DIR, 'rcubeGreen/templates'),
         ]
         ,
         'APP_DIRS': True,
@@ -140,7 +140,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 STATICFILES_DIRS = [
-    BASE_DIR / 'rcubeApp' / 'static',
+    BASE_DIR / 'static',
 ]
 
 # Default primary key field type
@@ -156,7 +156,7 @@ AUTHENTICATION_BACKENDS = (
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
-LOGIN_URL = '/accounts/login/'
+LOGIN_URL = '/user_accounts/'
 
 
 SOCIALACCOUNT_PROVIDERS = {

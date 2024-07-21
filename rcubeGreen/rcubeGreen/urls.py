@@ -26,5 +26,6 @@ urlpatterns = [
                   path("", include('usersApp.urls')),
                   path('', include('rcubeApp.urls')),
                   path('blog/', include('blog.urls', namespace='blog')),
+                  path('headline/', include('news.urls'),name='news'),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
