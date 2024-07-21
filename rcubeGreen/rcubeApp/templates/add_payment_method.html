@@ -24,29 +24,29 @@
 
                 <div class="inputBox">
                     <span>Full Name :</span>
-                    {{ form.full_name }}
+                    <input type="text" name="full_name" required>
                 </div>
                 <div class="inputBox">
                     <span>Email :</span>
-                    {{ form.email }}
+                    <input type="email" name="email" required>
                 </div>
                 <div class="inputBox">
                     <span>Address :</span>
-                    {{ form.address }}
+                    <input type="text" name="address" required>
                 </div>
                 <div class="inputBox">
                     <span>City :</span>
-                    {{ form.city }}
+                    <input type="text" name="city" required>
                 </div>
 
                 <div class="flex">
                     <div class="inputBox">
                         <span>State :</span>
-                        {{ form.state }}
+                        <input type="text" name="state" required>
                     </div>
                     <div class="inputBox">
                         <span>Zip Code :</span>
-                        {{ form.zip_code }}
+                        <input type="text" name="zip_code" required>
                     </div>
                 </div>
 
@@ -62,32 +62,37 @@
                 </div>
                 <div class="inputBox">
                     <span>Name On Card :</span>
-                    {{ form.name_on_card }}
+                    <input type="text" name="name_on_card" required>
                 </div>
                 <div class="inputBox">
                     <span>Credit Card Number :</span>
-                    {{ form.card_number }}
+                    <input type="text" name="card_number" required>
                 </div>
                 <div class="inputBox">
                     <span>Exp Month :</span>
-                    {{ form.exp_month }}
+                    <input type="text" name="exp_month" required>
                 </div>
 
                 <div class="flex">
                     <div class="inputBox">
                         <span>Exp Year :</span>
-                        {{ form.exp_year }}
+                        <input type="text" name="exp_year" required>
                     </div>
                     <div class="inputBox">
                         <span>CVV :</span>
-                        {{ form.cvv }}
+                        <input type="text" name="cvv" required>
                     </div>
+                </div>
+
+                <div class="inputBox">
+                    <span>Total Amount :</span>
+                    <input type="text" name="total_amount_display" value="{{ total_amount }}" readonly>
+                    <input type="hidden" name="total_amount" value="{{ total_amount }}">  <!-- Ensure this hidden field is included -->
                 </div>
 
             </div>
 
         </div>
-
         <input type="submit" value="Proceed To Checkout" class="submit-btn">
 
     </form>
