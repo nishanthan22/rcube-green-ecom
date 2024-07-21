@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
   <title>{% block title %}My Site{% endblock %}</title>
+  {% block extra_css %}{% endblock %}
   <style>
     .dropdown {
       position: relative;
@@ -93,6 +94,7 @@
         </div>
         <ul class="navbar-list">
           <li><a href="{% url 'articles' %}" class="navbar-link">Articles</a></li>
+          <li><a href="{% url 'news:index' 1 %}" class="navbar-link">News</a></li>
           <li><a href="{% url 'shop' %}" class="navbar-link">Shop</a></li>
           <li><a href="{% url 'cart' %}" class="navbar-link">Cart</a></li>
           <li><a href="#blog" class="navbar-link">Blog</a></li>
@@ -103,10 +105,9 @@
     </div>
   </header>
   {% endblock %}
-  
+
   <main class="container mt-4">
-    {% block content %}
-    {% endblock %}
+    {% block content %}{% endblock %}
   </main>
 
   {% block footer %}
