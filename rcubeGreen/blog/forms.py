@@ -14,4 +14,4 @@ class GreenInnovationForm(forms.ModelForm):
 
     class Meta:
         model = GreenInnovation
-        fields = ['title', 'slug', 'author', 'category', 'content', 'status', 'image']
+        fields = ['title', 'slug', 'author', 'category', 'content','status', 'image']

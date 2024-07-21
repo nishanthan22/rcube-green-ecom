@@ -9,24 +9,42 @@
   .outer-container {
     display: flex;
     justify-content: center;
+    padding: 0 15px;
   }
   .inner-container {
     width: 100%;
-    max-width: 80%; 
+    max-width: 80%;
+  }
+  .back-link {
+    font-size: 24px;
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #007bff;
+    text-decoration: none;
+  }
+  .card-img-top {
+    max-height: 300px;
+    object-fit: cover;
+  }
+  .card-body {
+    padding: 2rem;
   }
 </style>
+
 <div class="outer-container">
   <div class="inner-container">
-    <div class="row">
-      <div class="col-md-8 card mb-4 mt-3 left top">
-        <div class="card-body">
-          <a href="{{ request.META.HTTP_REFERER }}"> <span style="font-size: 40px;">&#11176;</span> </a>
-          {% if object.image %}
-            <img src="{{ object.image.url }}" class="card-img-top" alt="{{ object.title }}">
-          {% endif %}
-          <h1>{% block title %}{{ object.title }}{% endblock title %}</h1>
-          <p class="text-muted">{{ object.author }} | {{ object.created_on|date:"F j, Y" }}</p>
-          <p class="card-text">{{ object.content|safe }}</p>
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card mb-4 mt-3">
+          <div class="card-body">
+            <a href="{{ request.META.HTTP_REFERER }}" class="back-link">&#11176; Back</a>
+            {% if object.image %}
+              <img src="{{ object.image.url }}" class="card-img-top mb-3" alt="{{ object.title }}">
+            {% endif %}
+            <h1 class="card-title mt-3 mb-3">{% block title %}{{ object.title }}{% endblock title %}</h1>
+            <p class="text-muted">{{ object.author }} | {{ object.created_on|date:"F j, Y" }}</p>
+            <p class="card-text">{{ object.content|safe }}</p>
+          </div>
         </div>
       </div>
     </div>
