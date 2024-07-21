@@ -7,11 +7,10 @@ from .models import NewsArticle, PaymentMethod
 from .forms import PaymentMethodForm
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-import csv
 from django.http import HttpResponse
 from django.db.models import Q
 from django.utils import timezone
-
+import pytz
 
 def news_article_list_view(request):
     articles = NewsArticle.objects.all()
@@ -112,63 +111,36 @@ def search(request):
 
 @login_required
 def add_payment_method(request):
+    order = Order.objects.filter(user=request.user, status='Pending').first()
+
+    if not order:
+        return redirect('cart')  # Redirect to cart if no pending order
+
+    total_amount = order.total_price
+
     if request.method == 'POST':
         form = PaymentMethodForm(request.POST)
         if form.is_valid():
             payment_method = form.save(commit=False)
             payment_method.user = request.user
+            payment_method.amount = total_amount  # Set the total amount
+            payment_method.order = order  # Set the order
             payment_method.save()
-            return redirect('payment_list')
+            order.status = 'Processed'
+            order.save()  # Update order status to prevent duplication
+            return redirect('payment_successful',
+                            payment_id=payment_method.id)  # Redirect to the Payment Successful page
     else:
         form = PaymentMethodForm()
-    return render(request, 'add_payment_method.html', {'form': form})
+
+    return render(request, 'add_payment_method.html', {'form': form, 'total_amount': total_amount})
 
 
 @login_required
-def payment_history(request):
-    search_query = request.GET.get('search', '')
-    sort_by = request.GET.get('sort', 'date')
-
-    payments = PaymentMethod.objects.filter(user=request.user)
-
-    if search_query:
-        payments = payments.filter(
-            Q(description__icontains=search_query) |
-            Q(amount__icontains=search_query) |
-            Q(method__icontains=search_query)
-        )
-
-    if sort_by == 'amount':
-        payments = payments.order_by('amount')
-    else:
-        payments = payments.order_by('-date')
-
-    paginator = Paginator(payments, 10)  # Show 10 payments per page
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-
-    context = {
-        'page_obj': page_obj,
-        'search_query': search_query,
-        'sort_by': sort_by,
-    }
-
-    return render(request, 'payment_list.html', context)
-
-
-@login_required
-def export_payments_to_csv(request):
-    payments = PaymentMethod.objects.filter(user=request.user)
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="payments.csv"'
-
-    writer = csv.writer(response)
-    writer.writerow(['Amount', 'Method', 'Date', 'Description'])
-
-    for payment in payments:
-        writer.writerow([payment.amount, payment.method, payment.date, payment.description])
-
-    return response
+def payment_successful(request, payment_id):
+    payment = get_object_or_404(PaymentMethod, id=payment_id, user=request.user)
+    payment_time = payment.date.astimezone(pytz.timezone('America/Toronto'))  # Convert to America/Toronto timezone
+    return render(request, 'payment_successful.html', {'payment': payment, 'payment_time': payment_time})
 
 
 @login_required
