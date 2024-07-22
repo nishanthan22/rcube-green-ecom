@@ -5,20 +5,31 @@
 {% block content %}
 <h1>Shop</h1>
 <p>Welcome to our shop. Here you can buy various products.</p>
-    <ul>
-        {% for product in products %}
-            <li>
-                <h2>{{ product.name }}</h2>
-                <p>{{ product.description }}</p>
-                <p>Price: ${{ product.price }}</p>
-                {% if product.image %}
-                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
-                {% endif %}
-                <form action="{% url 'add_to_cart' product.id %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit">Add to Cart</button>
-                </form>
-            </li>
+
+{% for category in categories %}
+    <h2>{{ category.name }}</h2>
+    <p>{{ category.description }}</p>
+    <div class="row">
+        {% for product in category.product_set.all %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text">{{ product.description }}</p>
+                        <p class="card-text"><strong>${{ product.price }}</strong></p>
+                        <form action="{% url 'add_to_cart' product.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">Add to Cart</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>No products available in this category.</p>
         {% endfor %}
-    </ul>
+    </div>
+{% endfor %}
 {% endblock %}
