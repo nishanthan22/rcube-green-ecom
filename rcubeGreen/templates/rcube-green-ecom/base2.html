@@ -2,22 +2,28 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% load static %}
   <title>{% block title %}My Website{% endblock %}</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
   <style>
-    .hover-effect img {
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+      .hover-effect img {
       transition: transform 0.3s;
     }
     .hover-effect img:hover {
       transform: scale(1.1);
     }
-    .carousel-caption {
-      background: rgba(0, 0, 0, 0.5);
-      padding: 20px;
-    }
+    {#.carousel-caption {#}
+    {#  background: rgba(0, 0, 0, 0.5);#}
+    {#  padding: 20px;#}
+    {#}#}
     .top-bar {
       background-color: #343a40;
       color: white;
@@ -31,7 +37,7 @@
       height: 50px;
     }
     .carousel-inner img {
-      height: 400px;
+      height: 600px;
     }
     .features {
       background-color: #f8f9fa;
@@ -68,6 +74,11 @@
     .footer a:hover {
       color: #343a40;
     }
+    .footer-bar {
+        background-color: #f8f9fa; /* Light grey background color */
+        padding: 10px 20px; /* Padding for some space inside the bar */
+        border-top: 1px solid #dee6e1; /* Optional: a border to separate the bar from the rest of the content */
+    }
     .social-icons a {
       margin-right: 15px;
     }
@@ -97,17 +108,21 @@
       align-items: center;
     }
     .header .user-actions a {
-      margin-left: 20px;
+        margin-left: 20px;
     }
   </style>
 </head>
 <body>
 
 <!-- Header -->
+{% block header %}
 <header class="header">
   <div class="logo">
-{#    <img src="{% static 'images/Orange minimalist human tech logo design (2).png' %}" alt="Logo" style="height: 50px;">#}
+      <a href="{% url 'home' %}" class="logo">
+    <img src="{% static 'images/logo.png' %}" alt="R cube Logo" style="height: 60px; width:60px">
   </div>
+    {% block header-content %}
+
   <div class="search-bar">
     <form class="form-inline my-2 my-lg-0 w-100">
       <input class="form-control mr-sm-2 w-100" type="search" placeholder="Search Product" aria-label="Search">
@@ -115,9 +130,34 @@
     </form>
   </div>
   <div class="user-actions">
-    <a href="#" class="btn btn-outline-secondary"><i class="fa fa-user"></i> Profile</a>
-    <a href="#" class="btn btn-outline-secondary"><i class="fa fa-heart"></i> Wishlist</a>
-  </div>
+    <a href="#"><img src="{% static 'images/bag-heart-fill.svg' %}" alt="Logo" style="height: 40px;"></a>
+    <a href="#"><img src="{% static 'images/basket.svg' %}" alt="Logo" style="height: 40px;"></a>
+    {% block header_content %}
+      <div class="header-actions">
+        {% if user.is_authenticated %}
+            <div class="dropdown">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+            </div>
+          <div class="dropdown">
+            <button class="header-action-btn dropdown-toggle" type="button">
+              <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+              <p class="header-action-label">Profile</p>
+            </button>
+            <div class="dropdown-content">
+              <a href="{% url 'profile' %}">User Profile</a>
+              <a href="{% url 'logout' %}">Logout</a>
+            </div>
+          </div>
+        {% else %}
+            <p onclick="window.location.href='{% url 'user_accounts' %}'"><img src="{% static 'images/person-circle.svg' %}" alt="Logo" style="height: 40px;"></p>
+        {% endif %}
+      </div>
+    {% endblock %}
 </header>
 
 <!-- Navbar -->
@@ -142,7 +182,8 @@
     </ul>
   </div>
 </nav>
-
+        {% endblock %}
+{% endblock %}
 <!-- Content Block -->
 {% block content %}
 {% endblock %}
@@ -152,7 +193,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-3">
-{#        <img src="{% static 'images/image.png' %}" alt="Rcube" style="width: 100px;">#}
+        <img src="{% static 'images/logo.png' %}" alt="Rcube" style="width: 100px;">
         <p>Rcube is committed to providing sustainable products</p>
         <div class="social-icons">
           <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -191,15 +232,12 @@
         </ul>
       </div>
     </div>
-    <div class="text-center mt-3">
-      <p>© 2024 University of Windsor. All Rights Reserved</p>
-      <ul class="list-inline">
-        <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-        <li class="list-inline-item"><a href="#">Terms & Conditions</a></li>
-      </ul>
-      <div class="mt-2">
-{#        <img src="{% static 'images/payment_methods.png' %}" alt="Payment Methods">#}
-      </div>
+    <div class="footer-bar d-flex justify-content-between align-items-center mt-3">
+        <p class="mb-0">© 2024 <b>University of Windsor.</b> All Rights Reserved</p>
+        <div class="d-flex align-items-center">
+            <p class="mb-0 mr-2">We support</p>
+            <img src="{% static 'images/payment-img.png' %}" alt="Payment Methods">
+        </div>
     </div>
   </div>
 </footer>
