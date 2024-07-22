@@ -1,103 +1,81 @@
+{% extends 'rcube-green-ecom/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- custom css file link  -->
-    <link rel="stylesheet" href="{% static 'css/add_payment_method.css' %}">
-    <title>Add Payment Method</title>
-</head>
-<body>
+{% block title %}
+Add Payment Method
+{% endblock %}
 
-<div class="container">
-
+{% block content %}
+<div class="add-payment-method-page">
+  <div class="container">
     <form action="{% url 'add_payment_method' %}" method="post">
         {% csrf_token %}
-        <div class="row">
-
-            <div class="col">
-
+        <div class="form-row">
+            <div class="form-column">
                 <h3 class="title">Billing Address</h3>
-
                 <div class="inputBox">
                     <span>Full Name :</span>
-                    <input type="text" name="full_name" required>
+                    {{ form.full_name }}
                 </div>
                 <div class="inputBox">
                     <span>Email :</span>
-                    <input type="email" name="email" required>
+                    {{ form.email }}
                 </div>
                 <div class="inputBox">
                     <span>Address :</span>
-                    <input type="text" name="address" required>
+                    {{ form.address }}
                 </div>
                 <div class="inputBox">
                     <span>City :</span>
-                    <input type="text" name="city" required>
+                    {{ form.city }}
                 </div>
-
                 <div class="flex">
                     <div class="inputBox">
                         <span>State :</span>
-                        <input type="text" name="state" required>
+                        {{ form.state }}
                     </div>
                     <div class="inputBox">
                         <span>Zip Code :</span>
-                        <input type="text" name="zip_code" required>
+                        {{ form.zip_code }}
                     </div>
                 </div>
-
             </div>
-
-            <div class="col">
-
+            <div class="form-column">
                 <h3 class="title">Payment</h3>
-
                 <div class="inputBox">
                     <span>Accepted Cards :</span>
                     <img src="{% static 'images/card_img.png' %}" alt="Accepted Cards">
                 </div>
                 <div class="inputBox">
                     <span>Name On Card :</span>
-                    <input type="text" name="name_on_card" required>
+                    {{ form.name_on_card }}
                 </div>
                 <div class="inputBox">
-                    <span>Credit Card Number :</span>
-                    <input type="text" name="card_number" required>
+                    <span>Debit/Credit Card Number :</span>
+                    {{ form.card_number }}
                 </div>
                 <div class="inputBox">
                     <span>Exp Month :</span>
-                    <input type="text" name="exp_month" required>
+                    {{ form.exp_month }}
                 </div>
-
                 <div class="flex">
                     <div class="inputBox">
                         <span>Exp Year :</span>
-                        <input type="text" name="exp_year" required>
+                        {{ form.exp_year }}
                     </div>
                     <div class="inputBox">
                         <span>CVV :</span>
-                        <input type="text" name="cvv" required>
+                        {{ form.cvv }}
                     </div>
                 </div>
-
                 <div class="inputBox">
                     <span>Total Amount :</span>
-                    <input type="text" name="total_amount_display" value="{{ total_amount }}" readonly>
-                    <input type="hidden" name="total_amount" value="{{ total_amount }}">  <!-- Ensure this hidden field is included -->
+                    <p>${{ total_amount }}</p> <!-- Display the total amount here -->
                 </div>
-
             </div>
-
         </div>
-        <input type="submit" value="Proceed To Checkout" class="submit-btn">
-
+        <button type="submit" class="submit-btn">Proceed To Checkout</button>
     </form>
-
+  </div>
 </div>
-
-</body>
-</html>
+{% endblock %}

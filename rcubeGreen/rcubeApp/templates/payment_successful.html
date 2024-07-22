@@ -1,18 +1,18 @@
+<!-- payment_successful.html -->
+
+{% extends 'rcube-green-ecom/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/payment_success.css' %}">
-    <title>Payment Successful</title>
-</head>
-<body>
+
+{% block title %}
+Payment Successful
+{% endblock %}
+
+{% block content %}
 <div class="container">
     <div class="invoice">
         <h1>Payment Successful</h1>
         <p>Thank you for your purchase!</p>
+        <p>Order ID: {{ order_id }}</p> <!-- Display the order ID here -->
         <div class="row">
             <div class="col">
                 <h3 class="title">Billing Address</h3>
@@ -62,8 +62,7 @@
                 </div>
             </div>
         </div>
-        <p class="date">{{ payment_time|date:"F j, Y, g:i a" }}</p>
+
     </div>
 </div>
-</body>
-</html>
+{% endblock %}
