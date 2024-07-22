@@ -12,6 +12,7 @@ from .views import (
     create_post,
     AllPostsView,
 )
+
 app_name = 'blog'
 
 urlpatterns = [
