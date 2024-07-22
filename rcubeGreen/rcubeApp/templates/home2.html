@@ -213,24 +213,7 @@
 
 
 
-<!-- Categories -->
-<div class="container my-5">
-  <h5 class="mb-3"><i class="fa fa-list"></i> ALL CATEGORIES</h5>
-  <div class="row">
-    {% for category in categories %}
-    <div class="col-md-3 mb-4">
-      <div class="card text-center category-card">
-        <a href="{% url 'category_detail' category.id %}">
-          <img src="{{ category.image.url }}" class="card-img-top category-image" alt="{{ category.name }}">
-          <div class="card-body">
-            <h5 class="card-title">{{ category.name }}</h5>
-          </div>
-        </a>
-      </div>
-    </div>
-    {% endfor %}
-  </div>
-</div>
+
 
 <!-- Popular Products Section -->
 <section class="products my-5">
