@@ -129,8 +129,7 @@ def add_payment_method(request):
             payment_method.save()
             order.status = 'Processed'
             order.save()  # Update order status to prevent duplication
-            return redirect('payment_successful',
-                            payment_id=payment_method.id)  # Redirect to the Payment Successful page
+            return redirect('payment_successful', payment_id=payment_method.id)  # Redirect to the Payment Successful page
     else:
         form = PaymentMethodForm()
 
@@ -141,7 +140,16 @@ def add_payment_method(request):
 def payment_successful(request, payment_id):
     payment = get_object_or_404(PaymentMethod, id=payment_id, user=request.user)
     payment_time = payment.date.astimezone(pytz.timezone('America/Toronto'))  # Convert to America/Toronto timezone
-    return render(request, 'payment_successful.html', {'payment': payment, 'payment_time': payment_time})
+    order = payment.order
+
+    context = {
+        'payment': payment,
+        'payment_time': payment_time,
+        'order_id': order.id,  # Pass the order ID to the template
+    }
+
+    return render(request, 'payment_successful.html', context)
+
 
 
 @login_required

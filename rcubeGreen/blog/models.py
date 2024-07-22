@@ -10,7 +10,7 @@ STATUS = (
 class GreenInnovation(models.Model):
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='green_innovation_posts')
+    author = models.CharField(max_length=100, default="Unknown Author")
     updated_on = models.DateTimeField(auto_now=True)
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
@@ -27,7 +27,7 @@ class GreenInnovation(models.Model):
 class EcoProducts(models.Model):
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='eco_products_posts')
+    author = models.CharField(max_length=100, default="Unknown Author")
     updated_on = models.DateTimeField(auto_now=True)
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
@@ -44,7 +44,7 @@ class EcoProducts(models.Model):
 class SustainableLiving(models.Model):
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sustainable_living_posts')
+    author = models.CharField(max_length=100, default="Unknown Author")
     updated_on = models.DateTimeField(auto_now=True)
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
