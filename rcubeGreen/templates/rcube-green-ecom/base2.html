@@ -16,21 +16,21 @@
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
     body {
         font-family: "Montserrat", serif;
-    font-size: 16px;
-    color: #333333;
-    text-rendering: optimizeLegibility;
-    font-weight: inherit;
+        font-size: 16px;
+        color: #333333;
+        text-rendering: optimizeLegibility;
+        font-weight: inherit;
         padding-left: 10px;
         padding-right: 10px;
-}
+    }
 
-.dark {
-    background: #110f16;
-}
+    .dark {
+        background: #110f16;
+    }
 
-.light {
-    background: #f3f5f7;
-}
+    .light {
+        background: #f3f5f7;
+    }
 
     .hover-effect img {
       transition: transform 0.3s;
@@ -61,7 +61,7 @@
     .features .col {
       margin-bottom: 10px;
     }
-   .deals-section {
+    .deals-section {
       margin-top: 30px;
     }
     .deals-section h2 {
@@ -143,6 +143,7 @@
       align-items: center;
       padding: 10px;
       border-bottom: 1px solid #e5e5e5;
+        
     }
     .header .logo {
       flex: 1;
@@ -201,6 +202,9 @@
       background-color: #9CDBA6;
       border-radius: 30%;
     }
+    .navbar {
+      background-color: #D6EFD8 !important;
+    }
   </style>
 </head>
 <body>
@@ -246,8 +250,8 @@
   </header>
   {% endblock %}
   <!-- Navbar -->
-      {% block navbar %}
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  {% block navbar %}
+  <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -273,7 +277,7 @@
       </div>
     </div>
   </nav>
-          {% endblock %}
+  {% endblock %}
   {% endblock %}
   <!-- Content Block -->
   {% block content %}
