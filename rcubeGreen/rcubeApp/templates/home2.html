@@ -16,7 +16,7 @@
       <div class="carousel-caption d-none d-md-block">
         <h5>CHRISTMAS SALE</h5>
         <p>Get up to 50% off your shopping items tomorrow!</p>
-        <a href="shop.html" class="btn btn-danger">Shop Now</a>
+        <a href='{% url 'shop' %}' class="btn btn-danger">Shop Now</a>
       </div>
     </div>
     <div class="carousel-item">
@@ -24,7 +24,7 @@
       <div class="carousel-caption d-none d-md-block">
         <h5>Quality Products</h5>
         <p>We offer a wide range of high-quality products.</p>
-        <a href="shop.html" class="btn btn-danger">Shop Now</a>
+        <a href='{% url 'shop' %}' class="btn btn-danger">Shop Now</a>
       </div>
     </div>
     <div class="carousel-item">
@@ -32,7 +32,7 @@
       <div class="carousel-caption d-none d-md-block">
         <h5>Exclusive Deals</h5>
         <p>Don't miss out on our exclusive deals and offers.</p>
-        <a href="shop.html" class="btn btn-danger">Shop Now</a>
+        <a href='{% url 'shop' %}' class="btn btn-danger">Shop Now</a>
       </div>
     </div>
   </div>
@@ -240,7 +240,7 @@
       <!-- Automotive -->
       <div class="col-md-4">
         <div class="card">
-          <img src="{% static 'images/solar-powered_car_ventilator.jpg' %}" class="card-img-top" alt="Solar Powered Car Ventilator">
+          <img src="{% static 'images/popular Products/solar-powered_car_ventilator.jpg' %}" class="card-img-top" alt="Solar Powered Car Ventilator">
           <div class="card-body">
             <h5 class="card-title">Solar Powered Car Ventilator</h5>
             <p class="card-text">Easy to install, reduces heat, eco-friendly</p>
@@ -251,7 +251,7 @@
       <!-- Fashion -->
       <div class="col-md-4">
         <div class="card">
-          <img src="{% static 'images/sunglasses.jpg' %}" class="card-img-top" alt="Recycled Plastic Sunglasses">
+          <img src="{% static 'images/popular Products/sunglasses.jpg' %}" class="card-img-top" alt="Recycled Plastic Sunglasses">
           <div class="card-body">
             <h5 class="card-title">Recycled Plastic Sunglasses</h5>
             <p class="card-text">UV protection, lightweight, eco-friendly</p>
@@ -262,7 +262,7 @@
       <!-- Fitness -->
       <div class="col-md-4">
         <div class="card">
-          <img src="{% static 'images/yogamat.jpg' %}" class="card-img-top" alt="Eco-Friendly Yoga Mat">
+          <img src="{% static 'images/popular Products/yogamat.jpg' %}" class="card-img-top" alt="Eco-Friendly Yoga Mat">
           <div class="card-body">
             <h5 class="card-title">Eco-Friendly Yoga Mat</h5>
             <p class="card-text">Natural rubber, non-slip, 5mm thick</p>

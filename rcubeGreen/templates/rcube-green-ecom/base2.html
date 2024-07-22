@@ -44,21 +44,58 @@
     .features .col {
       margin-bottom: 10px;
     }
-    .deals-section {
+   .deals-section {
       margin-top: 30px;
     }
     .deals-section h2 {
       font-size: 24px;
       font-weight: bold;
     }
+    .deals-section, .categories {
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    .deals-section h2, .categories h2 {
+        margin-bottom: 20px;
+    }
+    .carousel-item img {
+        height: 300px;
+        object-fit: cover;
+    }
+    .category-card {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .category-card img {
+    transition: transform 0.3s ease;
+  }
+
+  .category-card:hover img {
+    transform: scale(1.1);
+  }
+
+  .category-card .card-body {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .category-card:hover .card-body {
+    opacity: 1;
+  }
     .categories {
       background-color: #f8f9fa;
       padding: 20px;
     }
-    body {
-  padding-left: 50px;
-  padding-right: 50px;
-}
+
     .categories h5 {
       margin: 0;
     }
