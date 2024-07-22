@@ -98,16 +98,36 @@ def home(request):
         return render(request, 'home2.html')
 
 
+# def search(request):
+#     query = request.GET.get('q')
+#     results = []  # Replace with your actual search logic to get results
+#
+#     # Example logic to populate results
+#     if query:
+#         # Perform search in your database or data source
+#         results = ["Result 1", "Result 2", "Result 3"]  # Replace with actual search results
+#
+#     return render(request, 'search.html', {'query': query, 'results': results})
+
 def search(request):
     query = request.GET.get('q')
-    results = []  # Replace with your actual search logic to get results
+    products = Product.objects.all()
 
-    # Example logic to populate results
     if query:
-        # Perform search in your database or data source
-        results = ["Result 1", "Result 2", "Result 3"]  # Replace with actual search results
+        products = products.filter(
+            Q(name__icontains=query) | Q(description__icontains=query) | Q(category__name__icontains=query)
+        )
 
-    return render(request, 'search.html', {'query': query, 'results': results})
+    context = {
+        'products': products,
+        'query': query
+    }
+
+    return render(request, 'search.html', context)
+
+def product_detail(request, id):
+    product = get_object_or_404(Product, id=id)
+    return render(request, 'product_detail.html', {'product': product})
 
 
 @login_required

@@ -213,10 +213,15 @@
     </div>
     {% block header-content %}
     <div class="search-bar">
-      <form class="form-inline my-2 my-lg-0 w-100">
-        <input class="form-control mr-sm-2 w-100" type="search" placeholder="Search Product" aria-label="Search">
-        <button class="btn btn-outline-secondary" type="submit"><i class="fa fa-search"></i></button>
-      </form>
+{#      <form class="form-inline my-2 my-lg-0 w-100">#}
+{#        <input class="form-control mr-sm-2 w-100" type="search" placeholder="Search Product" aria-label="Search">#}
+{#        <button class="btn btn-outline-secondary" type="submit"><i class="fa fa-search"></i></button>#}
+{#      </form>#}
+
+    <form class="form-inline my-2 my-lg-0 w-100" action="{% url 'search' %}" method="GET">
+    <input class="form-control mr-sm-2 w-100" type="search" name="q" placeholder="Search Product" aria-label="Search" value="{{ query }}">
+    <button class="btn btn-outline-secondary" type="submit"><i class="fa fa-search"></i></button>
+</form>
     </div>
     <div class="user-actions">
       {% block header_content %}
