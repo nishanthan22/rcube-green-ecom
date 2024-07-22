@@ -10,7 +10,7 @@ from datetime import datetime
 
 
 def fetch_destinations(request, page):
-    limit = 20
+    limit = 10
     api_key = "3266f877bb2749a3955f4f8c87c10de0"
     query = "environment"
 
@@ -90,7 +90,7 @@ def fetch_destinations(request, page):
     })
 
 
-def fetch_and_save_destinations(page=1, limit=20):
+def fetch_and_save_destinations(page=1, limit=10):
     api_key = "3266f877bb2749a3955f4f8c87c10de0"
     query = "environment"
     api_url = (f"https://newsapi.org/v2/everything?q={quote(query)}"
