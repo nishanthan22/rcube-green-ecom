@@ -94,7 +94,7 @@ def home(request):
     if request.user.is_superuser:
         return render(request, 'admin_home.html')
     else:
-        return render(request, 'home.html')
+        return render(request, 'home2.html')
 
 
 def search(request):
