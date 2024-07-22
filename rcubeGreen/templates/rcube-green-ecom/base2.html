@@ -20,10 +20,6 @@
     .hover-effect img:hover {
       transform: scale(1.1);
     }
-    {#.carousel-caption {#}
-    {#  background: rgba(0, 0, 0, 0.5);#}
-    {#  padding: 20px;#}
-    {#}#}
     .top-bar {
       background-color: #343a40;
       color: white;
@@ -54,62 +50,95 @@
       font-size: 24px;
       font-weight: bold;
     }
-    .categories {
-      background-color: #f8f9fa;
-      padding: 20px;
+    .deals-section, .categories {
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
     }
-    .categories h5 {
-      margin: 0;
+    .deals-section h2, .categories h2 {
+        margin-bottom: 20px;
     }
-    .footer {
+    .carousel-item img {
+        height: 300px;
+        object-fit: cover;
+    }
+    .category-card {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .category-card img {
+    transition: transform 0.3s ease;
+  }
+
+  .category-card:hover img {
+    transform: scale(1.1);
+  }
+
+  .category-card .card-body {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .category-card:hover .card-body {
+    opacity: 1;
+  }
+  .footer {
       background-color: #f8f9fa;
       padding: 40px 0;
-    }
-    .footer h5 {
+  }
+  .footer h5 {
       margin-bottom: 20px;
-    }
-    .footer p, .footer a {
+  }
+  .footer p, .footer a {
       color: #6c757d;
-    }
-    .footer a:hover {
+  }
+  .footer a:hover {
       color: #343a40;
-    }
-    .footer-bar {
-        background-color: #f8f9fa; /* Light grey background color */
-        padding: 10px 20px; /* Padding for some space inside the bar */
-        border-top: 1px solid #dee6e1; /* Optional: a border to separate the bar from the rest of the content */
-    }
-    .social-icons a {
+  }
+  .footer-bar {
+      background-color: #f8f9fa; /* Light grey background color */
+      padding: 10px 20px; /* Padding for some space inside the bar */
+      border-top: 1px solid #dee6e1; /* Optional: a border to separate the bar from the rest of the content */
+  }
+  .social-icons a {
       margin-right: 15px;
-    }
-    .header {
+  }
+  .header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 20px;
       border-bottom: 1px solid #e5e5e5;
-    }
-    .header .logo {
+  }
+  .header .logo {
       flex: 1;
-    }
-    .header .search-bar {
+  }
+  .header .search-bar {
       flex: 2;
       display: flex;
       justify-content: center;
-    }
-    .header .search-bar input {
+  }
+  .header .search-bar input {
       width: 100%;
       max-width: 500px;
-    }
-    .header .user-actions {
+  }
+  .header .user-actions {
       flex: 1;
       display: flex;
       justify-content: flex-end;
       align-items: center;
-    }
-    .header .user-actions a {
+  }
+  .header .user-actions a {
         margin-left: 20px;
-    }
+  }
   </style>
 </head>
 <body>
@@ -129,6 +158,14 @@
       <button class="btn btn-outline-secondary" type="submit"><i class="fa fa-search"></i></button>
     </form>
   </div>
+
+{#        <div class="input-group w-50">#}
+{#    <input type="text" class="form-control" placeholder="Search">#}
+{#    <div class="input-group-append">#}
+{#      <button class="btn btn-outline-secondary" type="button">Search</button>#}
+{#    </div>#}
+{#  </div>#}
+
   <div class="user-actions">
     <a href="#"><img src="{% static 'images/bag-heart-fill.svg' %}" alt="Logo" style="height: 40px;"></a>
     <a href="#"><img src="{% static 'images/basket.svg' %}" alt="Logo" style="height: 40px;"></a>
@@ -164,20 +201,20 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav mx-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Articles</a>
+      <li class="nav-item">
+        <b><a class="nav-link" href="#">Articles</a></b>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Shop</a>
+        <b><a class="nav-link" href="#">Shop</a></b>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Cart</a>
+        <b><a class="nav-link" href="#">Cart</a></b>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Blog</a>
+         <b><a class="nav-link" href="#">Blog</a></b>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Contact</a>
+          <b><a class="nav-link" href="#">Contact</a></b>
       </li>
     </ul>
   </div>
