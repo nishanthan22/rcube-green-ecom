@@ -5,7 +5,7 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
         margin-bottom: 20px;
-        margin-top: 50px;
+        margin-top: 70px;
     }
 
     .card-header {
@@ -25,13 +25,15 @@
     }
 
     .btn {
-        background-color: #28a745; /* Updated to green */
-        color: #fff;
-        border: none;
-        border-radius: 20px;
-        padding: 10px 20px;
-        font-size: 16px;
-        transition: background-color 0.3s;
+            margin-top: 10px;
+            color: var(--color, var(--white));
+            font-weight: var(--fw-600);
+            height: var(--height, 40px);
+            padding-inline: 40px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: center;
+            background-color: green;
     }
 
     .btn:hover {
@@ -52,7 +54,7 @@
         <h5 class="card-header">Privacy & Policy</h5>
         <div class="card-body">
             <p class="card-text">Our commitment to protecting your personal information and data privacy.</p>
-{#            <a href="{% url 'privacy' %}" class="btn btn-primary">Know more!</a>#}
+            <a href="{% url 'blog:privacy' %}" class="btn btn-primary">Know more!</a>
         </div>
     </div>
     <div class="card">
