@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   {% load static %}
   <title>{% block title %}My Website{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -16,21 +17,20 @@
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
     body {
         font-family: "Montserrat", serif;
-        font-size: 16px;
-        color: #333333;
-        text-rendering: optimizeLegibility;
-        font-weight: inherit;
-        padding-left: 10px;
-        padding-right: 10px;
-    }
+    font-size: 16px;
+    color: #333333;
+    text-rendering: optimizeLegibility;
+    font-weight: inherit;
 
-    .dark {
-        background: #110f16;
-    }
+}
 
-    .light {
-        background: #f3f5f7;
-    }
+.dark {
+    background: #110f16;
+}
+
+.light {
+    background: #f3f5f7;
+}
 
     .hover-effect img {
       transition: transform 0.3s;
@@ -117,20 +117,22 @@
       margin: 0;
     }
     .footer {
-      background-color: #f8f9fa;
+      background-color: #65B741;
+        color: white;
       padding: 40px 0;
     }
     .footer h5 {
       margin-bottom: 20px;
     }
     .footer p, .footer a {
-      color: #6c757d;
+      color: black;
+
     }
     .footer a:hover {
       color: #343a40;
     }
     .footer-bar {
-      background-color: #f8f9fa; /* Light grey background color */
+      background-color: #65B741; /* Light grey background color */
       padding: 10px 20px; /* Padding for some space inside the bar */
       border-top: 1px solid #dee6e1; /* Optional: a border to separate the bar from the rest of the content */
     }
@@ -143,7 +145,7 @@
       align-items: center;
       padding: 10px;
       border-bottom: 1px solid #e5e5e5;
-        
+        background-color: #65B741;
     }
     .header .logo {
       flex: 1;
@@ -172,7 +174,7 @@
       align-items: center;
       height: 40px; /* Adjusted height */
       font-size: 14px; /* Adjust font size if needed */
-      background-color: #f9f9f9;
+      background-color: #7ABA78;
     }
     .dropdown {
       position: relative;
