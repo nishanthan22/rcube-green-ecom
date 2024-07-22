@@ -3,22 +3,118 @@
 {% block title %}Cart{% endblock %}
 
 {% block content %}
-<h1>Your Cart</h1>
-<p>These are the items in your cart.</p>
+<h1 class="align-content-center">Your Cart</h1>
+<p class="align-content-center">These are the items in your cart.</p>
+    <style>
+    .cart-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+    .cart-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        width: 100%;
+        max-width: 600px;
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+    .align-content-center {
+        text-align: center;
+    }
+    .cart-item img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        margin-right: 20px;
+    }
+    .cart-item-details {
+        flex-grow: 1;
+    }
+    .cart-item-details h2 {
+        font-size: 1.5rem;
+        margin: 0 0 10px 0;
+    }
+    .cart-item-details p {
+        margin: 5px 0;
+    }
+    .cart-item .btn-danger {
+        background-color: #ff4d4d;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+    }
+    .cart-item .btn-danger:hover {
+        background-color: #9e2c2c;
+        color: white;
+    }
+    .total-price {
+        font-size: 1.25rem;
+        margin-top: 20px;
+    }
+    .checkout-btn {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: #65B741;
+        color: white;
+        border-radius: 5px;
+        text-decoration: none;
+        text-align: center;
+    }
+    .checkout-btn:hover {
+        background-color: #559C37;
+        color: white;
+    }
+    .shop-btn {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: #65B741;
+        color: white;
+        border-radius: 5px;
+        text-decoration: none;
+        text-align: center;
+    }
+    .shop-btn:hover {
+        background-color: #559C37;
+        color: white;
+    }
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+</style>
+    <div class="cart-container">
     <ul>
         {% for item in order_items %}
-            <li>
+            <li class="cart-item">
+            {% if item.product.image %}
+                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+            {% endif %}
+            <div class="cart-item-details">
                 <h2>{{ item.product.name }}</h2>
                 <p>Quantity: {{ item.quantity }}</p>
                 <p>Price: ${{ item.get_total_price }}</p>
                 <form method="post" action="{% url 'cart' %}">
                     {% csrf_token %}
                     <input type="hidden" name="item_id" value="{{ item.id }}">
-                    <button type="submit">Remove from Cart</button>
+                    <button type="submit" class="btn btn-danger">Remove from Cart</button>
                 </form>
-            </li>
-        {% endfor %}
-    </ul>
-    <p>Total Price: ${{ total_price }}</p>
-    <a href="{% url 'add_payment_method' %}">Proceed to Checkout</a>
+            </div>
+        </li>
+    {% endfor %}
+</ul>
+
+<p class="total-price">Total Price: ${{ total_price }}</p>
+    <div>
+<a href="{% url 'add_payment_method' %}" class="btn btn-green checkout-btn">Proceed to Checkout</a>
+    <a href="{% url 'shop' %}" class="btn btn-green shop-btn">Continue to Shop</a>
+    </div>
+     </div>
 {% endblock %}
