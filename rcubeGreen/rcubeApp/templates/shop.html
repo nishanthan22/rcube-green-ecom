@@ -3,18 +3,73 @@
 {% block title %}Shop{% endblock %}
 
 {% block content %}
-<h1>Shop</h1>
-<p>Welcome to our shop. Here you can buy various products.</p>
+<h1 class="text-center">Shop</h1>
+    <h4 class="text-center">Welcome to our shop. <span class="font-weight-bold">Here you can buy various products.</span></h4>
+<style>
+    .card {
+        margin: 10px;
+        border: none;
+        border-radius: 10px;
+        overflow: hidden;
+        flex: 1 1 auto;
+    }
+
+    .card img {
+        border-bottom: 1px solid #ddd;
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+    .card-body {
+        padding: 15px;
+    }
+    .card-title {
+        font-size: 1.25rem;
+        margin-bottom: 10px;
+    }
+    .card-text {
+        font-size: 0.875rem;
+        color: #555;
+    }
+    .btn-block {
+        width: 100%;
+    }
+    .shadow-sm {
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .col-md-4 {
+        padding-left: 10px;
+        padding-right: 10px;
+        margin-bottom: 20px;
+    }
+    .text-center {
+        text-align: center;
+    }
+    .btn-green {
+        background-color: #65B741;
+        color: white;
+    }
+    .btn-green:hover {
+        background-color: #559C37;
+        color: white;
+    }
+</style>
 
 {% for category in categories %}
-    <h2>{{ category.name }}</h2>
-    <p>{{ category.description }}</p>
+    <h5 class="text-center">{{ category.name }}</h5>
+    <p class="text-center" style="position: relative">{{ category.description }}</p>
     <div class="row">
         {% for product in category.product_set.all %}
-            <div class="col-md-4">
-                <div class="card mb-4">
+            <div class="col-md-4 d-flex align-items-stretch">
+                <div class="card mb-4 shadow-sm">
                     {% if product.image %}
-                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="width: 50px; height: px;">
+                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 150px; object-fit: cover;">
                     {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{ product.name }}</h5>
@@ -22,7 +77,7 @@
                         <p class="card-text"><strong>${{ product.price }}</strong></p>
                         <form action="{% url 'add_to_cart' product.id %}" method="post">
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-primary">Add to Cart</button>
+                            <button type="submit" class="btn btn-green btn-block">Add to Cart</button>
                         </form>
                     </div>
                 </div>

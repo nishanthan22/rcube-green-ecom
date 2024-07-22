@@ -17,7 +17,7 @@
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
     body {
         font-family: "Montserrat", serif;
-    font-size: 20px;
+    font-size: 16px;
     color: #333333;
     text-rendering: optimizeLegibility;
     font-weight: inherit;
@@ -294,21 +294,21 @@
         <div class="col-md-3">
           <h5>About Us</h5>
           <ul class="list-unstyled">
-            <li><a href="#">About Company</a></li>
-            <li><a href="#">Payment Type</a></li>
-            <li><a href="#">Blog</a></li>
-            <li><a href="#">Products</a></li>
-            <li><a href="#">Signup to newsletter</a></li>
-            <li><a href="#">Refund Policy</a></li>
+            <li><a href="{% url "home" %}">About Company</a></li>
+            <li><a href="{% url "blog:index" %}">Blog</a></li>
+            <li><a href="{% url "shop" %}">Products</a></li>
+            <li><a href="{% url "home" %}">Signup to newsletter</a></li>
+            <li><a href="{% url "news:index" 1%}">Article</a></li>
           </ul>
         </div>
         <div class="col-md-3">
           <h5>Category</h5>
           <ul class="list-unstyled">
-            <li><a href="#">Windmills</a></li>
-            <li><a href="#">Solar Panels</a></li>
-            <li><a href="#">Sustainable Clothing</a></li>
-            <li><a href="#">Stationaries</a></li>
+            <li><a href="{% url "shop" %}">Automotive</a></li>
+            <li><a href="{% url "shop" %}">Fashion</a></li>
+            <li><a href="{% url "shop" %}">Fitness</a></li>
+            <li><a href="{% url "shop" %}">Garden</a></li>
+            <li><a href="{% url "shop" %}">Home</a></li>
           </ul>
         </div>
         <div class="col-md-3">
@@ -316,8 +316,7 @@
           <ul class="list-unstyled">
             <li><a href="#">FAQ Information</a></li>
             <li><a href="#">Return Policy</a></li>
-            <li><a href="#">Shipping & Delivery</a></li>
-            <li><a href="#">Order Tracking</a></li>
+              <li><a href="{% url "contact" %}">Contact Us</a></li>
           </ul>
         </div>
       </div>
