@@ -154,5 +154,8 @@ def create_post(request):
         form = GreenInnovationForm()
     return render(request, 'blog/create_post.html', {'form': form})
 
+class Privacy(generic.TemplateView):
+    template_name = 'blog/privacy.html'
+
 
 

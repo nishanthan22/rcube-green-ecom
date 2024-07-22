@@ -1,18 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap CSS link -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
         body {
+            font-size: 16px;
+            color: #333333;
+            text-rendering: optimizeLegibility;
+            font-weight: initial;
             background-color: #f8f9fa;
         }
+        .custom-margin {
+            margin-top: 100px; /* Adjust the value as needed */
+        }
 
+        .search-sort-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+        }
         .search-sort-form input, .search-sort-form select {
-            margin-right: 5px;
-            margin-top: 10px;
+                margin-top: 70px;
+        }
+
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .search-sort-form .search-btn {
+            margin-top: 70px;
+            margin-left: 10px;
+            color: var(--color, var(--white));
+            font-weight: var(--fw-600);
+            height: var(--height, 40px);
+            padding-inline: 40px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: center;
         }
 
         .blog-cards-container * {
@@ -148,19 +181,21 @@
 <body>
     {% extends "blog/base.html" %}
     {% block content %}
+    <h1 class="h2 text-center custom-margin" id="pageHeaderTitle">Discover and Create the Latest Blogs</h1>
+
     <div class="container">
         <div class="row">
             <div class="col-md-8">
                 <!-- Search and Sort Form -->
                 <form method="get" class="form-inline search-sort-form" >
-                    <input type="text" name="q" placeholder="Search..." value="{{ query }}" class="form-control">
+                    <input type="text" name="q" placeholder="Search Blogs..." class="form-control">
                     <select name="sort_by" class="form-control">
                         <option value="-created_on" {% if sort_by == "-created_on" %}selected{% endif %}>Newest</option>
                         <option value="created_on" {% if sort_by == "created_on" %}selected{% endif %}>Oldest</option>
                         <option value="title" {% if sort_by == "title" %}selected{% endif %}>Title A-Z</option>
                         <option value="-title" {% if sort_by == "-title" %}selected{% endif %}>Title Z-A</option>
                     </select>
-                    <button type="button" class="btn btn-success">Success</button>
+                    <button type="submit" class="btn btn-primary search-btn">Search</button>
                 </form>
 
                 <div class="row blog-cards-container">
