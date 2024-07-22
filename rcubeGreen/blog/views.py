@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.views import generic
 from django.shortcuts import render, redirect
@@ -114,7 +115,7 @@ class SustainableLivingDetail(generic.DetailView):
 def contact_success_view(request):
     return render(request, 'contact_success.html')
 
-
+@login_required
 def create_post(request):
     if request.method == 'POST':
         form = GreenInnovationForm(request.POST, request.FILES)
