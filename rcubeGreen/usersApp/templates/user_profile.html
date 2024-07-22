@@ -1,16 +1,30 @@
-{% extends "rcube-green-ecom/base.html" %}
+{% extends "rcube-green-ecom/base2.html" %}
 
 {% block title %}User Profile{% endblock %}
 {% block navbar %}
-<nav class="navbar" data-navbar>
-  <ul class="navbar-list">
-    <li><a href="{% url 'user_orders' %}" class="navbar-link">View your Orders</a></li>
-    <li><a href="{% url 'blog:index' %}" class="navbar-link">View your Blogs</a></li>
-
-    <li><a href="{% url 'edit_profile' %}" class="navbar-link">Edit profile</a></li>
-  </ul>
-</nav>
-{% endblock %}
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+            {% if not user.is_superuser %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'user_orders' %}">View your Orders</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'blog:index' %}">View your Blogs</a>
+              </li>
+            {% endif %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'edit_profile' %}">Edit profile</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+          {% endblock %}
 {% block content %}
 <h1>Profile Page</h1>
 {% if user.first_name %}

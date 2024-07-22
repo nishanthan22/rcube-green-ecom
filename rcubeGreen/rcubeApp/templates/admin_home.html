@@ -1,51 +1,79 @@
-{% extends "rcube-green-ecom/base.html" %}
+{% extends "rcube-green-ecom/base2.html" %}
 
 {% block title %}Admin Dashboard{% endblock %}
 
-{% block header-content %}
-<div class="header-actions">
-  {% if user.is_authenticated %}
-    <div class="dropdown">
-      <button class="header-action-btn dropdown-toggle" type="button">
-        <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
-        <p class="header-action-label">Profile</p>
-      </button>
-      <div class="dropdown-content">
-        <a href="{% url 'profile' %}">User Profile</a>
-        <a href="{% url 'logout' %}">Logout</a>
-      </div>
-    </div>
-  {% else %}
-    <button class="header-action-btn" onclick="window.location.href='{% url 'login' %}'">
-      <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
-      <p class="header-action-label">Sign in</p>
-    </button>
-  {% endif %}
-</div>
-{% endblock %}
-
-{% block navbar %}
-<nav class="navbar" data-navbar>
-  <div class="navbar-top">
-    <a href="#" class="logo">
-      <img src="/images/logo.png" alt="Casmart logo" width="130" height="31">
+{% block header %}
+     {% load static %}
+<header class="header">
+  <div class="logo">
+    <a href="{% url 'home' %}" class="logo">
+      <img src="{% static 'images/logo.png' %}" alt="R cube Logo" style="height: 60px; width:60px">
     </a>
-    <button class="nav-close-btn" data-nav-close-btn aria-label="Close Menu">
-      <ion-icon name="close-outline"></ion-icon>
-    </button>
   </div>
-  <ul class="navbar-list">
-    <li><a href="{% url 'add_product' %}" class="navbar-link">Add New Product</a></li>
-    <li><a href="{% url 'list_products' %}" class="navbar-link">List Products</a></li>
-    <li><a href="{% url 'add_category' %}" class="navbar-link">Add New Category</a></li>
-    <li><a href="{% url 'list_categories' %}" class="navbar-link">List Categories</a></li>
-    <li><a href="{% url 'blog:create_post' %}" class="navbar-link">Create New Blog</a></li>
-  </ul>
+  <div class="search-bar">
+    <form class="form-inline my-2 my-lg-0 w-100">
+      <input class="form-control mr-sm-2 w-100" type="search" placeholder="Search Product" aria-label="Search">
+      <button class="btn btn-outline-secondary" type="submit"><i class="fa fa-search"></i></button>
+    </form>
+  </div>
+  <div class="user-actions">
+    {% block header-content %}
+    <div class="header-actions">
+    {% if user.is_authenticated %}
+        <div class="dropdown">
+          <button class="header-action-btn dropdown-toggle" type="button">
+            <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+
+          </button>
+            <p class="header-action-label">Profile</p>
+          <div class="dropdown-content">
+            <a href="{% url 'profile' %}">User Profile</a>
+            <a href="{% url 'logout' %}">Logout</a>
+          </div>
+        </div>
+        {% else %}
+        <button class="header-action-btn" onclick="window.location.href='{% url 'user_accounts' %}'">
+
+          <p class="header-action-label">Sign in</p>
+        </button>
+        {% endif %}
+    </div>
+    {% endblock %}
+
+  </div>
+</header>
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item active">
+          <a href="{% url 'add_product' %}" class="nav-link">Add New Product</a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'list_products' %}" class="nav-link">List Products</a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'add_category' %}" class="nav-link">Add New Category</a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'list_categories' %}" class="nav-link">List Categories</a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'blog:create_post' %}" class="nav-link">Create New Blog</a>
+        </li>
+      </ul>
+    </div>
+  </div>
 </nav>
+{% endblock %}
 {% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container mt-4">
   <h1>Welcome, {{ user.username }}</h1>
   <p>As an admin, you have access to the following features:</p>
   <ul>

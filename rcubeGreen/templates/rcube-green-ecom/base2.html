@@ -6,24 +6,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   {% load static %}
   <title>{% block title %}My Website{% endblock %}</title>
-   <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
   <style>
-      @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-
-      .hover-effect img {
+    /* Additional styles from style.css if needed can be placed here */
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+    .hover-effect img {
       transition: transform 0.3s;
     }
     .hover-effect img:hover {
       transform: scale(1.1);
     }
-    {#.carousel-caption {#}
-    {#  background: rgba(0, 0, 0, 0.5);#}
-    {#  padding: 20px;#}
-    {#}#}
     .top-bar {
       background-color: #343a40;
       color: white;
@@ -58,6 +55,10 @@
       background-color: #f8f9fa;
       padding: 20px;
     }
+    body {
+  padding-left: 50px;
+  padding-right: 50px;
+}
     .categories h5 {
       margin: 0;
     }
@@ -75,18 +76,18 @@
       color: #343a40;
     }
     .footer-bar {
-        background-color: #f8f9fa; /* Light grey background color */
-        padding: 10px 20px; /* Padding for some space inside the bar */
-        border-top: 1px solid #dee6e1; /* Optional: a border to separate the bar from the rest of the content */
+      background-color: #f8f9fa; /* Light grey background color */
+      padding: 10px 20px; /* Padding for some space inside the bar */
+      border-top: 1px solid #dee6e1; /* Optional: a border to separate the bar from the rest of the content */
     }
     .social-icons a {
       margin-right: 15px;
     }
     .header {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      padding: 20px;
+      padding: 10px;
       border-bottom: 1px solid #e5e5e5;
     }
     .header .logo {
@@ -106,144 +107,180 @@
       display: flex;
       justify-content: flex-end;
       align-items: center;
+      margin-right: 90px;
     }
     .header .user-actions a {
-        margin-left: 20px;
+      margin-left: 20px;
+    }
+    .header .header-action-btn {
+      display: flex;
+      align-items: center;
+      height: 40px; /* Adjusted height */
+      font-size: 14px; /* Adjust font size if needed */
+      background-color: #f9f9f9;
+    }
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+    .dropdown-content a:hover {
+      background-color: #f1f1f1;
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+    .dropdown:hover .dropdown-toggle {
+      background-color: #9CDBA6;
+      border-radius: 30%;
     }
   </style>
 </head>
 <body>
-
-<!-- Header -->
-{% block header %}
-<header class="header">
-  <div class="logo">
+  <!-- Header -->
+  {% block header %}
+  <header class="header">
+    <div class="logo">
       <a href="{% url 'home' %}" class="logo">
-    <img src="{% static 'images/logo.png' %}" alt="R cube Logo" style="height: 60px; width:60px">
-  </div>
+        <img src="{% static 'images/logo.png' %}" alt="R cube Logo" style="height: 60px; width:60px">
+      </a>
+    </div>
     {% block header-content %}
-
-  <div class="search-bar">
-    <form class="form-inline my-2 my-lg-0 w-100">
-      <input class="form-control mr-sm-2 w-100" type="search" placeholder="Search Product" aria-label="Search">
-      <button class="btn btn-outline-secondary" type="submit"><i class="fa fa-search"></i></button>
-    </form>
-  </div>
-  <div class="user-actions">
-    <a href="#"><img src="{% static 'images/bag-heart-fill.svg' %}" alt="Logo" style="height: 40px;"></a>
-    <a href="#"><img src="{% static 'images/basket.svg' %}" alt="Logo" style="height: 40px;"></a>
-    {% block header_content %}
+    <div class="search-bar">
+      <form class="form-inline my-2 my-lg-0 w-100">
+        <input class="form-control mr-sm-2 w-100" type="search" placeholder="Search Product" aria-label="Search">
+        <button class="btn btn-outline-secondary" type="submit"><i class="fa fa-search"></i></button>
+      </form>
+    </div>
+    <div class="user-actions">
+      {% block header_content %}
       <div class="header-actions">
         {% if user.is_authenticated %}
-            <div class="dropdown">
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-            </div>
-          <div class="dropdown">
-            <button class="header-action-btn dropdown-toggle" type="button">
-              <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
-              <p class="header-action-label">Profile</p>
-            </button>
-            <div class="dropdown-content">
-              <a href="{% url 'profile' %}">User Profile</a>
-              <a href="{% url 'logout' %}">Logout</a>
-            </div>
+        <div class="dropdown">
+          <button class="header-action-btn dropdown-toggle" type="button">
+            <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+
+          </button>
+            <p class="header-action-label">Profile</p>
+          <div class="dropdown-content">
+            <a href="{% url 'profile' %}">User Profile</a>
+            <a href="{% url 'logout' %}">Logout</a>
           </div>
+        </div>
         {% else %}
-            <p onclick="window.location.href='{% url 'user_accounts' %}'"><img src="{% static 'images/person-circle.svg' %}" alt="Logo" style="height: 40px;"></p>
+        <button class="header-action-btn" onclick="window.location.href='{% url 'user_accounts' %}'">
+
+          <p class="header-action-label">Sign in</p>
+        </button>
         {% endif %}
       </div>
-    {% endblock %}
-</header>
-
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav mx-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Articles</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Shop</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Cart</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Blog</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Contact</a>
-      </li>
-    </ul>
-  </div>
-</nav>
-        {% endblock %}
-{% endblock %}
-<!-- Content Block -->
-{% block content %}
-{% endblock %}
-
-<!-- Footer -->
-<footer class="footer mt-5">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-3">
-        <img src="{% static 'images/logo.png' %}" alt="Rcube" style="width: 100px;">
-        <p>Rcube is committed to providing sustainable products</p>
-        <div class="social-icons">
-          <a href="#"><i class="fab fa-facebook-f"></i></a>
-          <a href="#"><i class="fab fa-twitter"></i></a>
-          <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-pinterest"></i></a>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <h5>About Us</h5>
-        <ul class="list-unstyled">
-          <li><a href="#">About Company</a></li>
-          <li><a href="#">Payment Type</a></li>
-          <li><a href="#">Blog</a></li>
-          <li><a href="#">Products</a></li>
-          <li><a href="#">Signup to newsletter</a></li>
-          <li><a href="#">Refund Policy</a></li>
-        </ul>
-      </div>
-      <div class="col-md-3">
-        <h5>Category</h5>
-        <ul class="list-unstyled">
-          <li><a href="#">Windmills</a></li>
-          <li><a href="#">Solar Panels</a></li>
-          <li><a href="#">Sustainable Clothing</a></li>
-          <li><a href="#">Stationaries</a></li>
-        </ul>
-      </div>
-      <div class="col-md-3">
-        <h5>Help & Support</h5>
-        <ul class="list-unstyled">
-          <li><a href="#">FAQ Information</a></li>
-          <li><a href="#">Return Policy</a></li>
-          <li><a href="#">Shipping & Delivery</a></li>
-          <li><a href="#">Order Tracking</a></li>
+      {% endblock %}
+    </div>
+  </header>
+  {% endblock %}
+  <!-- Navbar -->
+      {% block navbar %}
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item active">
+            <a href="{% url 'news:index' 1 %}" class="nav-link">News</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'shop' %}">Shop</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'cart' %}">Cart</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'blog:index' %}">Blog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+          </li>
         </ul>
       </div>
     </div>
-    <div class="footer-bar d-flex justify-content-between align-items-center mt-3">
+  </nav>
+          {% endblock %}
+  {% endblock %}
+  <!-- Content Block -->
+  {% block content %}
+  {% endblock %}
+  <!-- Footer -->
+  <footer class="footer mt-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <img src="{% static 'images/logo.png' %}" alt="Rcube" style="width: 100px;">
+          <p>Rcube is committed to providing sustainable products</p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-pinterest"></i></a>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <h5>About Us</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">About Company</a></li>
+            <li><a href="#">Payment Type</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Products</a></li>
+            <li><a href="#">Signup to newsletter</a></li>
+            <li><a href="#">Refund Policy</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h5>Category</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">Windmills</a></li>
+            <li><a href="#">Solar Panels</a></li>
+            <li><a href="#">Sustainable Clothing</a></li>
+            <li><a href="#">Stationaries</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h5>Help & Support</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">FAQ Information</a></li>
+            <li><a href="#">Return Policy</a></li>
+            <li><a href="#">Shipping & Delivery</a></li>
+            <li><a href="#">Order Tracking</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bar d-flex justify-content-between align-items-center mt-3">
         <p class="mb-0">© 2024 <b>University of Windsor.</b> All Rights Reserved</p>
         <div class="d-flex align-items-center">
-            <p class="mb-0 mr-2">We support</p>
-            <img src="{% static 'images/payment-img.png' %}" alt="Payment Methods">
+          <p class="mb-0 mr-2">We support</p>
+          <img src="{% static 'images/payment-img.png' %}" alt="Payment Methods">
         </div>
+      </div>
     </div>
-  </div>
-</footer>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </footer>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>
