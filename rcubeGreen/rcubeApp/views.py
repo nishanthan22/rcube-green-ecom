@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator
 
-from usersApp.models import Product
+from usersApp.models import Product, Category
 from .models import NewsArticle, Order, OrderItem
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import NewsArticle, PaymentMethod
@@ -10,6 +10,7 @@ from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.db.models import Q
 from django.utils import timezone
+
 
 def news_article_list_view(request):
     articles = NewsArticle.objects.all()
@@ -45,7 +46,8 @@ def articles(request):
 
 def shop(request):
     products = Product.objects.all()
-    return render(request, 'shop.html', {'products': products})
+    categories = Category.objects.all().order_by('name')
+    return render(request, 'shop.html', {'products': products, 'categories': categories})
 
 
 @login_required
@@ -58,6 +60,7 @@ def add_to_cart(request, product_id):
     order_item.save()
     order.update_total_price()
     return redirect('shop')
+
 
 @login_required
 def cart(request):
@@ -79,8 +82,6 @@ def cart(request):
     return render(request, 'cart.html', {'order_items': order_items, 'total_price': total_price})
 
 
-
-
 def about(request):
     return render(request, 'about.html')
 
@@ -93,7 +94,7 @@ def home(request):
     if request.user.is_superuser:
         return render(request, 'admin_home.html')
     else:
-        return render(request, 'home.html')
+        return render(request, 'home2.html')
 
 
 def search(request):
@@ -189,3 +190,4 @@ def checkout(request):
             return redirect('payment_list')
 
     return render(request, 'checkout.html', {'order': order})
+

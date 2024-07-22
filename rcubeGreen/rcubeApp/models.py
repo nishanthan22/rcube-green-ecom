@@ -59,6 +59,7 @@ class OrderItem(models.Model):
     def get_total_price(self):
         return self.product.price * self.quantity
 
+
 class PaymentMethod(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
@@ -80,3 +81,5 @@ class PaymentMethod(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.amount} - {self.date}"
+
+
