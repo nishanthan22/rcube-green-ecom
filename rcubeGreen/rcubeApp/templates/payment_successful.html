@@ -1,6 +1,4 @@
-<!-- payment_successful.html -->
-
-{% extends 'rcube-green-ecom/base.html' %}
+{% extends 'rcube-green-ecom/base2.html' %}
 {% load static %}
 
 {% block title %}
@@ -8,61 +6,74 @@ Payment Successful
 {% endblock %}
 
 {% block content %}
+<style>
+    .invoice {
+        padding: 20px;
+        border-radius: 5px;
+        background: #f9f9f9;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        margin-top: 20px;
+    }
+    .thank-you {
+        color: #228B22; /* A nice green to signify success */
+        font-weight: 600;
+        margin-top: 20px;
+    }
+    .details {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+    }
+    .details h2 {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #333;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+        border-bottom: 1px solid #ccc;
+    }
+    .details p, .details ul {
+        font-size: 0.9rem;
+        color: #555;
+    }
+    .details ul {
+        list-style-type: none;
+        padding-left: 0;
+    }
+    .details li {
+        background: #eee;
+        padding: 8px;
+        margin-bottom: 5px;
+        border-radius: 3px;
+    }
+</style>
 <div class="container">
     <div class="invoice">
         <h1>Payment Successful</h1>
-        <p>Thank you for your purchase!</p>
-        <p>Order ID: {{ order_id }}</p> <!-- Display the order ID here -->
-        <div class="row">
-            <div class="col">
-                <h3 class="title">Billing Address</h3>
-                <div class="inputBox">
-                    <span>Full Name :</span>
-                    <p>{{ payment.full_name }}</p>
-                </div>
-                <div class="inputBox">
-                    <span>Email :</span>
-                    <p>{{ payment.email }}</p>
-                </div>
-                <div class="inputBox">
-                    <span>Address :</span>
-                    <p>{{ payment.address }}</p>
-                </div>
-                <div class="inputBox">
-                    <span>City :</span>
-                    <p>{{ payment.city }}</p>
-                </div>
-                <div class="inputBox">
-                    <span>State :</span>
-                    <p>{{ payment.state }}</p>
-                </div>
-                <div class="inputBox">
-                    <span>Zip Code :</span>
-                    <p>{{ payment.zip_code }}</p>
-                </div>
+        <p class="thank-you">Thank you for your purchase!</p>
+        <div class="details">
+            <div class="billing">
+                <h2>Billing Address</h2>
+                <p><strong>Full Name:</strong> {{ payment.full_name }}</p>
+                <p><strong>Email:</strong> {{ payment.email }}</p>
+                <p><strong>Address:</strong> {{ payment.address }}</p>
+                <p><strong>City:</strong> {{ payment.city }}</p>
+                <p><strong>State:</strong> {{ payment.state }}</p>
+                <p><strong>Zip Code:</strong> {{ payment.zip_code }}</p>
             </div>
-            <div class="col">
-                <h3 class="title">Payment Details</h3>
-                <div class="inputBox">
-                    <span>Total Amount :</span>
-                    <p>${{ payment.amount }}</p>
-                </div>
-                <div class="inputBox">
-                    <span>Date :</span>
-                    <p>{{ payment_time|date:"F j, Y, g:i a" }}</p>
-                </div>
-                <h3 class="title">Ordered Items</h3>
-                <div class="inputBox">
-                    <span>Items :</span>
-                    <ul>
+            <div class="payment">
+                <h2>Payment Details</h2>
+                <p><strong>Total Amount:</strong> ${{ payment.amount }}</p>
+                <p><strong>Date:</strong> {{ payment_time|date:"F j, Y, g:i a" }}</p>
+                <h2>Ordered Items</h2>
+                <ul>
                     {% for item in payment.order.orderitem_set.all %}
                         <li>{{ item.product.name }} (Quantity: {{ item.quantity }}, Price: ${{ item.product.price }})</li>
                     {% endfor %}
-                    </ul>
-                </div>
+                </ul>
             </div>
         </div>
-
     </div>
 </div>
 {% endblock %}
