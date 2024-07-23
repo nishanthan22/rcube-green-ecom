@@ -47,7 +47,7 @@ def articles(request):
 
 def shop(request):
     products = Product.objects.all()
-    categories = Category.objects.all().order_by('name')
+    categories = Category.objects.exclude(name__contains="Deals of the Day").order_by('name')
     return render(request, 'shop.html', {'products': products, 'categories': categories})
 
 
@@ -63,7 +63,35 @@ def add_to_cart(request, product_id):
     return redirect('shop')
 
 
-@login_required
+# @login_required
+# def cart(request):
+#     if request.method == 'POST':
+#         item_id = request.POST.get('item_id')
+#         if item_id:
+#             order_item = get_object_or_404(OrderItem, id=item_id, order__user=request.user, order__status='Pending')
+#             order_item.delete()
+#             order_item.order.update_total_price()
+#             return redirect('cart')
+#
+#     order = Order.objects.filter(user=request.user, status='Pending').first()
+#     if not order:
+#         order_items = []
+#         total_price = 0
+#     else:
+#         order_items = order.orderitem_set.all()
+#         total_price = 0
+#         for item in order_items:
+#             if item.product.category.name == "Deals of the Day":
+#                 discounted_price = item.product.price * 0.8  # Apply 20% discount
+#                 item.discounted_price = discounted_price * item.quantity
+#                 item.unit_discounted_price = discounted_price
+#                 total_price += item.discounted_price
+#             else:
+#                 item.discounted_price = item.product.price * item.quantity
+#                 item.unit_discounted_price = item.product.price
+#                 total_price += item.discounted_price
+#     return render(request, 'cart.html', {'order_items': order_items, 'total_price': total_price})
+
 def cart(request):
     if request.method == 'POST':
         item_id = request.POST.get('item_id')
@@ -79,10 +107,18 @@ def cart(request):
         total_price = 0
     else:
         order_items = order.orderitem_set.all()
-        total_price = order.total_price
+        total_price = 0
+        for item in order_items:
+            if item.product.category.name == "Deals of the Day":
+                discounted_price = item.product.price * 0.8  # Apply 20% discount
+                item.discounted_price = discounted_price * item.quantity
+                item.unit_discounted_price = discounted_price
+                total_price += item.discounted_price
+            else:
+                item.discounted_price = item.product.price * item.quantity
+                item.unit_discounted_price = item.product.price
+                total_price += item.discounted_price
     return render(request, 'cart.html', {'order_items': order_items, 'total_price': total_price})
-
-
 def about(request):
     return render(request, 'about.html')
 
@@ -95,7 +131,9 @@ def home(request):
     if request.user.is_superuser:
         return render(request, 'admin_home.html')
     else:
-        return render(request, 'home2.html')
+        deals_category = get_object_or_404(Category, name="Deals Of The Day")
+        deals_products = Product.objects.filter(category=deals_category)
+        return render(request, 'home2.html', {"deals_products": deals_products})
 
 
 def search(request):

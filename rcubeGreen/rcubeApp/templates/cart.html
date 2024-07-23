@@ -4,8 +4,14 @@
 
 {% block content %}
 <h1 class="align-content-center">Your Cart</h1>
+{% if not order_items %}
+<div class="alert alert-warning align-content-center" role="alert">
+    <i class="fas fa-shopping-cart"></i> Your cart is empty.
+</div>
+{% else %}
 <p class="align-content-center">These are the items in your cart.</p>
-    <style>
+{% endif %}
+<style>
     .cart-container {
         display: flex;
         flex-direction: column;
@@ -90,17 +96,24 @@
         padding: 0;
     }
 </style>
-    <div class="cart-container">
+<div class="cart-container">
+    {% if order_items %}
     <ul>
         {% for item in order_items %}
-            <li class="cart-item">
+        <li class="cart-item">
             {% if item.product.image %}
-                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
             {% endif %}
             <div class="cart-item-details">
                 <h2>{{ item.product.name }}</h2>
                 <p>Quantity: {{ item.quantity }}</p>
-                <p>Price: ${{ item.get_total_price }}</p>
+                {% if item.product.category.name == "Deals of the Day" %}
+                <p>Original Price: ${{ item.product.price }}</p>
+                <p>Discounted Price: ${{ item.unit_discounted_price }}</p>
+                <p>Total Price for {{ item.quantity }}: ${{ item.discounted_price }}</p>
+                {% else %}
+                <p>Price: ${{ item.discounted_price }}</p>
+                {% endif %}
                 <form method="post" action="{% url 'cart' %}">
                     {% csrf_token %}
                     <input type="hidden" name="item_id" value="{{ item.id }}">
@@ -108,13 +121,15 @@
                 </form>
             </div>
         </li>
-    {% endfor %}
-</ul>
-
-<p class="total-price">Total Price: ${{ total_price }}</p>
+        {% endfor %}
+    </ul>
+    <p class="total-price">Total Price: ${{ total_price }}</p>
+    {% endif %}
     <div>
-<a href="{% url 'add_payment_method' %}" class="btn btn-green checkout-btn">Proceed to Checkout</a>
-    <a href="{% url 'shop' %}" class="btn btn-green shop-btn">Continue to Shop</a>
+        {% if order_items %}
+        <a href="{% url 'add_payment_method' %}" class="btn btn-green checkout-btn">Proceed to Checkout</a>
+        {% endif %}
+        <a href="{% url 'shop' %}" class="btn btn-green shop-btn">Continue to Shop</a>
     </div>
-     </div>
+</div>
 {% endblock %}
