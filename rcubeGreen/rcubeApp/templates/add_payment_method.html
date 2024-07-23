@@ -12,7 +12,8 @@ Add Payment Method
     margin: auto;
     padding: 20px;
   }
-  .add-payment-method-page h3.title {
+  .add-payment-method-page h1.title {
+    text-align: center;
     margin-bottom: 20px;
   }
   .add-payment-method-page .form-row {
@@ -55,11 +56,26 @@ Add Payment Method
   .add-payment-method-page .submit-btn:hover {
     background: #218838;
   }
+  .cancel-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+  }
+  .cancel-btn:hover {
+    background: #c82333;
+  }
 </style>
 
 <div class="add-payment-method-page">
   <div class="container">
-    <form action="{% url 'add_payment_method' %}" method="post">
+    <h1 class="title">Payment Information</h1> <!-- Added Heading -->
+    <form action="{% url 'makepayment' %}" method="post">
         {% csrf_token %}
         <div class="form-row">
             <div class="form-column">
@@ -125,7 +141,10 @@ Add Payment Method
                 </div>
             </div>
         </div>
-        <button type="submit" class="submit-btn">Proceed To Checkout</button>
+        <div style="display: flex; justify-content: space-between;">
+          <button type="submit" class="submit-btn">Make Payment</button>
+          <a href="{% url 'cart' %}" class="cancel-btn">Cancel Payment</a>
+        </div>
     </form>
   </div>
 </div>

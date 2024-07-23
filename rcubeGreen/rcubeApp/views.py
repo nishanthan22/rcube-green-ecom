@@ -149,5 +149,3 @@ def payment_successful(request, payment_id):
     }
 
     return render(request, 'payment_successful.html', context)
-
-
