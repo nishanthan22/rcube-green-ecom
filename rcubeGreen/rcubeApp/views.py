@@ -10,7 +10,7 @@ from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.db.models import Q
 from django.utils import timezone
-
+import pytz
 
 def news_article_list_view(request):
     articles = NewsArticle.objects.all()
@@ -154,54 +154,3 @@ def payment_successful(request, payment_id):
     }
 
     return render(request, 'payment_successful.html', context)
-
-
-
-@login_required
-def checkout(request):
-    order = Order.objects.filter(user=request.user, status='Pending').first()
-    if request.method == 'POST':
-        if order:
-            full_name = request.POST.get('full_name')
-            email = request.POST.get('email')
-            address = request.POST.get('address')
-            city = request.POST.get('city')
-            state = request.POST.get('state')
-            zip_code = request.POST.get('zip_code')
-            name_on_card = request.POST.get('name_on_card')
-            card_number = request.POST.get('card_number')
-            exp_month = request.POST.get('exp_month')
-            exp_year = request.POST.get('exp_year')
-            cvv = request.POST.get('cvv')
-
-            # Calculate total amount from order items
-            total_amount = order.total_price
-
-            # Save payment method
-            payment = PaymentMethod(
-                user=request.user,
-                amount=total_amount,
-                date=timezone.now(),
-                method='Credit Card',
-                full_name=full_name,
-                email=email,
-                address=address,
-                city=city,
-                state=state,
-                zip_code=zip_code,
-                name_on_card=name_on_card,
-                card_number=card_number,
-                exp_month=exp_month,
-                exp_year=exp_year,
-                cvv=cvv,
-            )
-            payment.save()
-
-            # Update order status
-            order.status = 'Processed'
-            order.completed = timezone.now()
-            order.save()
-            return redirect('payment_list')
-
-    return render(request, 'checkout.html', {'order': order})
-
