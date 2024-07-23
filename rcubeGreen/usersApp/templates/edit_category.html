@@ -11,7 +11,7 @@
       {% csrf_token %}
       {{ form.as_p }}
       <div class="button-group" style="display: flex; justify-content: space-between; margin-top: 20px;">
-        <button type="submit" class="btn btn-success">Save Category</button>
+        <button type="submit" style="background-color: #006769;" class="btn btn-success">Save Category</button>
         <a href="{% url 'list_categories' %}" class="btn btn-secondary" style="font-size: 1.2em;">Cancel</a>
       </div>
     </form>
