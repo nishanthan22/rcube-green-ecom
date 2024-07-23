@@ -46,7 +46,7 @@ def articles(request):
 
 def shop(request):
     products = Product.objects.all()
-    categories = Category.objects.exclude(name__contains="Deals of the Day").order_by('name')
+    categories = Category.objects.all().order_by('name')
     return render(request, 'shop.html', {'products': products, 'categories': categories})
 
 
@@ -94,9 +94,7 @@ def home(request):
     if request.user.is_superuser:
         return render(request, 'admin_home.html')
     else:
-        deals_category = get_object_or_404(Category, name="Deals Of The Day")
-        deals_products = Product.objects.filter(category=deals_category)
-        return render(request, 'home2.html', {"deals_products": deals_products})
+        return render(request, 'home2.html')
 
 
 def search(request):
