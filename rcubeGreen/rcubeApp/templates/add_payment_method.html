@@ -70,6 +70,10 @@ Add Payment Method
   .cancel-btn:hover {
     background: #c82333;
   }
+  .errorlist {
+    color: red;
+    font-size: 0.875em;
+  }
 </style>
 
 <div class="add-payment-method-page">
@@ -87,6 +91,9 @@ Add Payment Method
                 <div class="inputBox">
                     <span>Email :</span>
                     {{ form.email }}
+                    {% for error in form.email.errors %}
+                        <div class="errorlist">{{ error }}</div>
+                    {% endfor %}
                 </div>
                 <div class="inputBox">
                     <span>Address :</span>
@@ -104,6 +111,9 @@ Add Payment Method
                     <div class="inputBox">
                         <span>Zip Code :</span>
                         {{ form.zip_code }}
+                        {% for error in form.zip_code.errors %}
+                            <div class="errorlist">{{ error }}</div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -120,19 +130,31 @@ Add Payment Method
                 <div class="inputBox">
                     <span>Debit/Credit Card Number :</span>
                     {{ form.card_number }}
+                    {% for error in form.card_number.errors %}
+                        <div class="errorlist">{{ error }}</div>
+                    {% endfor %}
                 </div>
                 <div class="inputBox">
                     <span>Exp Month :</span>
                     {{ form.exp_month }}
+                    {% for error in form.exp_month.errors %}
+                        <div class="errorlist">{{ error }}</div>
+                    {% endfor %}
                 </div>
                 <div class="flex">
                     <div class="inputBox">
                         <span>Exp Year :</span>
                         {{ form.exp_year }}
+                        {% for error in form.exp_year.errors %}
+                            <div class="errorlist">{{ error }}</div>
+                        {% endfor %}
                     </div>
                     <div class="inputBox">
                         <span>CVV :</span>
                         {{ form.cvv }}
+                        {% for error in form.cvv.errors %}
+                            <div class="errorlist">{{ error }}</div>
+                        {% endfor %}
                     </div>
                 </div>
                 <div class="inputBox">
