@@ -3,12 +3,16 @@
 {% block title %}Add Category{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h2 class="h2 section-title">Add Category</h2>
-  <form method="post">
+<div class="container" style="display: flex; justify-content: center; align-items: center; flex-direction: column; min-height: 60vh;">
+  <h2 class="h2 section-title" style="margin-bottom: 20px;">Add Category</h2>
+  <form method="post" style="width: 100%; max-width: 400px;">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Add Category</button>
+    <div class="form-group">
+      {{ form.as_p }}
+    </div>
+    <div class="button-group" style="display: flex; justify-content: center; margin-top: 10px;">
+      <button type="submit" class="btn btn-success">Add Category</button>
+    </div>
   </form>
 </div>
 {% endblock %}

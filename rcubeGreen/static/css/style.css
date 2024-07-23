@@ -793,6 +793,10 @@ h3 > a { color: inherit; }
   color: var(--sonic-silver);
 }
 
+.text-align-center{
+  text-align: center;
+}
+
  /* Products Page Styles End*/
 
 /**
@@ -849,3 +853,4 @@ h3 > a { color: inherit; }
   .footer-bottom .container { justify-content: space-between; }
 
 }}
+

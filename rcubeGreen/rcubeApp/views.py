@@ -10,7 +10,6 @@ from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.db.models import Q
 from django.utils import timezone
-import pytz
 
 
 def news_article_list_view(request):
@@ -100,15 +99,21 @@ def home(request):
 
 def search(request):
     query = request.GET.get('q')
-    results = []  # Replace with your actual search logic to get results
+    products = Product.objects.all()
+    products = products.filter(
+        Q(name__icontains=query) | Q(description__icontains=query) | Q(category__name__icontains=query)
+    )
 
-    # Example logic to populate results
-    if query:
-        # Perform search in your database or data source
-        results = ["Result 1", "Result 2", "Result 3"]  # Replace with actual search results
+    context = {
+        'products': products,
+        'query': query
+    }
 
-    return render(request, 'search.html', {'query': query, 'results': results})
+    return render(request, 'search.html', context)
 
+def product_detail(request, id):
+    product = get_object_or_404(Product, id=id)
+    return render(request, 'product_detail.html', {'product': product})
 
 @login_required
 def add_payment_method(request):
