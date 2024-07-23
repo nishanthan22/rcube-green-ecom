@@ -157,5 +157,8 @@ def create_post(request):
 class Privacy(generic.TemplateView):
     template_name = 'blog/privacy.html'
 
+class About(generic.TemplateView):
+    template_name = 'blog/about.html'
+
 
 
