@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     "usersApp.apps.UsersappConfig",
     "blog",
     "news"
+
+
 ]
 
 MIDDLEWARE = [

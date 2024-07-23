@@ -6,24 +6,24 @@
 
 {% block content %}
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Baloo+2&display=swap");
+{#@import url("https://fonts.googleapis.com/css2?family=Baloo+2&display=swap");#}
 
-/* This pen */
-body {
-    font-family: "Baloo 2", cursive;
-    font-size: 16px;
-    color: #333333;
-    text-rendering: optimizeLegibility;
-    font-weight: initial;
-}
-
-.dark {
-    background: #110f16;
-}
-
-.light {
-    background: #f3f5f7;
-}
+{#/* This pen */#}
+{#body {#}
+{#    font-family: "Baloo 2", cursive;#}
+{#    font-size: 16px;#}
+{#    color: #333333;#}
+{#    text-rendering: optimizeLegibility;#}
+{#    font-weight: initial;#}
+{#}#}
+{##}
+{#.dark {#}
+{#    background: #110f16;#}
+{#}#}
+{##}
+{#.light {#}
+{#    background: #f3f5f7;#}
+{#}#}
 
 a,
 a:hover {
@@ -161,7 +161,7 @@ a:hover {
     }
 
     .postcard__title {
-        font-size: 2rem;
+        font-size: 1rem;
     }
 
     .postcard__tagbox {
@@ -404,7 +404,7 @@ a:hover {
 </style>
 
 <div class="container py-4">
-    <h1 class="h1 text-center" id="pageHeaderTitle">Discover the Latest News</h1>
+    <h1 id="pageHeaderTitle">Discover the Latest News On Environment 😊</h1>
     <div class="row">
         <!-- Sidebar for Filters -->
         <div class="col-lg-3">
@@ -439,7 +439,7 @@ a:hover {
         <div class="col-lg-9">
             <div id="destinations" class="row">
                 {% for destination in destinations %}
-                <div class="col-12 mb-4">
+                <div class="col-12">
                     <article class="postcard dark blue">
                         <a class="postcard__img_link" href="{{ destination.url }}" target="_blank">
                             <img class="postcard__img" src="{{ destination.urlToImage }}" alt="Article Image" />
@@ -452,7 +452,7 @@ a:hover {
                                 </time>
                             </div>
                             <div class="postcard__bar"></div>
-                            <div class="postcard__preview-txt">{{ destination.description }}</div>
+                            <div class="postcard__preview-txt">{{ destination.description | truncatewords:10 }}</div>
                             <ul class="postcard__tagbox">
                                 <li class="tag__item"><i class="fas fa-user mr-2"></i>{{ destination.author }}</li>
                                 <li class="tag__item"><i class="fas fa-tag mr-2"></i>{{ destination.source.name }}</li>

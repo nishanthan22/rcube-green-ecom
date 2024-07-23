@@ -63,13 +63,14 @@
           <li><a href="{% url 'news:index' 1 %}" class="navbar-link">News</a></li>
           <li><a href="{% url 'shop' %}" class="navbar-link">Shop</a></li>
           <li><a href="{% url 'cart' %}" class="navbar-link">Cart</a></li>
-          <li><a href="#blog" class="navbar-link">Blog</a></li>
+          <li><a href="{% url 'blog:index' %}" class="navbar-link">Blog</a></li>
           <li><a href="{% url 'contact' %}" class="navbar-link">Contact</a></li>
         </ul>
       </nav>
       {% endblock %}
     </div>
   </header>
+
   {% endblock %}
 
   <main class="container mt-4">
@@ -96,7 +97,7 @@
           <li><p class="footer-list-title">About Us</p></li>
           <li><a href="#" class="footer-link">About Company</a></li>
           <li><a href="#" class="footer-link">Payment Type</a></li>
-          <li><a href="#" class="footer-link">Blog</a></li>
+          <li><a href="{% url 'blog:index' %}" class="footer-link">Blog</a></li>
           <li><a href="#" class="footer-link">Products</a></li>
           <li><a href="#" class="footer-link">Signup to newsletter</a></li>
           <li><a href="#" class="footer-link">Refund Policy</a></li>

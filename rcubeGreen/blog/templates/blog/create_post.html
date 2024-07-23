@@ -1,6 +1,31 @@
 <!-- create_blog_post.html -->
 {% extends "blog/base.html" %}
+
 {% block content %}
+<style>
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    form input, form textarea, form button {
+        margin-bottom: 10px;
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid black; /* Black border for input fields */
+    }
+
+    label {
+        font-weight: bold; /* Bold input titles */
+    }
+
+</style>
 <div class="container mt-5">
     <h1>Create Blog Post</h1>
     <div id="contentSection" style="display: none; margin-top: 20px;">

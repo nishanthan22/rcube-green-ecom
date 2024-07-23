@@ -1,5 +1,3 @@
-<!-- templates/userApp/edit_product.html -->
-
 {% extends "admin_home.html" %}
 
 {% block title %}Edit Product{% endblock %}
@@ -8,12 +6,12 @@
 <div class="container">
     <h2 class="section-title">Edit Product</h2>
     <div style="display: flex; justify-content: center;">
-      <form method="post" enctype="multipart/form-data" style="width: 100%; max-width: 400px;">
+      <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-
+        <button type="submit">Save</button>
         <div class="button-group" style="display: flex; justify-content: space-between;">
-                    <button type="submit" class="btn btn-success">Save</button>
+                    <button type="submit" class="btn btn-success">Add Product</button>
                     <a href="{% url 'list_products' %}" class="btn btn-secondary" style="font-size: 0.875em;">Cancel</a>
         </div>
       </form>

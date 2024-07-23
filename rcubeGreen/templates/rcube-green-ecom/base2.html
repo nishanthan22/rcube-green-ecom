@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   {% load static %}
   <title>{% block title %}My Website{% endblock %}</title>
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -15,6 +14,23 @@
   <style>
     /* Additional styles from style.css if needed can be placed here */
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+    body {
+        font-family: "Montserrat", serif;
+    font-size: 16px;
+    color: #333333;
+    text-rendering: optimizeLegibility;
+    font-weight: inherit;
+
+}
+
+.dark {
+    background: #110f16;
+}
+
+.light {
+    background: #f3f5f7;
+}
+
     .hover-effect img {
       transition: transform 0.3s;
     }
@@ -44,7 +60,7 @@
     .features .col {
       margin-bottom: 10px;
     }
-   .deals-section {
+    .deals-section {
       margin-top: 30px;
     }
     .deals-section h2 {
@@ -100,20 +116,22 @@
       margin: 0;
     }
     .footer {
-      background-color: #f8f9fa;
+      background-color: #50B498;
+        color: white;
       padding: 40px 0;
     }
     .footer h5 {
       margin-bottom: 20px;
     }
     .footer p, .footer a {
-      color: #6c757d;
+      color: black;
+
     }
     .footer a:hover {
       color: #343a40;
     }
     .footer-bar {
-      background-color: #f8f9fa; /* Light grey background color */
+      background-color: #50B498; /* Light grey background color */
       padding: 10px 20px; /* Padding for some space inside the bar */
       border-top: 1px solid #dee6e1; /* Optional: a border to separate the bar from the rest of the content */
     }
@@ -125,7 +143,8 @@
       justify-content: center;
       align-items: center;
       padding: 10px;
-      border-bottom: 1px solid #e5e5e5;
+      border-bottom: 1px solid #e5e5e5; /*95D2B3*/
+        background-color: #50B498;
     }
     .header .logo {
       flex: 1;
@@ -152,9 +171,10 @@
     .header .header-action-btn {
       display: flex;
       align-items: center;
-      height: 40px; /* Adjusted height */
-      font-size: 14px; /* Adjust font size if needed */
-      background-color: #f9f9f9;
+      height: 40px;
+      font-size: 14px;
+      background-color: #50B498;
+        border: none;
     }
     .dropdown {
       position: relative;
@@ -163,9 +183,8 @@
     .dropdown-content {
       display: none;
       position: absolute;
-      background-color: #f9f9f9;
-      min-width: 160px;
-      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      background-color: #D6EFD8;
+      min-width: 140px;
       z-index: 1;
     }
     .dropdown-content a {
@@ -181,8 +200,11 @@
       display: block;
     }
     .dropdown:hover .dropdown-toggle {
-      background-color: #9CDBA6;
+      background-color: #D6EFD8;
       border-radius: 30%;
+    }
+    .navbar {
+      background-color: #D6EFD8 !important;
     }
   </style>
 </head>
@@ -208,20 +230,16 @@
         {% if user.is_authenticated %}
         <div class="dropdown">
           <button class="header-action-btn dropdown-toggle" type="button">
-            <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
-
+            <ion-icon name="person-outline" ></ion-icon>
           </button>
-            <p class="header-action-label">Profile</p>
+
           <div class="dropdown-content">
             <a href="{% url 'profile' %}">User Profile</a>
             <a href="{% url 'logout' %}">Logout</a>
           </div>
         </div>
         {% else %}
-        <button class="header-action-btn" onclick="window.location.href='{% url 'user_accounts' %}'">
-
-          <p class="header-action-label">Sign in</p>
-        </button>
+          <a href='{% url 'user_accounts' %}' style="background-color: #006769; color: white" class="btn">Sign in</a>
         {% endif %}
       </div>
       {% endblock %}
@@ -229,8 +247,8 @@
   </header>
   {% endblock %}
   <!-- Navbar -->
-      {% block navbar %}
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  {% block navbar %}
+  <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -256,7 +274,7 @@
       </div>
     </div>
   </nav>
-          {% endblock %}
+  {% endblock %}
   {% endblock %}
   <!-- Content Block -->
   {% block content %}
@@ -278,21 +296,21 @@
         <div class="col-md-3">
           <h5>About Us</h5>
           <ul class="list-unstyled">
-            <li><a href="#">About Company</a></li>
-            <li><a href="#">Payment Type</a></li>
-            <li><a href="#">Blog</a></li>
-            <li><a href="#">Products</a></li>
-            <li><a href="#">Signup to newsletter</a></li>
-            <li><a href="#">Refund Policy</a></li>
+            <li><a href="{% url "home" %}">About Company</a></li>
+            <li><a href="{% url "blog:index" %}">Blog</a></li>
+            <li><a href="{% url "shop" %}">Products</a></li>
+            <li><a href="{% url "home" %}">Signup to newsletter</a></li>
+            <li><a href="{% url "news:index" 1%}">Article</a></li>
           </ul>
         </div>
         <div class="col-md-3">
           <h5>Category</h5>
           <ul class="list-unstyled">
-            <li><a href="#">Windmills</a></li>
-            <li><a href="#">Solar Panels</a></li>
-            <li><a href="#">Sustainable Clothing</a></li>
-            <li><a href="#">Stationaries</a></li>
+            <li><a href="{% url "shop" %}">Automotive</a></li>
+            <li><a href="{% url "shop" %}">Fashion</a></li>
+            <li><a href="{% url "shop" %}">Fitness</a></li>
+            <li><a href="{% url "shop" %}">Garden</a></li>
+            <li><a href="{% url "shop" %}">Home</a></li>
           </ul>
         </div>
         <div class="col-md-3">
@@ -300,8 +318,7 @@
           <ul class="list-unstyled">
             <li><a href="#">FAQ Information</a></li>
             <li><a href="#">Return Policy</a></li>
-            <li><a href="#">Shipping & Delivery</a></li>
-            <li><a href="#">Order Tracking</a></li>
+              <li><a href="{% url "contact" %}">Contact Us</a></li>
           </ul>
         </div>
       </div>

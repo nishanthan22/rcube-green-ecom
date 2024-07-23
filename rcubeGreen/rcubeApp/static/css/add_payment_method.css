@@ -11,11 +11,11 @@
   transition: all .2s linear;
 }
 
-body {
+body.add-payment-method-page {
   background-color: #00A76F; /* Same green color as payment_list */
 }
 
-.container {
+body.add-payment-method-page .container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,7 +24,7 @@ body {
   background: linear-gradient(90deg, #00A76F 60%, #008B5C 40.1%);
 }
 
-.container form {
+body.add-payment-method-page .container form {
   padding: 20px;
   width: 700px;
   background: #fff;
@@ -32,33 +32,26 @@ body {
   box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
 }
 
-.container form .row {
+body.add-payment-method-page .form-row {
   display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
+  justify-content: space-between;
 }
 
-.container form .row .col {
-  flex: 1 1 250px;
+body.add-payment-method-page .form-column {
+  flex: 1;
+  margin: 0 10px;
 }
 
-.container form .row .col .title {
-  font-size: 20px;
-  color: #333;
-  padding-bottom: 5px;
-  text-transform: uppercase;
-}
-
-.container form .row .col .inputBox {
+body.add-payment-method-page .inputBox {
   margin: 15px 0;
 }
 
-.container form .row .col .inputBox span {
+body.add-payment-method-page .inputBox span {
   margin-bottom: 10px;
   display: block;
 }
 
-.container form .row .col .inputBox input {
+body.add-payment-method-page .inputBox input {
   width: 100%;
   border: 1px solid #ccc;
   padding: 10px 15px;
@@ -67,26 +60,22 @@ body {
   border-radius: 5px;
 }
 
-.container form .row .col .inputBox input:focus {
+body.add-payment-method-page .inputBox input:focus {
   border: 1px solid #000;
 }
 
-.container form .row .col .flex {
+body.add-payment-method-page .flex {
   display: flex;
   gap: 15px;
 }
 
-.container form .row .col .flex .inputBox {
-  margin-top: 5px;
-}
-
-.container form .row .col .inputBox img {
+body.add-payment-method-page .inputBox img {
   height: 34px;
   margin-top: 5px;
   filter: drop-shadow(0 0 1px #000);
 }
 
-.container form .submit-btn {
+body.add-payment-method-page .submit-btn {
   width: 100%;
   padding: 12px;
   font-size: 17px;
@@ -97,6 +86,6 @@ body {
   border-radius: 5px;
 }
 
-.container form .submit-btn:hover {
+body.add-payment-method-page .submit-btn:hover {
   background: #2ecc71;
 }
