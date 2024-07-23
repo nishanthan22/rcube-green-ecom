@@ -63,35 +63,7 @@ def add_to_cart(request, product_id):
     return redirect('shop')
 
 
-# @login_required
-# def cart(request):
-#     if request.method == 'POST':
-#         item_id = request.POST.get('item_id')
-#         if item_id:
-#             order_item = get_object_or_404(OrderItem, id=item_id, order__user=request.user, order__status='Pending')
-#             order_item.delete()
-#             order_item.order.update_total_price()
-#             return redirect('cart')
-#
-#     order = Order.objects.filter(user=request.user, status='Pending').first()
-#     if not order:
-#         order_items = []
-#         total_price = 0
-#     else:
-#         order_items = order.orderitem_set.all()
-#         total_price = 0
-#         for item in order_items:
-#             if item.product.category.name == "Deals of the Day":
-#                 discounted_price = item.product.price * 0.8  # Apply 20% discount
-#                 item.discounted_price = discounted_price * item.quantity
-#                 item.unit_discounted_price = discounted_price
-#                 total_price += item.discounted_price
-#             else:
-#                 item.discounted_price = item.product.price * item.quantity
-#                 item.unit_discounted_price = item.product.price
-#                 total_price += item.discounted_price
-#     return render(request, 'cart.html', {'order_items': order_items, 'total_price': total_price})
-
+@login_required
 def cart(request):
     if request.method == 'POST':
         item_id = request.POST.get('item_id')
@@ -107,18 +79,10 @@ def cart(request):
         total_price = 0
     else:
         order_items = order.orderitem_set.all()
-        total_price = 0
-        for item in order_items:
-            if item.product.category.name == "Deals of the Day":
-                discounted_price = item.product.price * 0.8  # Apply 20% discount
-                item.discounted_price = discounted_price * item.quantity
-                item.unit_discounted_price = discounted_price
-                total_price += item.discounted_price
-            else:
-                item.discounted_price = item.product.price * item.quantity
-                item.unit_discounted_price = item.product.price
-                total_price += item.discounted_price
+        total_price = order.total_price
     return render(request, 'cart.html', {'order_items': order_items, 'total_price': total_price})
+
+
 def about(request):
     return render(request, 'about.html')
 
