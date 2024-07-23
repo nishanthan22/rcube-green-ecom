@@ -33,11 +33,12 @@
             border-radius: 6px;
             display: flex;
             justify-content: center;
-            background-color: green;
+            background-color: #006769;
+
     }
 
     .btn:hover {
-        background-color: #218838; /* Darker shade of green on hover */
+        background-color: #006769; /* Darker shade of green on hover */
     }
 </style>
 
@@ -47,7 +48,7 @@
         <h5 class="card-header">About Us</h5>
         <div class="card-body">
             <p class="card-text">Welcome to Rcube, where we harness the power of technology and innovation to build a sustainable future. Our platform is powered by Django, enabling us to create meaningful connections through insightful content on green innovation, eco products, and sustainable living.</p>
-            <a href="{% url 'about' %}" class="btn btn-primary">Know more!</a>
+            <a href="{% url 'blog:about' %}" class="btn btn-primary">Know more!</a>
         </div>
     </div>
     <div class="card">

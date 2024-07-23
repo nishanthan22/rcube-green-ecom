@@ -47,6 +47,7 @@
                 <a href="{% provider_login_url 'google' %}?next=/">
                   <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" alt="Continue with Google" />
                 </a>
+                <p class="register-link">Forgot password?<a href="{% url 'password_reset' %}" style="color:#007bff; text-decoration: underline ;font-weight: bold;">Reset</a></p>
                 <p class="register-link">Go back to <a href="{% url 'home' %}" style="color:#007bff; text-decoration: underline ;font-weight: bold;">Home</a></p>
             </form>
         </div>

@@ -25,6 +25,7 @@ urlpatterns = [
     path('eco_products/<slug:slug>/', EcoProductsDetail.as_view(), name='eco_products_detail'),
     path('sustainable_living/<slug:slug>/', SustainableLivingDetail.as_view(), name='sustainable_living_detail'),
     path('privacy/', views.Privacy.as_view(), name='privacy'),
+    path('about/', views.About.as_view(), name='about'),
 ]
 
 if settings.DEBUG:
