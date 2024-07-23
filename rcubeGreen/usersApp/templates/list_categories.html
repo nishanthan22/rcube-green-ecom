@@ -3,26 +3,26 @@
 {% block title %}Category List{% endblock %}
 
 {% block content %}
-  <div class="container">
+  <div class="container" style="display: flex; justify-content: center; align-items: center; flex-direction: column; min-height: 60vh;">
     <h2 class="h2 section-title">Categories</h2>
     <table style="width: 100%; border-collapse: collapse;">
       <thead>
         <tr>
-          <th style="padding: 10px; border-bottom: 1px solid var(--cultured);">Name</th>
-          <th style="padding: 10px; border-bottom: 1px solid var(--cultured);">Edit</th>
-          <th style="padding: 10px; border-bottom: 1px solid var(--cultured);">Delete</th>
+          <th class="text-align-center" style="padding: 10px; border-bottom: 1px solid var(--cultured);">Category Name</th>
+          <th class="text-align-center" style="padding: 10px; border-bottom: 1px solid var(--cultured);">Edit Category</th>
+          <th style="padding: 10px; border-bottom: 1px solid var(--cultured);">Delete Category</th>
         </tr>
       </thead>
       <tbody>
         {% for category in categories %}
           <tr>
-            <td style="padding: 10px; text-align: center;">{{ category.name }}</td>
-            <td style="padding: 10px; text-align: center;">
+            <td style="padding: 10px; text-align: left;">{{ category.name }}</td>
+            <td style="padding:2%; text-align: left;">
               <a href="{% url 'edit_category' category.id %}">
                 <button type="button" class="btn btn-success">Edit</button>
               </a>
             </td>
-            <td style="padding: 10px; text-align: center;">
+            <td style="padding: 10px; text-align: left;">
               <form method="post" action="{% url 'delete_category' category.id %}">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-secondary">Delete</button>

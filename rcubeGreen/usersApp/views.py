@@ -33,6 +33,7 @@ def list_products(request):
 
 
 # Product Views
+@login_required
 def edit_product(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     if request.method == 'POST':
@@ -45,6 +46,7 @@ def edit_product(request, product_id):
     return render(request, 'edit_product.html', {'form': form})
 
 
+@login_required
 def delete_product(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     if request.method == 'POST':
@@ -72,6 +74,7 @@ def list_categories(request):
 
 
 # Category Views
+@login_required
 def edit_category(request, category_id):
     category = get_object_or_404(Category, id=category_id)
     if request.method == 'POST':
@@ -84,6 +87,7 @@ def edit_category(request, category_id):
     return render(request, 'edit_category.html', {'form': form})
 
 
+@login_required
 def delete_category(request, category_id):
     category = get_object_or_404(Category, id=category_id)
     if request.method == 'POST':

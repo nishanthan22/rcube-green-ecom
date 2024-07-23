@@ -5,10 +5,15 @@
 {% block title %}Edit Category{% endblock %}
 
 {% block content %}
+<div class="container" style="display: flex; justify-content: center; align-items: center; flex-direction: column; min-height: 60vh;">
   <h2>Edit Category</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save</button>
-  </form>
+    <form method="post" style="width: 60%; max-width: 600px;">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="button-group" style="display: flex; justify-content: space-between; margin-top: 20px;">
+        <button type="submit" class="btn btn-success">Save Category</button>
+        <a href="{% url 'list_categories' %}" class="btn btn-secondary" style="font-size: 1.2em;">Cancel</a>
+      </div>
+    </form>
+  </div>
 {% endblock %}
