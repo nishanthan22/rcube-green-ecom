@@ -1,16 +1,84 @@
 {% extends "user_profile.html" %}
 
-{% block title %}Edit Profile{% endblock %}
+{% block title %}Edit Profile
+{% endblock %}
 
 {% block content %}
-<h1>Edit Profile</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <div style="align-items: center; justify-content: center; display: flex; margin: 18px">
-    <button type="submit" class="btn btn-success">Save changes</button>
-    <a href="{% url 'profile' %}" class="btn btn-secondary">Cancel</a>
-    </div>
-</form>
+<style>
+
+.edit-form form {
+    padding: 30px 40px;
+    background: #fff;
+    border-radius: 7px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+}
+
+.edit-form form label {
+    display: block;
+    font-size: 15px;
+    font-style: italic;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+.edit-form form input {
+    height: 45px;
+    padding: 10px;
+    width: 100%;
+    font-size: 15px;
+    border-radius: 10px;
+    border: 2px solid #9CDBA6;
+}
+
+.edit-form form button[type="submit"],
+.edit-form form .btn-secondary {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    margin: 10px 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.edit-form form button[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    border: none;
+}
+
+.edit-form form button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+.edit-form form .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+.edit-form form .btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.center-btn {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+</style>
+<div class="edit-form">
+    <h5 style="margin-top: 30px; text-align: center">You can modify the below credentials</h5>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="center-btn">
+        <button type="submit">Save changes</button>
+        <a href="{% url 'profile' %}" class="btn btn-secondary">Cancel</a>
+            </div>
+    </form>
+</div>
 
 {% endblock %}
