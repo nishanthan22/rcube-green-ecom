@@ -1,6 +1,7 @@
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
@@ -19,4 +20,7 @@ urlpatterns = [
     path('user_accounts/', views.user_accounts, name='user_accounts'),
     path('profile/edit/', views.edit_profile, name='edit_profile'),
     path('profile/user/orders/', views.user_orders, name='user_orders'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('password-reset/', views.ResetPasswordView.as_view(), name='password_reset'),
+    path('password-reset-confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='password_reset_confirm.html'), name='password_reset_confirm'),
+    path('password-reset-complete/', auth_views.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'), name='password_reset_complete'),
+    ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
