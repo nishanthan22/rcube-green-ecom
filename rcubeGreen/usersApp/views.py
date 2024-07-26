@@ -151,9 +151,14 @@ def edit_profile(request):
                 return redirect('profile')
             except IntegrityError:
                 form.add_error('email', 'Email is already in use.')
+        else:
+            if not form.has_changed():
+                form.add_error(None, 'Alter any one field')
     else:
         form = EditProfileForm(instance=request.user)
+
     return render(request, 'edit_profile.html', {'form': form})
+
 
 @login_required
 def user_orders(request):

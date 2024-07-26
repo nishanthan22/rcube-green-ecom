@@ -40,8 +40,21 @@ class EditProfileForm(forms.ModelForm):
         model = User
         fields = ['first_name', 'last_name', 'email']
 
+    def clean(self):
+        cleaned_data = super().clean()
+        first_name = cleaned_data.get('first_name')
+        last_name = cleaned_data.get('last_name')
+        email = cleaned_data.get('email')
+
+        if not (first_name or last_name or email):
+            raise ValidationError("Alter any one field")
+
+        return cleaned_data
+
     def clean_email(self):
-        email = self.cleaned_data['email']
-        if User.objects.filter(email=email).exclude(pk=self.instance.pk).exists():
+        email = self.cleaned_data.get('email')
+        if email and User.objects.filter(email=email).exclude(pk=self.instance.pk).exists():
             raise ValidationError("Email is already in use.")
         return email
+
+
