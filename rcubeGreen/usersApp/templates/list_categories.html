@@ -3,34 +3,62 @@
 {% block title %}Category List{% endblock %}
 
 {% block content %}
-  <div class="container" style="display: flex; justify-content: center; align-items: center; flex-direction: column; min-height: 60vh;">
-    <h2 class="h2 section-title">Categories</h2>
-    <table style="width: 100%; border-collapse: collapse;">
-      <thead>
-        <tr>
-          <th class="text-align-center" style="padding: 10px; border-bottom: 1px solid var(--cultured);">Category Name</th>
-          <th class="text-align-center" style="padding: 10px; border-bottom: 1px solid var(--cultured);">Edit Category</th>
-          <th style="padding: 10px; border-bottom: 1px solid var(--cultured);">Delete Category</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for category in categories %}
-          <tr>
-            <td style="padding: 10px; text-align: left;">{{ category.name }}</td>
-            <td style="padding:2%; text-align: left;">
-              <a href="{% url 'edit_category' category.id %}">
-                <button type="button" style="background-color: #006769;" class="btn btn-success">Edit</button>
-              </a>
-            </td>
-            <td style="padding: 10px; text-align: left;">
-              <form method="post" action="{% url 'delete_category' category.id %}">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-secondary">Delete</button>
-              </form>
-            </td>
-          </tr>
+<div class="container" style="display: flex; justify-content: center; align-items: center; flex-direction: column; min-height: 60vh;">
+  <h2 class="h2 section-title">Categories</h2>
+
+  <!-- Filter Form -->
+  <form method="get" action="{% url 'list_categories' %}" style="margin-bottom: 20px; width: 100%; max-width: 600px;">
+    <div class="form-group" style="display: flex; align-items: center;">
+      <label for="category" style="margin-right: 10px;">Filter by Category:</label>
+      <select id="category" name="category" class="form-control" style="margin-right: 10px; flex-grow: 1;">
+        <option value="">-- Select a Category --</option>
+        {% for cat in all_categories %}
+          <option value="{{ cat.id }}" {% if selected_category == cat.id|stringformat:"s" %}selected{% endif %}>{{ cat.name }}</option>
+
         {% endfor %}
-      </tbody>
-    </table>
-  </div>
+      </select>
+      <button type="submit" class="btn" style="background-color: #006769; color: white; font-weight: var(--fw-600); height: 50px; padding-inline: 30px; border: 1px solid #006769; border-radius: 6px; display: flex; justify-content: center; align-items: center; transition: var(--transition-1);">Filter</button>
+    </div>
+  </form>
+
+  <!-- Categories Table -->
+  <table style="width: 100%; border-collapse: collapse;">
+    <thead>
+      <tr>
+        <th class="text-align-center" style="padding: 10px; border-bottom: 1px solid var(--cultured);">Category Name</th>
+        <th class="text-align-center" style="padding: 10px; border-bottom: 1px solid var(--cultured);">Edit Category</th>
+        <th class="text-align-center" style="padding: 10px; border-bottom: 1px solid var(--cultured);">Delete Category</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for category in categories %}
+        <tr>
+          <td style="padding: 10px; text-align: left;">{{ category.name }}</td>
+          <td style="padding: 10px; text-align: left;">
+            <a href="{% url 'edit_category' category.id %}">
+              <button type="button" style="background-color: #006769;" class="btn btn-success">Edit</button>
+            </a>
+          </td>
+          <td style="padding: 10px; text-align: left;">
+            <form id="deleteForm{{ category.id }}" method="post" action="{% url 'delete_category' category.id %}">
+              {% csrf_token %}
+              <button type="button" class="btn btn-secondary" onclick="confirmDelete('{{ category.id }}')">Delete</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<script>
+    function confirmDelete(categoryId) {
+      if (confirm("Are you sure you want to delete this Category?")) {
+        document.getElementById("deleteForm" + categoryId).submit();
+      } else {
+        // Handling cancel action - redirecting to category list page
+        window.location.href = "{% url 'list_categories' %}";
+      }
+    }
+</script>
 {% endblock %}

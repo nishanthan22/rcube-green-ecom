@@ -34,8 +34,18 @@ def add_product(request):
 
 @login_required
 def list_products(request):
-    products = Product.objects.all()
-    return render(request, 'list_products.html', {'products': products})
+    selected_category = request.GET.get('category')
+    if selected_category:
+        products = Product.objects.filter(category_id=selected_category)
+    else:
+        products = Product.objects.all()
+
+    all_categories = Category.objects.all()
+    return render(request, 'list_products.html', {
+        'products': products,
+        'all_categories': all_categories,
+        'selected_category': selected_category
+    })
 
 
 # Product Views
@@ -75,8 +85,21 @@ def add_category(request):
 
 @login_required
 def list_categories(request):
-    categories = Category.objects.all()
-    return render(request, 'list_categories.html', {'categories': categories})
+    selected_category = request.GET.get('category', '')  # Getting the selected category from the URL parameters
+
+    if selected_category:
+        categories = Category.objects.filter(id=selected_category)  # Filtering by category
+    else:
+        categories = Category.objects.all()
+
+    # including all categories for the filter options
+    all_categories = Category.objects.all()
+
+    return render(request, 'list_categories.html', {
+        'categories': categories,
+        'all_categories': all_categories,
+        'selected_category': selected_category
+    })
 
 
 # Category Views
