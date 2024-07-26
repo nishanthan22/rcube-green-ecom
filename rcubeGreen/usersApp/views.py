@@ -4,12 +4,16 @@ from sqlite3 import IntegrityError
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth.models import User
 from rcubeApp.models import Order
 from .forms import ProductForm, CategoryForm, LoginForm, RegisterForm, EditProfileForm
 from .models import Product, Category
 from django.contrib.auth.forms import AuthenticationForm
 from rcubeApp.models import OrderItem
+from django.urls import reverse_lazy
+from django.contrib.auth.views import PasswordResetView
+from django.contrib.messages.views import SuccessMessageMixin
+
 
 def user_logout(request):
     logout(request)
@@ -118,6 +122,8 @@ def user_accounts(request):
     form = RegisterForm()
     login_form = AuthenticationForm()
     error_message = None
+    error_messages = []
+
     if request.method == 'POST':
         if 'signup' in request.POST:
             form = RegisterForm(request.POST)
@@ -125,6 +131,12 @@ def user_accounts(request):
                 user = form.save()
                 login(request, user, backend='django.contrib.auth.backends.ModelBackend')
                 return redirect('home')
+            elif form.errors:
+                error_message = form.errors.as_text()
+                for field, errors in form.errors.items():
+                    for error in errors:
+                        error_messages.append(f"{error}")
+
         elif 'login' in request.POST:
             login_form = AuthenticationForm(request, data=request.POST)
             if login_form.is_valid():
@@ -136,10 +148,13 @@ def user_accounts(request):
                     return redirect('home')
                 else:
                     error_message = 'Oops, your account is not active :)'
+                    error_messages.append(error_message)
             else:
                 error_message = 'Invalid login details, please try again'
-    return render(request, 'user_accounts.html', {'form': form, 'login_form': login_form, 'error_message': error_message})
+                error_messages.append(error_message)
 
+    return render(request, 'user_accounts.html',
+                  {'form': form, 'login_form': login_form, 'error_message': error_message, 'error_messages': error_messages})
 
 @login_required
 def edit_profile(request):
@@ -167,9 +182,6 @@ def user_orders(request):
     return render(request, 'user_orders.html', {"orders": orders, 'items': order_item})
 
 
-from django.urls import reverse_lazy
-from django.contrib.auth.views import PasswordResetView
-from django.contrib.messages.views import SuccessMessageMixin
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
     template_name = 'password_reset.html'
     email_template_name = 'password_reset_email.html'
@@ -179,4 +191,3 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
                       " If you don't receive an email, " \
                       "please make sure you've entered the address you registered with, and check your spam folder."
     success_url = reverse_lazy('home')
-

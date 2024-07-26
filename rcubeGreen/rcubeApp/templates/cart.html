@@ -4,7 +4,13 @@
 
 {% block content %}
 <h1 class="align-content-center">Your Cart</h1>
+    {% if not order_items %}
+<div class="alert alert-warning align-content-center" role="alert">
+    <i class="fas fa-shopping-cart"></i> Your cart is empty.
+</div>
+{% else %}
 <p class="align-content-center">These are the items in your cart.</p>
+{% endif %}
     <style>
     .cart-container {
         display: flex;
@@ -113,8 +119,10 @@
 
 <p class="total-price">Total Price: ${{ total_price }}</p>
     <div>
-<a href="{% url 'makepayment' %}" class="btn btn-green checkout-btn">Proceed to Checkout</a>
-    <a href="{% url 'shop' %}" class="btn btn-green shop-btn">Continue to Shop</a>
+        {% if order_items %}
+        <a href="{% url 'makepayment' %}" class="btn btn-green checkout-btn">Proceed to Checkout</a>
+        {% endif %}
+        <a href="{% url 'shop' %}" class="btn btn-green shop-btn">Continue to Shop</a>
     </div>
-     </div>
+    </div>
 {% endblock %}
