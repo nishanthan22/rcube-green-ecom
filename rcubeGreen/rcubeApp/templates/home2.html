@@ -87,118 +87,36 @@
     </div>
   </div>
 </div>
-
-<!-- Deals of the Day Section -->
+<!--deals of the day section-->
 <section class="deals-section container my-5">
   <div class="d-flex justify-content-between align-items-center">
     <h2>Deals of the Day</h2>
   </div>
   <div id="dealsCarousel" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
-      <div class="carousel-item active">
+      {% for product in deals_products %}
+      {% if forloop.counter0|divisibleby:4 %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
         <div class="row">
+      {% endif %}
           <div class="col-md-3">
             <div class="card">
-              <img src="{% static 'images/Deals/air_purifier.jpg' %}" class="card-img-top" alt="Deal 1">
+              <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
               <div class="card-body text-center">
-                <h5 class="card-title">Air Purifier</h5>
-                <p class="card-text">
-                  <span class="text-warning"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-half-alt"></i></span><br>
-                  <del>$90.00</del> <strong>$78.00</strong>
-                </p>
+                <h5 class="card-title">{{ product.name }}</h5>
+                  <p class="card-text"><strong>@20%OFF$</strong>{{ product.price }}</p>
+                <form action="{% url 'add_to_cart' product.id %}" method="post">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-success">Add to Cart</button>
+                </form>
               </div>
             </div>
           </div>
-          <div class="col-md-3">
-            <div class="card">
-              <img src="{% static 'images/Deals/motion_sensor_light.jpg' %}" class="card-img-top" alt="Deal 2">
-              <div class="card-body text-center">
-                <h5 class="card-title">Motion Sensor Light</h5>
-                <p class="card-text">
-                  <span class="text-warning"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-half-alt"></i></span><br>
-                  <del>$95.00</del> <strong>$81.00</strong>
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card">
-              <img src="{% static 'images/Deals/car_air_freshner.jpg' %}" class="card-img-top" alt="Deal 3">
-              <div class="card-body text-center">
-                <h5 class="card-title">Air Freshener</h5>
-                <p class="card-text">
-                  <span class="text-warning"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-half-alt"></i></span><br>
-                  <del>$90.00</del> <strong>$80.00</strong>
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card">
-              <img src="{% static 'images/Deals/bamboo_lantern.jpg' %}" class="card-img-top" alt="Deal 4">
-              <div class="card-body text-center">
-                <h5 class="card-title">Bamboo Lantern</h5>
-                <p class="card-text">
-                  <span class="text-warning"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-half-alt"></i></span><br>
-                  <del>$50.00</del> <strong>$45.00</strong>
-                </p>
-              </div>
-            </div>
-          </div>
+      {% if forloop.counter|divisibleby:4 or forloop.last %}
         </div>
       </div>
-      <div class="carousel-item" style="height:25%">
-        <div class="row">
-          <div class="col-md-3">
-            <div class="card">
-              <img src="{% static 'images/Deals/car_ventilator.jpg' %}" class="card-img-top" alt="Deal 5">
-              <div class="card-body text-center">
-                <h5 class="card-title">Car Ventilator</h5>
-                <p class="card-text">
-                  <span class="text-warning"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-half-alt"></i></span><br>
-                  <del>$70.00</del> <strong>$60.00</strong>
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card">
-              <img src="{% static 'images/Deals/resistance_band.jpg' %}" class="card-img-top" alt="Deal 6">
-              <div class="card-body text-center">
-                <h5 class="card-title">Resistance band</h5>
-                <p class="card-text">
-                  <span class="text-warning"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-half-alt"></i></span><br>
-                  <del>$85.00</del> <strong>$75.00</strong>
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card">
-              <img src="{% static 'images/Deals/flashlight.jpg' %}" class="card-img-top" alt="Deal 7">
-              <div class="card-body text-center">
-                <h5 class="card-title">Solar Flashlight</h5>
-                <p class="card-text">
-                  <span class="text-warning"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-half-alt"></i></span><br>
-                  <del>$95.00</del> <strong>$85.00</strong>
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="card">
-              <img src="{% static 'images/Deals/picnic_table.jpg' %}" class="card-img-top" alt="Deal 8">
-              <div class="card-body text-center">
-                <h5 class="card-title">Picnic Table</h5>
-                <p class="card-text">
-                  <span class="text-warning"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-half-alt"></i></span><br>
-                  <del>$100.00</del> <strong>$90.00</strong>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      {% endif %}
+      {% endfor %}
     </div>
     <a class="carousel-control-prev" href="#dealsCarousel" role="button" data-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -212,9 +130,6 @@
 </section>
 
 
-
-
-
 <!-- Popular Products Section -->
 <section class="products my-5">
   <div class="container">
@@ -222,8 +137,8 @@
     <div class="row">
       <!-- Automotive -->
       <div class="col-md-4">
-        <div class="card">
-          <img src="{% static 'images/popular Products/solar-powered_car_ventilator.jpg' %}" class="card-img-top" alt="Solar Powered Car Ventilator">
+        <div class="card img-thumbnail">
+            <a href="{% url "shop" %}"><img src="{% static 'images/popular Products/solar-powered_car_ventilator.jpg' %}" class="card-img-top" alt="Solar Powered Car Ventilator"></a>
           <div class="card-body">
             <h5 class="card-title">Solar Powered Car Ventilator</h5>
             <p class="card-text">Easy to install, reduces heat, eco-friendly</p>
@@ -231,21 +146,10 @@
           </div>
         </div>
       </div>
-      <!-- Fashion -->
+        <!-- Fitness -->
       <div class="col-md-4">
-        <div class="card">
-          <img src="{% static 'images/popular Products/sunglasses.jpg' %}" class="card-img-top" alt="Recycled Plastic Sunglasses">
-          <div class="card-body">
-            <h5 class="card-title">Recycled Plastic Sunglasses</h5>
-            <p class="card-text">UV protection, lightweight, eco-friendly</p>
-            <p class="card-text"><strong>$29.99</strong></p>
-          </div>
-        </div>
-      </div>
-      <!-- Fitness -->
-      <div class="col-md-4">
-        <div class="card">
-          <img src="{% static 'images/popular Products/yogamat.jpg' %}" class="card-img-top" alt="Eco-Friendly Yoga Mat">
+        <div class="card img-thumbnail">
+            <a href="{% url "shop" %}"><img src="{% static 'images/popular Products/yogamat.jpg' %}" class="card-img-top" alt="Eco-Friendly Yoga Mat"></a>
           <div class="card-body">
             <h5 class="card-title">Eco-Friendly Yoga Mat</h5>
             <p class="card-text">Natural rubber, non-slip, 5mm thick</p>
@@ -253,7 +157,17 @@
           </div>
         </div>
       </div>
-      <!-- Add more products similarly -->
+      <!-- Fashion -->
+      <div class="col-md-4">
+        <div class="card img-thumbnail">
+          <a href="{% url "shop" %}"><img src="{% static 'images/popular Products/sunglasses.jpg' %}" class="card-img-top" alt="Recycled Plastic Sunglasses"></a>
+          <div class="card-body">
+            <h5 class="card-title">Recycled Plastic Sunglasses</h5>
+            <p class="card-text">UV protection, lightweight, eco-friendly</p>
+            <p class="card-text"><strong>$29.99</strong></p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>

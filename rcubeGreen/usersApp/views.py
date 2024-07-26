@@ -1,4 +1,6 @@
 from datetime import datetime
+from sqlite3 import IntegrityError
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
@@ -144,8 +146,11 @@ def edit_profile(request):
     if request.method == 'POST':
         form = EditProfileForm(request.POST, instance=request.user)
         if form.is_valid():
-            form.save()
-            return redirect('profile')
+            try:
+                form.save()
+                return redirect('profile')
+            except IntegrityError:
+                form.add_error('email', 'Email is already in use.')
     else:
         form = EditProfileForm(instance=request.user)
     return render(request, 'edit_profile.html', {'form': form})
@@ -155,3 +160,18 @@ def user_orders(request):
     order_item = OrderItem.objects.filter(order__user=request.user)
     orders = Order.objects.filter(user=request.user)
     return render(request, 'user_orders.html', {"orders": orders, 'items': order_item})
+
+
+from django.urls import reverse_lazy
+from django.contrib.auth.views import PasswordResetView
+from django.contrib.messages.views import SuccessMessageMixin
+class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
+    template_name = 'password_reset.html'
+    email_template_name = 'password_reset_email.html'
+    subject_template_name = 'password_reset_subject.txt'
+    success_message = "We've emailed you instructions for setting your password, " \
+                      "if an account exists with the email you entered. You should receive them shortly." \
+                      " If you don't receive an email, " \
+                      "please make sure you've entered the address you registered with, and check your spam folder."
+    success_url = reverse_lazy('home')
+

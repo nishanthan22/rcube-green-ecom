@@ -62,22 +62,22 @@ class OrderItem(models.Model):
 
 class PaymentMethod(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, null=True,  on_delete=models.CASCADE) # Added null=True for migration purposes
     amount = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     date = models.DateTimeField(default=timezone.now)
-    method = models.CharField(max_length=50, default='Unknown')
+    method = models.CharField(max_length=50)
     description = models.TextField(blank=True, null=True)
-    full_name = models.CharField(max_length=100, default='John Doe')
-    email = models.EmailField(default='example@example.com')
-    address = models.CharField(max_length=255, default='123 Default St')
-    city = models.CharField(max_length=100, default='Default City')
-    state = models.CharField(max_length=100, default='Default State')
-    zip_code = models.CharField(max_length=20, default='00000')
-    name_on_card = models.CharField(max_length=100, default='John Doe')
-    card_number = models.CharField(max_length=20, default='0000000000000000')
-    exp_month = models.CharField(max_length=2, default='01')
-    exp_year = models.CharField(max_length=4, default='2025')
-    cvv = models.CharField(max_length=4, default='000')
+    full_name = models.CharField(max_length=100)
+    email = models.EmailField(max_length=150)
+    address = models.CharField(max_length=255)
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    zip_code = models.CharField(max_length=6)
+    name_on_card = models.CharField(max_length=100)
+    card_number = models.CharField(max_length=20)
+    exp_month = models.CharField(max_length=2)
+    exp_year = models.CharField(max_length=4)
+    cvv = models.CharField(max_length=3)
 
     def __str__(self):
         return f"{self.user.username} - {self.amount} - {self.date}"

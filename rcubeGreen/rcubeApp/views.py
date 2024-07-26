@@ -10,7 +10,7 @@ from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.db.models import Q
 from django.utils import timezone
-
+import pytz
 
 def news_article_list_view(request):
     articles = NewsArticle.objects.all()
@@ -46,7 +46,7 @@ def articles(request):
 
 def shop(request):
     products = Product.objects.all()
-    categories = Category.objects.all().order_by('name')
+    categories = Category.objects.exclude(name__contains="Deals of the Day").order_by('name')
     return render(request, 'shop.html', {'products': products, 'categories': categories})
 
 
@@ -80,8 +80,6 @@ def cart(request):
         order_items = order.orderitem_set.all()
         total_price = order.total_price
     return render(request, 'cart.html', {'order_items': order_items, 'total_price': total_price})
-
-
 def about(request):
     return render(request, 'about.html')
 
@@ -94,7 +92,10 @@ def home(request):
     if request.user.is_superuser:
         return render(request, 'admin_home.html')
     else:
-        return render(request, 'home2.html')
+        deals_category = get_object_or_404(Category, name="Deals Of The Day")
+        deals_products = Product.objects.filter(category=deals_category)
+        return render(request, 'home2.html', {"deals_products": deals_products})
+
 
 
 def search(request):
@@ -154,54 +155,3 @@ def payment_successful(request, payment_id):
     }
 
     return render(request, 'payment_successful.html', context)
-
-
-
-@login_required
-def checkout(request):
-    order = Order.objects.filter(user=request.user, status='Pending').first()
-    if request.method == 'POST':
-        if order:
-            full_name = request.POST.get('full_name')
-            email = request.POST.get('email')
-            address = request.POST.get('address')
-            city = request.POST.get('city')
-            state = request.POST.get('state')
-            zip_code = request.POST.get('zip_code')
-            name_on_card = request.POST.get('name_on_card')
-            card_number = request.POST.get('card_number')
-            exp_month = request.POST.get('exp_month')
-            exp_year = request.POST.get('exp_year')
-            cvv = request.POST.get('cvv')
-
-            # Calculate total amount from order items
-            total_amount = order.total_price
-
-            # Save payment method
-            payment = PaymentMethod(
-                user=request.user,
-                amount=total_amount,
-                date=timezone.now(),
-                method='Credit Card',
-                full_name=full_name,
-                email=email,
-                address=address,
-                city=city,
-                state=state,
-                zip_code=zip_code,
-                name_on_card=name_on_card,
-                card_number=card_number,
-                exp_month=exp_month,
-                exp_year=exp_year,
-                cvv=cvv,
-            )
-            payment.save()
-
-            # Update order status
-            order.status = 'Processed'
-            order.completed = timezone.now()
-            order.save()
-            return redirect('payment_list')
-
-    return render(request, 'checkout.html', {'order': order})
-

@@ -2,6 +2,7 @@ from django import forms
 from .models import Product, Category
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 
 
 class CategoryForm(forms.ModelForm):
@@ -38,3 +39,9 @@ class EditProfileForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email']
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if User.objects.filter(email=email).exclude(pk=self.instance.pk).exists():
+            raise ValidationError("Email is already in use.")
+        return email
