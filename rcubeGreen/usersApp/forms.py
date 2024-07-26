@@ -40,12 +40,8 @@ class EditProfileForm(forms.ModelForm):
         model = User
         fields = ['first_name', 'last_name', 'email']
 
-    def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop('instance', None)
-        super(EditProfileForm, self).__init__(*args, **kwargs)
-
     def clean_email(self):
-        email = self.cleaned_data.get('email')
-        if User.objects.filter(email=email).exclude(pk=self.user.pk).exists():
-            raise ValidationError("This email address is already in use.")
+        email = self.cleaned_data['email']
+        if User.objects.filter(email=email).exclude(pk=self.instance.pk).exists():
+            raise ValidationError("Email is already in use.")
         return email

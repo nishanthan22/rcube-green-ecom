@@ -1,4 +1,6 @@
 from datetime import datetime
+from sqlite3 import IntegrityError
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
@@ -144,8 +146,11 @@ def edit_profile(request):
     if request.method == 'POST':
         form = EditProfileForm(request.POST, instance=request.user)
         if form.is_valid():
-            form.save()
-            return redirect('profile')
+            try:
+                form.save()
+                return redirect('profile')
+            except IntegrityError:
+                form.add_error('email', 'Email is already in use.')
     else:
         form = EditProfileForm(instance=request.user)
     return render(request, 'edit_profile.html', {'form': form})

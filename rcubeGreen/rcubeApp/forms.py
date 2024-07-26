@@ -4,10 +4,12 @@ from django.core.exceptions import ValidationError
 import re
 from datetime import datetime
 
+
 class PaymentMethodForm(forms.ModelForm):
     class Meta:
         model = PaymentMethod
-        fields = ['full_name', 'email', 'address', 'city', 'state', 'zip_code', 'name_on_card', 'card_number', 'exp_month', 'exp_year', 'cvv']
+        fields = ['full_name', 'email', 'address', 'city', 'state', 'zip_code', 'name_on_card', 'card_number',
+                  'exp_month', 'exp_year', 'cvv']
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -38,12 +40,12 @@ class PaymentMethodForm(forms.ModelForm):
 
     def clean_cvv(self):
         cvv = self.cleaned_data.get('cvv')
-        if not re.match(r"^\d{3,4}$", cvv):
-            raise ValidationError("CVV must be 3 or 4 digits.")
+        if not re.match(r"^\d{3}$", cvv):  # CVV must be exactly 3 digits
+            raise ValidationError("CVV must be 3 digits.")
         return cvv
 
     def clean_zip_code(self):
         zip_code = self.cleaned_data.get('zip_code')
-        if not re.match(r"^\d{5}$", zip_code):
-            raise ValidationError("Zip code must be 5 digits.")
+        if not re.match(r"^[a-zA-Z0-9]{6}$", zip_code):  # Zip code must be 6 alphanumeric characters
+            raise ValidationError("Zip code must be 6 alphanumeric digits.")
         return zip_code
