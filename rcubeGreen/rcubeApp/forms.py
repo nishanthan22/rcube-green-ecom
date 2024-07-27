@@ -13,7 +13,8 @@ class PaymentMethodForm(forms.ModelForm):
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
-        if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+        # Regex to match the specified email format
+        if not re.match(r"^[a-zA-Z0-9]+@[a-zA-Z]+\.[a-zA-Z]+$", email):
             raise ValidationError("Invalid email format.")
         return email
 
