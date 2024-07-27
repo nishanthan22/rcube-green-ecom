@@ -74,7 +74,7 @@ class PaymentMethod(models.Model):
     state = models.CharField(max_length=100)
     zip_code = models.CharField(max_length=6)
     name_on_card = models.CharField(max_length=100)
-    card_number = models.CharField(max_length=20)
+    card_number = models.CharField(max_length=16)
     exp_month = models.CharField(max_length=2)
     exp_year = models.CharField(max_length=4)
     cvv = models.CharField(max_length=3)

@@ -10,6 +10,8 @@ from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.db.models import Q
 from django.utils import timezone
+import pytz
+
 
 def news_article_list_view(request):
     articles = NewsArticle.objects.all()
